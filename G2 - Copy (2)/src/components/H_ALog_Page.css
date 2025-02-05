@@ -10,8 +10,8 @@
     overflow: hidden; /* Prevent scrolling */
 }
 
+/* The search popup */
 .alog-popup {
-    display: none; /* Hide the popup by default */
     position: absolute;
     top: 90px;
     left: 20px;
@@ -25,8 +25,23 @@
     transform: translateY(0);
     pointer-events: auto;
     transition: none;
-}
-
+  }
+  
+  /* New style for the second bottom-left popup */
+  .alog-popup-bottom-left {
+    position: absolute;
+    bottom: 20px; /* Adjust the distance from the bottom */
+    left: 20px;  /* Adjust the distance from the left */
+    background: white;
+    padding: 20px;
+    border-radius: 20px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+    transition: none;
+  }
+  
 .alog-popup.active {
     display: block; /* Show the popup when active class is added */
 }
@@ -122,6 +137,9 @@
     transition: 0.3s;
     border-radius: 50%;
 }
+
+/* Styles for the new bottom-left popup */
+
 
 input:checked + .alog-slider {
     background-color: #17005A;
