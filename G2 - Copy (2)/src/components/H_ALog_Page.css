@@ -10,12 +10,11 @@
     overflow: hidden; /* Prevent scrolling */
 }
 
-/* The search popup */
+/* Always Visible Popup */
 .alog-popup {
-    position: absolute;
+    position: fixed;
     top: 90px;
     left: 20px;
-    margin-top: 50px;
     width: 320px;
     background: white;
     padding: 20px;
@@ -25,25 +24,7 @@
     transform: translateY(0);
     pointer-events: auto;
     transition: none;
-  }
-  
-  /* New style for the second bottom-left popup */
-  .alog-popup-bottom-left {
-    position: absolute;
-    bottom: 20px; /* Adjust the distance from the bottom */
-    left: 20px;  /* Adjust the distance from the left */
-    background: white;
-    padding: 20px;
-    border-radius: 20px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-    opacity: 1;
-    transform: translateY(0);
-    pointer-events: auto;
-    transition: none;
-  }
-  
-.alog-popup.active {
-    display: block; /* Show the popup when active class is added */
+    z-index: 1000;
 }
 
 .alog-search-container {
@@ -138,9 +119,6 @@
     border-radius: 50%;
 }
 
-/* Styles for the new bottom-left popup */
-
-
 input:checked + .alog-slider {
     background-color: #17005A;
 }
@@ -150,14 +128,17 @@ input:checked + .alog-slider:before {
 }
 
 .alog-circle-button {
-    position: absolute;
+    position: fixed;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
     border: none;
     background: none;
     cursor: pointer;
+    z-index: 2000; /* Ensure it stays on top */
+    outline: none; /* Removes the focus outline */
 }
+
 
 .alog-add-button {
     width: 80px;
@@ -176,4 +157,58 @@ input:checked + .alog-slider:before {
 .alog-circle-button.button-active .alog-add-button {
     background-color: #ec9a9a;
     transform: scale(1.1);
+}
+
+/* Hello Popup */
+.hello-popup {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 300px;
+    background-color: #ffffff;
+    border-radius: 15px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    padding: 20px;
+    z-index: 2000;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+}
+
+.hello-popup.show {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.hello-popup-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.hello-popup h2 {
+    font-size: 24px;
+    color: #17005A;
+    margin-bottom: 15px;
+    font-family: 'Afacad', sans-serif;
+}
+
+.hello-popup button {
+    padding: 10px 20px;
+    background-color: #17005A;
+    color: white;
+    border: none;
+    border-radius: 25px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.hello-popup button:hover {
+    background-color: #9AD4EC;
+}
+
+.hello-popup button:focus {
+    outline: none;
 }
