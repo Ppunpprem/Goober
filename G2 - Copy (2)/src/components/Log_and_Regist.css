@@ -1,0 +1,222 @@
+@import url('https://fonts.googleapis.com/css2?family=Afacad:ital,wght@0,400..700;1,400..700&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+:root {
+  font-family: 'Afacad', sans-serif;
+  font-size: 16px; /* Adjusted from 100px */
+  color: rgba(255, 255, 255, 0.87);
+  background-color: #242424;
+
+}
+
+
+body {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Center content */
+  justify-content: center;
+}
+
+h1 {
+  font-size: 3.2em;
+  text-align: center; /* Avoid text-align: right globally */
+}
+
+button {
+  border-radius: 8px;
+  border: 1px solid transparent;
+  padding: 0.6em 1.2em;
+  font-size: 1em;
+  font-weight: 500;
+  font-family: inherit;
+  background-color: #1a1a1a;
+  cursor: pointer;
+  transition: border-color 0.25s;
+}
+button:hover {
+  border-color: #9AD4EC;
+}
+button:focus,
+button:focus-visible {
+  outline: 4px auto -webkit-focus-ring-color;
+}
+
+@media (prefers-color-scheme: light) {
+  :root {
+    color: #ffffff;
+    background-color: #ffffff;
+  }
+  a:hover {
+    color: #9AD4EC;
+  }
+  button {
+    background-color: #f9f9f9;
+  }
+}
+
+.underlinetext {
+  text-decoration: underline;
+  text-decoration-thickness: 3px;
+  text-underline-offset: 15px;
+  margin-bottom: 20px; 
+  /* add space btw trashcan map and sign up */
+
+}
+
+p1 {
+  color: #17005A;
+  font-size: 90px;
+  font-weight: bold;
+  margin-left: 875px;
+  display: flex;
+  text-align: right;
+  font-family: 'Afacad';
+  font-weight:300; 
+  margin-top: 80px;
+}
+
+
+.or-text {
+  font-size: 35px; /* Adjust font size of "OR" */
+  color: #17005A; /* Color for "OR" */
+  margin-top: 20px; /* Add space above the "OR" text */
+  margin-bottom: 0px;
+}
+
+.log-in {
+  color: #17005A;
+  margin-top: 0px;
+}
+
+.log-in-user {
+  color: black;
+  font-size: 25px;
+  margin-top: -30px;
+  margin-left: 555px;
+  
+}
+
+p {
+  font-size: 45px;
+  color: #17005A;
+  margin-left: 800px;
+
+}
+
+
+.regist-button {
+  background-color: #17005A;
+  color: #9AD4EC;
+  font-size: 23px;
+  border-radius: 20px;
+  padding: 10px 20px;
+  display: block; /* Ensure it takes up space */
+  margin-top: 150px;
+  margin-left: 1100px;/* Center horizontally */
+  width: 200px; /* Adjust button width */
+  text-align: center;
+  
+}
+
+.regist-button:hover {
+  background-color: #9AD4EC;
+  color: #17005A;
+  transition: 0.3s ease;
+}
+
+
+.signup-container {
+  display: flex;
+  flex-direction: column; /* Stack items vertically */
+  align-items: center; /* Center-align items horizontally */
+  gap: 20px; /* Space between "Sign Up" and the button */
+  margin-left: 800px; /* Adjust horizontal positioning */
+  margin-top: 0px;
+}
+
+.signup-container p {
+  margin: 0; /* Remove default margin for proper alignment */
+}
+
+.signup-container a {
+  text-decoration: none; /* Remove underline from the link */
+}
+
+
+.signup-container button {
+  margin: 0; /* Remove extra margins */
+}
+
+
+/* Username and Password box-set */
+.auth-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  padding: 20px;
+  margin-bottom: -130px;
+  margin-left: 970px;
+  border: 2px solid #17005A;
+  border-radius: 10px;
+  width: 400px;
+  background-color: #f9f9f9;
+  position: relative; /* Ensure it is clickable */
+  z-index: 10;
+
+}
+
+
+.input-field {
+  display: flex;
+  align-items: center; /* Align icon and input vertically */
+  gap: 10px; /* Space between icon and input field */
+  width: 100%;
+}
+
+.icon {
+  width: 30px; /* Adjust icon size */
+  height: 30px;
+}
+
+input {
+  flex-grow: 1;
+  padding: 10px;
+  border: 1px solid #17005A;
+  border-radius: 5px;
+  font-size: 16px;
+}
+
+input:focus {
+  outline: none;
+  border-color: #9AD4EC; /* Highlight border on focus */
+}
+
+
+.login-button {
+  background-color: #17005A;
+  color: #9AD4EC;
+  font-size: 23px;
+  border-radius: 20px;
+  padding: 10px 20px;
+  display: block; /* Ensure it takes up space */
+  margin-top: 150px;
+  margin-left: 1100px;/* Center horizontally */
+  width: 200px; /* Adjust button width */
+  text-align: center;
+}
+
+
+
+.login-button:hover {
+  background-color: #9AD4EC;
+  color: #17005A;
+  transition: 0.3s ease;
+} 
+
+.login-container {
+  text-decoration: none; /* Remove underline from the link */
+}
+
+.login-container:visited {
+  text-decoration: none; /* Ensure visited links are also without underline */
+}

@@ -1,0 +1,189 @@
+/* Info_Regist_Page.css */
+@import url('https://fonts.googleapis.com/css2?family=Afacad:ital,wght@0,400..700;1,400..700&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Afacad', sans-serif;
+  background-color: #ffffff;
+  overflow: auto; /* Allow scrolling */
+}
+
+.app-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  
+}
+
+.content-container {
+  padding: 20px;
+  background-color: #9fd4ee;
+  flex: 1;
+}
+
+.information-title {
+  font-size: 50px;
+  margin-bottom: 20px;
+  margin-top: -10px;
+  font-weight: 550;
+  color: #17005A;
+  text-align: center;
+  text-decoration: underline;
+}
+
+.form-container {
+  max-width: 800px;
+  margin: 0 auto;
+  background-color: #ffffff;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.form-row label {
+  font-size: 16px;
+  font-weight: 600;
+  margin-bottom: 5px;
+  margin-right: auto;
+  color: #17005A;
+}
+
+.form-row input {
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #BEBEBE;
+  border-radius: 5px;
+  width: 100%;
+  box-sizing: border-box;
+  font-family: 'Afacad', sans-serif; /* Apply Afacad font */
+}
+
+.form-row select {
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #BEBEBE;
+  border-radius: 5px;
+  width: 100%;
+  box-sizing: border-box;
+  font-family: 'Afacad', sans-serif; /* Apply Afacad font */
+  color: #666;
+}
+
+
+.form-row select option[value=""][disabled] {
+  color: #BEBEBE; /* Default gray color */
+}
+
+.form-row select:valid {
+  color: #17005A;
+}
+
+.save-button {
+  margin-top: 20px;
+  width: 800px;
+  padding: 15px;
+  font-size: 18px;
+  background-color: #17005A;
+  color: #ffffff;
+  border: none;
+  border-radius: 20px;
+  cursor: pointer;
+  text-transform: uppercase;
+  font-weight: 700;
+}
+
+.save-button:hover {
+  background-color: #9AD4EC;
+}
+
+.acc {
+  font-size: 25px;
+  margin-left: 10px;
+  margin-top: 5px;
+  text-align: center;
+}
+
+.profile-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.profile-image-placeholder {
+  width: 180px;
+  height: 180px;
+  border-radius: 50%;
+  background-color: #BEBEBE;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+  border: 2px solid #17005A; /* Optional: Add a border */
+}
+
+.plus-sign {
+  font-size: 48px;
+  color: #666;
+  line-height: 1;  /* ให้ข้อความไม่ดันขึ้นลงเกินไป */
+}
+
+.image-upload {
+  display: none;
+}
+
+.profile-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+}
+
+
+
+.placeholder-text {
+  font-size: 48px;
+  color: #ffffff;
+  font-weight: bold;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 2; /* Ensure the "+" is on top */
+  pointer-events: none;
+}
+
+
+.info-form {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
+}
+
+.form-row {
+  flex: 1 1 calc(50% - 20px);
+  display: flex;
+  flex-direction: column;
+  color:#17005A;
+}
+
+label {
+  font-size: 10px;
+  color: #17005A;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.form-row select {
+  color: #7b7b7b; /* Default gray color */
+}
+
+.form-row select option {
+  font-family: 'Afacad', sans-serif; /* Apply Montserrat font to options */
+}
+
+

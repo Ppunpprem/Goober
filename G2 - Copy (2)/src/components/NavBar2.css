@@ -1,0 +1,126 @@
+@import url('https://fonts.googleapis.com/css2?family=Afacad:ital,wght@0,400..700;1,400..700&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+
+.navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    background-color: #ffffff;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 5px 20px;
+    font-family: 'Afacad';
+    border-bottom: 1px solid #ddd;
+    height: 60px;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.navbar-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.logo-container {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+.navbar-title {
+    font-size: 25px;
+    color: #17005A;
+    font-family: 'Afacad';
+    font-weight: 500;
+    margin-left: -140px;
+    margin-right: 10px;
+}
+
+.navbar-logo {
+    width: 50px;
+    height: 50px;
+    margin-right: 10px;
+    border-radius: 50%; /* ทำให้กรอบรูปเป็นวงกลม */
+}
+
+.navbar-link {
+    font-size: 20px;
+    text-decoration: none;
+    color: #17005A;
+    margin-left: 30px;
+    font-family: 'Afacad';
+    transition: color 0.3s;
+}
+
+.navbar-link:hover {
+    color: #9AD4EC;
+}
+
+.navbar-links {
+    display: flex;
+    align-items: center;
+    margin-left: auto; /* Let the text stick to the left */
+}
+
+.navbar-lr {
+    margin-right: -120px; /* Space between text and logo */
+}
+
+.navbar-logo-right {
+    position: absolute;
+    right: 20px;  /* Position logo at the right edge */
+    width: 40px;  /* Adjust logo size */
+    height: 40px;
+    margin-left: 8px; /* Adjust space between the text and logo */
+    border-radius: 50%;
+    border: 1px black solid /* ทำให้กรอบรูปเป็นวงกลม */
+}
+
+.menu-container {
+    position: fixed;
+    top: 18.5%;
+    left: 90%;
+    transform: translate(-50%, -50%);
+    z-index: 1000;
+    background-color: #ffffff;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 10px 0; /* ลด padding ด้านบน/ล่าง */
+    font-family: 'Afacad';
+    border-radius: 8px;
+    border: 1px solid #ddd;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+    width: 170px; /* เพิ่มความกว้างให้สมดุล */
+    text-align: center;
+}
+
+
+.edit-link {
+    font-size: 20px;
+    text-decoration: none;
+    color: #17005A;
+    font-family: 'Afacad';
+    transition: color 0.3s;
+    display: block;
+    margin: 0px;
+    padding: 10px 0;
+    width: 100%;
+    text-align: center;
+    border-bottom: 1px solid #17005A; /* เส้นแบ่ง */
+}
+
+.edit-link:last-child {
+    border-bottom: none; /* เอาเส้นออกจากตัวสุดท้าย */
+}
+
+.edit-link:hover {
+    color: #9AD4EC;
+}
