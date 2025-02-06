@@ -1,9 +1,17 @@
+import { useEffect } from 'react';
 import './Badges_Page.css'; // Import global styles
 import appleicon from '../assets/appleicon.png';
 import awardicon from '../assets/awardicon.png';
 import bubbleicon from '../assets/bubbleicon.png';
 
 const BadgesPage = () => {
+  useEffect(() => {
+    document.body.style.overflow = "hidden"; // Disable scrolling
+    return () => {
+      document.body.style.overflow = "auto"; // Re-enable scrolling on unmount
+    };
+  }, []);
+
   const badges = [
     {
       id: 1,
@@ -26,15 +34,13 @@ const BadgesPage = () => {
       title: 'Earth Guardian',
       description: 'Comment and share with our community what the trashcan looks like!',
       progress: '1/1',
-      color: ' #ffb2ed ',
+      color: '#ffb2ed',
       icon: bubbleicon,
     },
   ];
-  
 
   return (
     <div className="app">
-      {/* ลบการเรียกใช้งาน NavBar ที่นี่ */}
       <main className="main-content">
         <h1 className="badge-title">Badges Collection</h1>
         <div className="badge-container">

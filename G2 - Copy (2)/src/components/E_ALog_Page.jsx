@@ -1,5 +1,5 @@
 import { useState } from 'react'; // Import React and useState
-import NavBar from './NavBar'; // Import the NavBar component
+import './NavBar2'; // Import the NavBar component
 import './Info_Regist_Page.css'; // Import global styles
 import { Link} from 'react-router-dom'; // Import Link and useNavigate
 
@@ -18,7 +18,7 @@ const EditPage = () => {
 
   return (
     <div className="app-container">
-      <NavBar /> {/* Use the imported NavBar component */}
+     
       <main className="content-container">
         <h1 className="information-title">Information</h1>
         <div className="form-container">

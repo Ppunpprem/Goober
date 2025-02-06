@@ -6,7 +6,7 @@ body {
   padding: 0;
   height: 100%;
   background-color: #9AD4EC; /* Light blue background */
-  overflow: hidden;
+  overflow: hidden; /* Prevent scrolling */
 }
 
 .app {
@@ -14,7 +14,6 @@ body {
   display: flex;
   flex-direction: column;
   justify-content: space-between; /* ให้เนื้อหาอยู่ระหว่างหัวและท้าย */
-
 }
 
 .main-content {
@@ -27,9 +26,9 @@ body {
 
 .badge-title {
   font-size: 70px;
-  top: 5%;
+  margin-top: -90px;
   text-decoration: underline;
-  font-weight: 600;
+  font-weight: 550;
   font-family: 'Afacad';
   color: #17005A; /* Dark blue */
   margin-bottom: 30px;
