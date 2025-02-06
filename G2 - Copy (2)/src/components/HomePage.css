@@ -1,51 +1,33 @@
-@import url('https://fonts.googleapis.com/css2?family=Afacad:ital,wght@0,400..700;1,400..700&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Afacad:wght@400;700&display=swap');
 
-.homepage {
+.home-page {
     position: relative;
     width: 100%;
     height: 100vh;
     background: #f5f5f5;
-    font-family: 'Afacad', sans-serif; /* Set Afacad as the default font */
+    font-family: 'Afacad', sans-serif;
+    transition: background-color 0.3s ease;
+    overflow: hidden;
 }
 
-/* Popup Container */
-.popup {
-    position: absolute;
+/* Always Visible Popup */
+.home-popup {
+    position: fixed;
     top: 90px;
-    left: -750px;
+    left: 30px;
     width: 320px;
-    height: 250px;
     background: white;
     padding: 20px;
     border-radius: 20px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-    font-family: 'Afacad', sans-serif; /* Set Afacad for the popup */
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+    transition: none;
+    z-index: 1000;
 }
 
-/* Headings */
-h2 {
-    font-size: 22px;
-    font-weight: bold;
-    margin-top: -7px;
-    color: #17005A;
-    font-family: 'Afacad', sans-serif; /* Apply Afacad font */
-}
-
-h3 {
-    font-size: 20px;
-    font-weight: bold;
-    display: flex;
-    margin-top: -3px;
-    align-items: center;
-    justify-content: space-between;
-    width: 90%;
-    color: #17005A;
-    font-family: 'Afacad', sans-serif; /* Apply Afacad font */
-    margin-left: 4%;
-}
-
-/* Search Section */
-.search-container {
+.home-search-container {
     display: flex;
     align-items: center;
     width: 90%;
@@ -55,87 +37,94 @@ h3 {
     background: #ffffff;
     border-radius: 30px;
     border: 1px solid #17005A;
-    font-family: 'Afacad', sans-serif; /* Apply Afacad font */
+    position: relative; /* ให้สามารถใช้ absolute กับปุ่มได้ */
 }
 
-.search-icon {
+
+.home-popup h2 {
+    text-align: left; /* Align text to the right */
+    margin-left: 10px;
+    color:#17005A; /* Add spacing from the right edge */
+}
+
+
+.home-search-button {
+    position: absolute;
+    right: 10px; /* จัดปุ่มให้อยู่ชิดขวา */
+    background-color: #17005A;
+    color: white;
+    border: none;
+    padding: 5px 12px;
+    border-radius: 20px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.home-search-button:hover {
+    background-color: #9AD4EC;
+}
+
+.home-search-icon {
     width: 18px;
     height: 18px;
     opacity: 0.5;
     margin-right: 10px;
 }
 
-.search-bar {
+.home-search-bar {
     flex: 1;
     border: none;
     background: none;
     outline: none;
     font-size: 16px;
     color: #17005A;
-    font-family: 'Afacad', sans-serif; /* Apply Afacad font */
 }
 
-/* Filter Section */
-.filter-section {
+.home-filter-section {
     margin-top: 20px;
-    position: relative;
-    font-family: 'Afacad', sans-serif; /* Apply Afacad font */
 }
 
-.icon {
+.home-icon {
     width: 18px;
     height: 18px;
-    margin-right: 5px; /* Reduced margin to bring icon closer to the name */
+    margin-right: 5px;
 }
 
-.filter-option {
+.home-filter-option {
     display: flex;
     align-items: center;
-    justify-content: flex-start; /* Align items to the start to keep icons and names together */
-    margin-top: 8px;
+    color:#17005A;
+    font-family: 'Afacad', sans-serif;
     font-size: 16px;
-    color: #17005A;
-    position: relative;
-    font-family: 'Afacad', sans-serif; /* Apply Afacad font */
+    justify-content: space-between; /* จัดให้เว้นระยะห่างอัตโนมัติ */
+    width: 100%; /* ทำให้ switch อยู่ชิดขวา */
 }
 
-.filter-option img {
-    margin-right: 5px; /* Ensure icons in filter-option are closer to the text */
-}
-
-.filter-option label {
-    position: absolute;
-    right: 0;
-    top: 0;
-    transform: translateY(100%); /* Move the switch below the text */
-    margin-top: -12px;
-    margin-right: 33px; /* Align under the 's' of Reset Filter */
-}
-
-.reset-filter {
+.home-reset-filter {
     font-size: 14px;
     color: #17005A;
     cursor: pointer;
     text-decoration: underline;
     margin-left: auto;
-    font-family: 'Afacad', sans-serif; /* Apply Afacad font */
 }
 
-/* Toggle Switch */
-.switch {
+.home-switch {
     position: relative;
     display: inline-block;
     width: 28px;
     height: 14px;
+    margin-left: auto;
+    margin-right: 10.5%;
 }
 
-.switch input {
+.home-switch input {
     opacity: 0;
     width: 0;
     height: 0;
 }
 
-.slider {
+.home-slider {
     position: absolute;
     cursor: pointer;
     top: 0;
@@ -147,7 +136,7 @@ h3 {
     border-radius: 50px;
 }
 
-.slider:before {
+.home-slider:before {
     content: "";
     position: absolute;
     height: 10px;
@@ -159,10 +148,144 @@ h3 {
     border-radius: 50%;
 }
 
-input:checked + .slider {
+input:checked + .home-slider {
     background-color: #17005A;
 }
 
-input:checked + .slider:before {
+input:checked + .home-slider:before {
     transform: translateX(14px);
+}
+
+.home-circle-button {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border: none;
+    background: none;
+    cursor: pointer;
+    z-index: 2000;
+    outline: none;
+}
+
+.home-add-button {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    background-color: #17005A;
+    color: white;
+    font-size: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.home-circle-button.button-active .home-add-button {
+    background-color: #ec9a9a;
+    transform: scale(1.1);
+}
+
+
+.home-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #f5f5f5;
+    font-family: 'Afacad', sans-serif;
+    transition: background-color 0.3s ease;
+    overflow: hidden;
+}
+
+.home-hello-popup {
+    position: fixed;
+    top: 65%;
+    bottom: 0%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 95%;
+    max-width: 1500px;
+    background: white;
+    padding: 20px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    text-align: center;
+    z-index: 2000;
+}
+
+.home-hello-popup-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.home-hello-popup-content button {
+    padding: 10px 20px;
+    background-color: #17005A;
+    color: white;
+    border: none;
+    border-radius: 25px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.home-hello-popup-content button:hover {
+    background-color: #9AD4EC; /* Darker shade on hover */
+}
+
+.home-popup-message {
+    position: fixed;
+    top: 65%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 95%;
+    max-width: 1500px;
+    background-color: #ffffff;
+    border-radius: 15px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    padding: 20px;
+    z-index: 2000;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+}
+
+.home-popup-message.show {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.home-popup-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.home-popup-message h2 {
+    font-size: 24px;
+    color: #17005A;
+    margin-bottom: 15px;
+    font-family: 'Afacad', sans-serif;
+}
+
+.home-popup-message button {
+    padding: 10px 20px;
+    background-color: #17005A;
+    color: white;
+    border: none;
+    border-radius: 25px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.home-popup-message button:hover {
+    background-color: #9AD4EC;
+}
+
+.home-popup-message button:focus {
+    outline: none;
 }

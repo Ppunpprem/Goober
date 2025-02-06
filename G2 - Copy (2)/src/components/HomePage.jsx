@@ -7,7 +7,7 @@ import recycle from "../assets/recycle.png";
 import mag from "../assets/mag.png";
 import organic from "../assets/organic.png";
 
-const defaultFilters = {
+const defaultHomeFilters = {
   generalWaste: { name: "General Waste", icon: bin, active: true },
   recycleWaste: { name: "Recycle Waste", icon: recycle, active: true },
   organicWaste: { name: "Organic Waste", icon: organic, active: true },
@@ -15,20 +15,18 @@ const defaultFilters = {
 };
 
 const HomePage = () => {
-  const [filters, setFilters] = useState(defaultFilters);
+  const [homeFilters, setHomeFilters] = useState(defaultHomeFilters);
+  const [showHomePopup, setShowHomePopup] = useState(false);
 
   useEffect(() => {
-    // Disable scrolling when the homepage is mounted
     document.body.style.overflow = "hidden";
-
     return () => {
-      // Restore scrolling when unmounting the component
       document.body.style.overflow = "auto";
     };
   }, []);
 
-  const toggleFilter = (filterKey) => {
-    setFilters((prev) => ({
+  const toggleHomeFilter = (filterKey) => {
+    setHomeFilters((prev) => ({
       ...prev,
       [filterKey]: {
         ...prev[filterKey],
@@ -37,42 +35,53 @@ const HomePage = () => {
     }));
   };
 
-  const resetFilters = () => {
-    const reset = Object.keys(filters).reduce((acc, key) => {
-      acc[key] = { ...filters[key], active: true };
+  const resetHomeFilters = () => {
+    const reset = Object.keys(homeFilters).reduce((acc, key) => {
+      acc[key] = { ...homeFilters[key], active: true };
       return acc;
     }, {});
-    setFilters(reset);
+    setHomeFilters(reset);
   };
 
   return (
-    <div className="homepage">
-      <div className="popup">
+    <div className="home-page">
+      <div className="home-popup">
         <h2>Search</h2>
-
-        <div className="search-container">
-          <img src={mag} alt="Search Icon" className="search-icon" />
-          <input type="text" placeholder="Search Location..." className="search-bar" />
+        <div className="home-search-container">
+          <img src={mag} alt="Search Icon" className="home-search-icon" />
+          <input type="text" placeholder="Search Location..." className="home-search-bar" />
+          <button className="home-search-button">Search</button>
         </div>
 
-        <div className="filter-section">
+        <div className="home-filter-section">
           <h3>
-            <img src={filter} alt="Filter Icon" className="icon" /> Filter
-            <span className="reset-filter" onClick={resetFilters}>Reset Filter</span>
+            <img src={filter} alt="Filter Icon" className="home-icon" /> Filter
+            <span className="home-reset-filter" onClick={resetHomeFilters}>Reset Filter</span>
           </h3>
-
-          {/* show all filters */}
-          {Object.entries(filters).map(([key, { name, icon, active }]) => (
-            <div className="filter-option" key={key}>
-              <img src={icon} alt={name} className="icon" /> {name}
-              <label className="switch">
-                <input type="checkbox" checked={active} onChange={() => toggleFilter(key)} />
-                <span className="slider"></span>
+          {Object.entries(homeFilters).map(([key, { name, icon, active }]) => (
+            <div className="home-filter-option" key={key}>
+              <img src={icon} alt={name} className="home-icon" /> {name}
+              <label className="home-switch">
+                <input type="checkbox" checked={active} onChange={() => toggleHomeFilter(key)} />
+                <span className="home-slider"></span>
               </label>
             </div>
           ))}
         </div>
       </div>
+
+      <button className="home-circle-button" onClick={() => setShowHomePopup(true)}>
+        <div className="home-add-button">+</div>
+      </button>
+
+      {showHomePopup && (
+        <div className={`home-hello-popup ${showHomePopup ? "show" : ""}`}>
+          <div className="home-hello-popup-content">
+            <h2>Hello World</h2>
+            <button onClick={() => setShowHomePopup(false)}>Close</button>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

@@ -49,8 +49,11 @@ const H_ALog_Page = () => {
       <div className="alog-popup">
         <h2>Search</h2>
         <div className="alog-search-container">
+    
           <img src={mag} alt="Search Icon" className="alog-search-icon" />
           <input type="text" placeholder="Search Location..." className="alog-search-bar" />
+          <button className="alog-search-button">Search</button>
+   
         </div>
 
         <div className="alog-filter-section">
