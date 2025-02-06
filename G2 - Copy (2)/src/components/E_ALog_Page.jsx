@@ -104,7 +104,7 @@ const EditPage = () => {
               <label>Password</label>
               <input type="password" placeholder="Password" />
             </div>
-            <Link to="/log-regist">
+            <Link to="/home_after_login">
               <button type="submit" className="save-button">Save Me</button>
             </Link>
             
