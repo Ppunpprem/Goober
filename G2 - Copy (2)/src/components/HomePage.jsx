@@ -75,8 +75,8 @@ const HomePage = () => {
       </button>
 
       {showHomePopup && (
-        <div className={`home-hello-popup ${showHomePopup ? "show" : ""}`}>
-          <div className="home-hello-popup-content">
+        <div className={`home-info-popup ${showHomePopup ? "show" : ""}`}>
+          <div className="home-info-popup-content">
             <h2>Hello World</h2>
             <button onClick={() => setShowHomePopup(false)}>Close</button>
           </div>

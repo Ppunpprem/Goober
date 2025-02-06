@@ -80,8 +80,8 @@ const H_ALog_Page = () => {
 
       {/* Hello Popup */}
       {showPopup && (
-        <div className={`hello-popup ${showPopup ? "show" : ""}`}>
-          <div className="hello-popup-content">
+        <div className={`info-popup ${showPopup ? "show" : ""}`}>
+          <div className="info-popup-content">
             <h2>Hello World</h2>
             <button onClick={() => setShowPopup(false)}>Close</button>
           </div>

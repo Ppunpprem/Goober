@@ -199,7 +199,7 @@ input:checked + .home-slider:before {
     overflow: hidden;
 }
 
-.home-hello-popup {
+.home-info-popup {
     position: fixed;
     top: 65%;
     bottom: 0%;
@@ -215,13 +215,13 @@ input:checked + .home-slider:before {
     z-index: 2000;
 }
 
-.home-hello-popup-content {
+.home-info-popup-content {
     display: flex;
     flex-direction: column;
     align-items: center;
 }
 
-.home-hello-popup-content button {
+.home-info-popup-content button {
     padding: 10px 20px;
     background-color: #17005A;
     color: white;
@@ -232,60 +232,7 @@ input:checked + .home-slider:before {
     transition: background-color 0.3s ease;
 }
 
-.home-hello-popup-content button:hover {
+.home-info-popup-content button:hover {
     background-color: #9AD4EC; /* Darker shade on hover */
 }
 
-.home-popup-message {
-    position: fixed;
-    top: 65%;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 95%;
-    max-width: 1500px;
-    background-color: #ffffff;
-    border-radius: 15px;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-    padding: 20px;
-    z-index: 2000;
-    opacity: 0;
-    pointer-events: none;
-    transition: opacity 0.3s ease;
-}
-
-.home-popup-message.show {
-    opacity: 1;
-    pointer-events: auto;
-}
-
-.home-popup-content {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-.home-popup-message h2 {
-    font-size: 24px;
-    color: #17005A;
-    margin-bottom: 15px;
-    font-family: 'Afacad', sans-serif;
-}
-
-.home-popup-message button {
-    padding: 10px 20px;
-    background-color: #17005A;
-    color: white;
-    border: none;
-    border-radius: 25px;
-    font-size: 16px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-}
-
-.home-popup-message button:hover {
-    background-color: #9AD4EC;
-}
-
-.home-popup-message button:focus {
-    outline: none;
-}
