@@ -30,6 +30,7 @@ const BadgesPage = () => {
       icon: bubbleicon,
     },
   ];
+  
 
   return (
     <div className="app">
