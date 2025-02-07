@@ -234,6 +234,16 @@ input:checked + .alog-slider:before {
   font-size: 16px;
 }
 
+/* comment */
+.info-popup h1 {
+  padding: 10px 20px;
+  background-color: #b4e1f7;
+  color: #17005a;
+  border: none;
+  border-radius: 25px;
+  font-size: 16px;
+}
+
 .info-popup button {
   padding: 10px 20px;
   background-color: #17005a;
