@@ -97,12 +97,9 @@ const H_ALog_Page = () => {
         <div className={`info-popup ${showPopup ? "show" : ""}`}>
           <div className="info-popup-content">
             <h3>{First_test_building.building_name}</h3>
-            <h3>{First_test_building.floor_number}th Floor</h3>
-            <h3>Is this information correct?</h3>
-            <div className="button-group">
-              <button onClick={toggleAddTrashcanPopup}>true</button>
-              <button onClick={toggleAddTrashcanPopup}>false</button>
-            </div>
+            <h2>{First_test_building.floor_number}th Floor</h2>
+            <h3>Is this infomation correct?</h3>
+
             <button onClick={() => setShowPopup(false)}>Close</button>
           </div>
         </div>

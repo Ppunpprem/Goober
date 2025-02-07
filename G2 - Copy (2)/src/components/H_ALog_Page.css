@@ -217,13 +217,6 @@ input:checked + .alog-slider:before {
   align-items: center;
 }
 
-.info-popup h2 {
-  font-size: 24px;
-  color: #17005a;
-  margin-bottom: 15px;
-  font-family: "Afacad", sans-serif;
-}
-
 .info-popup h3 {
   font-size: 24px;
   color: #17005a;
@@ -231,16 +224,16 @@ input:checked + .alog-slider:before {
   font-family: "Afacad", sans-serif;
 }
 
-.info-popup-true_false_button {
+.info-popup h2 {
+  text-decoration: underline;
   padding: 10px 20px;
-  background-color: #17005a;
-  color: white;
+  background-color: #b4e1f7;
+  color: #17005a;
   border: none;
   border-radius: 25px;
   font-size: 16px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
 }
+
 .info-popup button {
   padding: 10px 20px;
   background-color: #17005a;
