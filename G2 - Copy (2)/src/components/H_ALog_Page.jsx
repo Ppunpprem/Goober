@@ -6,6 +6,12 @@ import hazard from "../assets/hazard.png";
 import recycle from "../assets/recycle.png";
 import mag from "../assets/mag.png";
 import organic from "../assets/organic.png";
+import {
+  First_test_building,
+  Second_test_building,
+  First_comment,
+  Second_comment,
+} from "../Damo_data/bindata";
 
 const defaultFilters = {
   generalWaste: { name: "General Waste", icon: bin, active: true },
@@ -49,23 +55,31 @@ const H_ALog_Page = () => {
       <div className="alog-popup">
         <h2>Search</h2>
         <div className="alog-search-container">
-    
           <img src={mag} alt="Search Icon" className="alog-search-icon" />
-          <input type="text" placeholder="Search Location..." className="alog-search-bar" />
+          <input
+            type="text"
+            placeholder="Search Location..."
+            className="alog-search-bar"
+          />
           <button className="alog-search-button">Search</button>
-   
         </div>
 
         <div className="alog-filter-section">
           <h3>
             <img src={filter} alt="Filter Icon" className="alog-icon" /> Filter
-            <span className="alog-reset-filter" onClick={resetFilters}>Reset Filter</span>
+            <span className="alog-reset-filter" onClick={resetFilters}>
+              Reset Filter
+            </span>
           </h3>
           {Object.entries(filters).map(([key, { name, icon, active }]) => (
             <div className="alog-filter-option" key={key}>
               <img src={icon} alt={name} className="alog-icon" /> {name}
               <label className="alog-switch">
-                <input type="checkbox" checked={active} onChange={() => toggleFilter(key)} />
+                <input
+                  type="checkbox"
+                  checked={active}
+                  onChange={() => toggleFilter(key)}
+                />
                 <span className="alog-slider"></span>
               </label>
             </div>
@@ -82,7 +96,13 @@ const H_ALog_Page = () => {
       {showPopup && (
         <div className={`info-popup ${showPopup ? "show" : ""}`}>
           <div className="info-popup-content">
-            <h2>Hello World</h2>
+            <h3>{First_test_building.building_name}</h3>
+            <h3>{First_test_building.floor_number}th Floor</h3>
+            <h3>Is this information correct?</h3>
+            <div className="button-group">
+              <button onClick={toggleAddTrashcanPopup}>true</button>
+              <button onClick={toggleAddTrashcanPopup}>false</button>
+            </div>
             <button onClick={() => setShowPopup(false)}>Close</button>
           </div>
         </div>

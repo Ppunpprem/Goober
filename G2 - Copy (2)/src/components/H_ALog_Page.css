@@ -1,250 +1,261 @@
-@import url('https://fonts.googleapis.com/css2?family=Afacad:wght@400;700&display=swap');
-
-
+@import url("https://fonts.googleapis.com/css2?family=Afacad:wght@400;700&display=swap");
 
 .alog-page {
-    position: relative;
-    width: 100%;
-    height: 100vh;
-    background: #b5d9eb;
-    font-family: 'Afacad', sans-serif;
-    transition: background-color 0.3s ease;
-    overflow: hidden; /* Prevent scrolling */
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  background: #b5d9eb;
+  font-family: "Afacad", sans-serif;
+  transition: background-color 0.3s ease;
+  overflow: hidden; /* Prevent scrolling */
 }
 
 /* Always Visible Popup */
 .alog-popup {
-    position: fixed;
-    top: 90px;
-    left: 30px;
-    width: 320px;
-    background: white;
-    padding: 20px;
-    border-radius: 20px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-    opacity: 1;
-    transform: translateY(0);
-    pointer-events: auto;
-    transition: none;
-    z-index: 1000;
+  position: fixed;
+  top: 90px;
+  left: 30px;
+  width: 320px;
+  background: white;
+  padding: 20px;
+  border-radius: 20px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+  transition: none;
+  z-index: 1000;
 }
 
 .alog-popup h2 {
-    text-align: left; /* Align text to the right */
-    margin-left: 10px;
-    color:#17005A; /* Add spacing from the right edge */
+  text-align: left; /* Align text to the right */
+  margin-left: 10px;
+  color: #17005a; /* Add spacing from the right edge */
 }
 
-
 .alog-search-container {
-    display: flex;
-    align-items: center;
-    width: 90%;
-    margin-top: -12px;
-    margin-left: 1.5%;
-    padding: 5px 10px;
-    background: #ffffff;
-    border-radius: 30px;
-    border: 1px solid #17005A;
-    position: relative; /* ให้สามารถใช้ absolute กับปุ่มได้ */
+  display: flex;
+  align-items: center;
+  width: 90%;
+  margin-top: -12px;
+  margin-left: 1.5%;
+  padding: 5px 10px;
+  background: #ffffff;
+  border-radius: 30px;
+  border: 1px solid #17005a;
+  position: relative; /* ให้สามารถใช้ absolute กับปุ่มได้ */
 }
 
 .alog-search-icon {
-    width: 18px;
-    height: 18px;
-    opacity: 0.5;
-    margin-right: 10px;
+  width: 18px;
+  height: 18px;
+  opacity: 0.5;
+  margin-right: 10px;
 }
 
 .alog-search-bar {
-    flex: 1;
-    border: none;
-    background: none;
-    outline: none;
-    font-size: 16px;
-    color: #17005A;
-    padding-right: 50px; /* เว้นที่ให้ปุ่ม */
+  flex: 1;
+  border: none;
+  background: none;
+  outline: none;
+  font-size: 16px;
+  color: #17005a;
+  padding-right: 50px; /* เว้นที่ให้ปุ่ม */
 }
 
 .alog-search-button {
-    position: absolute;
-    right: 10px; /* จัดปุ่มให้อยู่ชิดขวา */
-    background-color: #17005A;
-    color: white;
-    border: none;
-    padding: 5px 12px;
-    border-radius: 20px;
-    font-size: 14px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
+  position: absolute;
+  right: 10px; /* จัดปุ่มให้อยู่ชิดขวา */
+  background-color: #17005a;
+  color: white;
+  border: none;
+  padding: 5px 12px;
+  border-radius: 20px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
 }
 
 .alog-search-button:hover {
-    background-color: #9AD4EC;
+  background-color: #9ad4ec;
 }
 
 .alog-filter-section {
-    margin-top: 20px;
+  margin-top: 20px;
 }
 
 .alog-icon {
-    width: 18px;
-    height: 18px;
-    margin-right: 5px;
+  width: 18px;
+  height: 18px;
+  margin-right: 5px;
 }
 
 .alog-filter-option {
-    display: flex;
-    align-items: center;
-    color:#17005A;
-    font-family: 'Afacad', sans-serif;
-    font-size: 16px;
-    justify-content: space-between; /* จัดให้เว้นระยะห่างอัตโนมัติ */
-    width: 100%; /* ทำให้ switch อยู่ชิดขวา */
+  display: flex;
+  align-items: center;
+  color: #17005a;
+  font-family: "Afacad", sans-serif;
+  font-size: 16px;
+  justify-content: space-between; /* จัดให้เว้นระยะห่างอัตโนมัติ */
+  width: 100%; /* ทำให้ switch อยู่ชิดขวา */
 }
 
 .alog-reset-filter {
-    font-size: 14px;
-    color: #17005A;
-    cursor: pointer;
-    text-decoration: underline;
-    margin-left: auto;
+  font-size: 14px;
+  color: #17005a;
+  cursor: pointer;
+  text-decoration: underline;
+  margin-left: auto;
 }
 
 .alog-switch {
-    position: relative;
-    display: inline-block;
-    width: 28px;
-    height: 14px;
-    margin-left: auto;
-    margin-right: 10.5%;
+  position: relative;
+  display: inline-block;
+  width: 28px;
+  height: 14px;
+  margin-left: auto;
+  margin-right: 10.5%;
 }
 
 .alog-switch input {
-    opacity: 0;
-    width: 0;
-    height: 0;
+  opacity: 0;
+  width: 0;
+  height: 0;
 }
 
 .alog-slider {
-    position: absolute;
-    cursor: pointer;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: #9AD4EC;
-    transition: 0.3s;
-    border-radius: 50px;
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #9ad4ec;
+  transition: 0.3s;
+  border-radius: 50px;
 }
 
 .alog-slider:before {
-    content: "";
-    position: absolute;
-    height: 10px;
-    width: 10px;
-    left: 2px;
-    bottom: 2px;
-    background-color: white;
-    transition: 0.3s;
-    border-radius: 50%;
+  content: "";
+  position: absolute;
+  height: 10px;
+  width: 10px;
+  left: 2px;
+  bottom: 2px;
+  background-color: white;
+  transition: 0.3s;
+  border-radius: 50%;
 }
 
 input:checked + .alog-slider {
-    background-color: #17005A;
+  background-color: #17005a;
 }
 
 input:checked + .alog-slider:before {
-    transform: translateX(14px);
+  transform: translateX(14px);
 }
 
 .alog-circle-button {
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    border: none;
-    background: none;
-    cursor: pointer;
-    z-index: 2000; /* Ensure it stays on top */
-    outline: none; /* Removes the focus outline */
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border: none;
+  background: none;
+  cursor: pointer;
+  z-index: 2000; /* Ensure it stays on top */
+  outline: none; /* Removes the focus outline */
 }
 
-
 .alog-add-button {
-    width: 80px;
-    height: 80px;
-    border-radius: 50%;
-    background-color: #17005A;
-    color: white;
-    font-size: 36px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-    transition: background-color 0.3s ease, transform 0.3s ease;
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background-color: #17005a;
+  color: white;
+  font-size: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  transition: background-color 0.3s ease, transform 0.3s ease;
 }
 
 .alog-circle-button.button-active .alog-add-button {
-    background-color: #ec9a9a;
-    transform: scale(1.1);
+  background-color: #ec9a9a;
+  transform: scale(1.1);
 }
 
 /* Hello Popup */
 /* Hello Popup */
 .info-popup {
-    position: fixed;
-    top: 65%;
-    bottom: 0px; /* Moves the popup to the bottom of the page */
-    left: 50%;
-    transform: translateX(-50%); /* Centers the popup horizontally */
-    width: 95%; /* Set width to 90% of the page */
-    max-width: 1500px; /* Optional: Set a maximum width for larger screens */
-    background-color: #ffffff;
-    border-radius: 15px;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-    padding: 20px;
-    z-index: 2000;
-    opacity: 0;
-    pointer-events: none;
-    transition: opacity 0.3s ease;
+  position: fixed;
+  top: 65%;
+  bottom: 0px; /* Moves the popup to the bottom of the page */
+  left: 50%;
+  transform: translateX(-50%); /* Centers the popup horizontally */
+  width: 95%; /* Set width to 90% of the page */
+  max-width: 1500px; /* Optional: Set a maximum width for larger screens */
+  background-color: #ffffff;
+  border-radius: 15px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  padding: 20px;
+  z-index: 2000;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
 }
 
 .info-popup.show {
-    opacity: 1;
-    pointer-events: auto;
+  opacity: 1;
+  pointer-events: auto;
 }
 
-
-
 .info-popup-content {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .info-popup h2 {
-    font-size: 24px;
-    color: #17005A;
-    margin-bottom: 15px;
-    font-family: 'Afacad', sans-serif;
+  font-size: 24px;
+  color: #17005a;
+  margin-bottom: 15px;
+  font-family: "Afacad", sans-serif;
 }
 
+.info-popup h3 {
+  font-size: 24px;
+  color: #17005a;
+  margin-bottom: 15px;
+  font-family: "Afacad", sans-serif;
+}
+
+.info-popup-true_false_button {
+  padding: 10px 20px;
+  background-color: #17005a;
+  color: white;
+  border: none;
+  border-radius: 25px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
 .info-popup button {
-    padding: 10px 20px;
-    background-color: #17005A;
-    color: white;
-    border: none;
-    border-radius: 25px;
-    font-size: 16px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
+  padding: 10px 20px;
+  background-color: #17005a;
+  color: white;
+  border: none;
+  border-radius: 25px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
 }
 
 .info-popup button:hover {
-    background-color: #9AD4EC;
+  background-color: #9ad4ec;
 }
 
 .info-popup button:focus {
-    outline: none;
+  outline: none;
 }
