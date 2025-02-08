@@ -5,8 +5,17 @@ import filter from "../assets/filter.png";
 import hazard from "../assets/hazard.png";
 import recycle from "../assets/recycle.png";
 import mag from "../assets/mag.png";
+import check from "../assets/check-mark-button.png";
+import cross from "../assets/cross-mark.png";
 import organic from "../assets/organic.png";
 import { First_test_building, First_comment } from "../Damo_data/bindata";
+
+var Check_type;
+if ({First_test_building.general_waste}) {
+  loginButton = <img src={check} width={24} height={24}></img>;
+} else {
+  loginButton = <img src={cross} width={24} height={24}></img>;
+}
 
 const defaultFilters = {
   generalWaste: { name: "General Waste", icon: bin, active: true },
@@ -102,7 +111,9 @@ const H_ALog_Page = () => {
                 <li>
                   <div className="trash-type">
                     <img src={bin} width={24} height={24}></img>
-                    <div>General Waste</div>
+                    <div>General Waste </div>
+                    {Check_type}
+                    
                   </div>
                 </li>
                 <li>

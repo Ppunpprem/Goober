@@ -221,7 +221,7 @@ input:checked + .alog-slider:before {
   font-size: 30px;
   color: #17005a;
   margin-bottom: 15px;
-  font-weight: 400;
+  font-weight: 600;
   font-family: "Afacad", sans-serif;
 }
 
@@ -231,6 +231,7 @@ input:checked + .alog-slider:before {
   margin-bottom: 15px;
   font-weight: 500;
   font-family: "Afacad", sans-serif;
+  text-align: left;
 }
 
 .info-popup h2 {
@@ -265,7 +266,6 @@ input:checked + .alog-slider:before {
   font-weight: 300;
   font-family: "Afacad", sans-serif;
   list-style-type: none;
-  text-align: left;
 }
 
 .trash-type {
@@ -273,8 +273,12 @@ input:checked + .alog-slider:before {
   align-items: center;
 }
 
-.trash-type img {
+.trash-type img:first-child {
   margin-right: 10px;
+}
+
+.trash-type img:last-child {
+  margin-left: auto;
 }
 
 .info-popup button {
