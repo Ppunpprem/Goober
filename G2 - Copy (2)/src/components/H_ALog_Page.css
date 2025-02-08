@@ -10,6 +10,9 @@
   overflow: hidden; /* Prevent scrolling */
 }
 
+h3 {
+  margin-top: 8px !important;
+}
 /* Always Visible Popup */
 .alog-popup {
   position: fixed;
@@ -235,6 +238,7 @@ input:checked + .alog-slider:before {
 }
 
 .info-popup h2 {
+  margin: 5px 25px;
   text-decoration: underline;
   padding: 10px 20px;
   background-color: #b4e1f7;
@@ -334,7 +338,7 @@ input:checked + .alog-slider:before {
 }
 
 .flex-container > div {
-  background-color: #f1f1f1;
+  background-color: white;
   margin: 10px;
   padding: 20px;
   font-size: 30px;
@@ -349,8 +353,33 @@ input:checked + .alog-slider:before {
 }
 
 .flex-container-inner > div {
-  background-color: #f1f1f1;
+  background-color: white;
   margin: 10px;
-  padding: 20px;
+  padding: 0px;
   font-size: 30px;
+}
+
+.user_comment {
+  border: 1px solid black;
+  padding: 20px;
+  height: 40%;
+  border-radius: 25px;
+  width: calc(100% - 40px);
+}
+
+.sent_comment {
+  display: flex;
+  justify-content: space-between;
+}
+
+.sent_comment button {
+  right: 10px; /* จัดปุ่มให้อยู่ชิดขวา */
+  background-color: #17005a;
+  color: white;
+  border: none;
+  padding: 5px 12px;
+  border-radius: 20px;
+  font-size: 20px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
 }

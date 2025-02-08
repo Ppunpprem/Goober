@@ -159,7 +159,7 @@ const H_ALog_Page = () => {
                 </li>
               </ul>
             </div>
-            <div>
+            <div className="flex-container-inner">
               <h4>{commnents.length} Comments</h4>
               {commnents.map((comment, index) => (
                 // <ul className="trash-type-container">
@@ -172,17 +172,30 @@ const H_ALog_Page = () => {
                 // </li>
                 // <li></li>
                 <div key={index} className="comment">
-
-                        <img src={comment.profile} className="profile-picture" width={32} height={32}></img>
-                        <div key={index} className="comment_format">
-                          {comment.text}
-
+                  <img
+                    src={comment.profile}
+                    className="profile-picture"
+                    width={32}
+                    height={32}
+                  ></img>
+                  <div key={index} className="comment_format">
+                    {comment.text}
                   </div>
                 </div>
               ))}
             </div>
-            <div>
+            <div className="flex-container-inner">
               <h4>Post a Comment</h4>
+              <textarea
+                className="user_comment"
+                name="postComment"
+                placeholder="Say something..."
+              />
+
+              <div className="sent_comment">
+                <button>Cancel</button>
+                <button>Post</button>
+              </div>
             </div>
 
             {/* <div className="flex-container-inner">
