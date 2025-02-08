@@ -90,13 +90,66 @@ const H_ALog_Page = () => {
       {/* Hello Popup */}
       {showPopup && (
         <div className={`info-popup ${showPopup ? "show" : ""}`}>
-          <div className="info-popup-content">
-            <h3>{First_test_building.building_name}</h3>
-            <h2>{First_test_building.floor_number}th Floor</h2>
-            <h3>Is this infomation correct?</h3>
-            <h3>Comments</h3>
-            <h1>{First_comment}</h1>
-            <button onClick={() => setShowPopup(false)}>Close</button>
+          <div className="flex-container">
+            <div className="flex-container-inner">
+              <h3>{First_test_building.building_name}</h3>
+              <h2>{First_test_building.floor_number}th Floor</h2>
+              <h4>Is this information correct?</h4>
+            </div>
+            <div className="flex-container-inner">
+              <h4>Features</h4>
+              <ul className="trash-type-container">
+                <li>
+                  <div className="trash-type">
+                    <img src={bin} width={24} height={24}></img>
+                    <div>General Waste</div>
+                  </div>
+                </li>
+                <li>
+                  <div className="trash-type">
+                    <img src={recycle} width={24} height={24}></img>
+                    <div>Recycle Waste</div>
+                  </div>
+                </li>
+                <li>
+                  <div className="trash-type">
+                    <img src={organic} width={24} height={24}></img>
+                    <div>Organic Waste</div>
+                  </div>
+                </li>
+                <li>
+                  <div className="trash-type">
+                    <img src={hazard} width={24} height={24}></img>
+                    <div>Hazardous Waste</div>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div>3</div>
+            <div>4</div>
+
+            {/* <div className="flex-container-inner">
+              <div>1.1</div>
+              <div>1.2</div>
+            </div>
+            <div className="flex-container-inner">
+              <div>2.1</div>
+              <div>2.2</div>
+            </div>
+            <div>3</div>
+            <div>4</div> */}
+            {/* <div className="flex-container">
+              <h3>{First_test_building.building_name}</h3>
+              <h2>{First_test_building.floor_number}th Floor</h2>
+              <h3>Is this infomation correct?</h3>
+            </div>
+            <div className="flex-container">
+              <h3>Comments</h3>
+              <h1>{First_comment}</h1>
+            </div>
+            <div>
+              <button onClick={() => setShowPopup(false)}>Close</button>
+            </div> */}
           </div>
         </div>
       )}
