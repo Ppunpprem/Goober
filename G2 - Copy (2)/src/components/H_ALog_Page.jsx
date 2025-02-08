@@ -8,13 +8,34 @@ import mag from "../assets/mag.png";
 import check from "../assets/check-mark-button.png";
 import cross from "../assets/cross-mark.png";
 import organic from "../assets/organic.png";
-import { First_test_building, First_comment } from "../Damo_data/bindata";
+import { First_test_building, commnents } from "../Damo_data/bindata";
 
-var Check_type;
-if ({First_test_building.general_waste}) {
-  loginButton = <img src={check} width={24} height={24}></img>;
+var Check_type_general_waste;
+if (First_test_building.general_waste) {
+  Check_type_general_waste = <img src={check} width={24} height={24}></img>;
 } else {
-  loginButton = <img src={cross} width={24} height={24}></img>;
+  Check_type_general_waste = <img src={cross} width={24} height={24}></img>;
+}
+
+var Check_type_recycle_waste;
+if (First_test_building.recycle_waste) {
+  Check_type_recycle_waste = <img src={check} width={24} height={24}></img>;
+} else {
+  Check_type_recycle_waste = <img src={cross} width={24} height={24}></img>;
+}
+
+var Check_type_organic_waste;
+if (First_test_building.organic_waste) {
+  Check_type_organic_waste = <img src={check} width={24} height={24}></img>;
+} else {
+  Check_type_organic_waste = <img src={cross} width={24} height={24}></img>;
+}
+
+var Check_type_hazardous_waste;
+if (First_test_building.hazardous_waste) {
+  Check_type_hazardous_waste = <img src={check} width={24} height={24}></img>;
+} else {
+  Check_type_hazardous_waste = <img src={cross} width={24} height={24}></img>;
 }
 
 const defaultFilters = {
@@ -112,32 +133,57 @@ const H_ALog_Page = () => {
                   <div className="trash-type">
                     <img src={bin} width={24} height={24}></img>
                     <div>General Waste </div>
-                    {Check_type}
-                    
+                    {Check_type_general_waste}
                   </div>
                 </li>
                 <li>
                   <div className="trash-type">
                     <img src={recycle} width={24} height={24}></img>
                     <div>Recycle Waste</div>
+                    {Check_type_recycle_waste}
                   </div>
                 </li>
                 <li>
                   <div className="trash-type">
                     <img src={organic} width={24} height={24}></img>
                     <div>Organic Waste</div>
+                    {Check_type_organic_waste}
                   </div>
                 </li>
                 <li>
                   <div className="trash-type">
                     <img src={hazard} width={24} height={24}></img>
                     <div>Hazardous Waste</div>
+                    {Check_type_hazardous_waste}
                   </div>
                 </li>
               </ul>
             </div>
-            <div>3</div>
-            <div>4</div>
+            <div>
+              <h4>{commnents.length} Comments</h4>
+              {commnents.map((comment, index) => (
+                // <ul className="trash-type-container">
+                // <li>
+                //   <div className="trash-type">
+                //     <img src={bin} width={24} height={24}></img>
+                //     <div>General Waste </div>
+                //     {Check_type_general_waste}
+                //   </div>
+                // </li>
+                // <li></li>
+                <div key={index} className="comment">
+
+                        <img src={comment.profile} className="profile-picture" width={32} height={32}></img>
+                        <div key={index} className="comment_format">
+                          {comment.text}
+
+                  </div>
+                </div>
+              ))}
+            </div>
+            <div>
+              <h4>Post a Comment</h4>
+            </div>
 
             {/* <div className="flex-container-inner">
               <div>1.1</div>

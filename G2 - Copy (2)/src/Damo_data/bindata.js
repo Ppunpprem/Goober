@@ -31,8 +31,18 @@ export const Second_test_building = new Bin_data(
   false
 );
 // export const First_comment = new Comments("The bin is dirty");
-export const First_comment = "The bin is disgusting";
-export const Second_comment = "The bin is supper clean";
+// export const First_comment = "The bin is disgusting";
+// export const Second_comment = "The bin is supper clean";
+
+export const commnents = [{
+    text: "The bin is disgusting",
+    profile: "https://www.w3schools.com/w3images/avatar2.png"
+  },
+  {
+    text: "The bin is supper clean",
+    profile: "https://www.w3schools.com/w3images/avatar2.png"
+  },
+];
 
 // document.addEventListener("DOMContentLoaded", function () {
 //   document.getElementById(

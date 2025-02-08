@@ -245,6 +245,27 @@ input:checked + .alog-slider:before {
   font-size: 30px;
 }
 
+.comment_format {
+  margin-bottom: 15px;
+  padding: 10px 20px;
+  background-color: #b4e1f7;
+  color: #17005a;
+  border: none;
+  font-weight: 400;
+  border-radius: 0px 25px 25px 25px;
+  font-size: 20px;
+  text-align: left;
+}
+
+.comment {
+  display: flex;
+}
+
+.comment div {
+  margin-top: 10px;
+  margin-left: 10px;
+}
+
 /* comment */
 .info-popup h1 {
   padding: 10px 20px;
@@ -279,6 +300,10 @@ input:checked + .alog-slider:before {
 
 .trash-type img:last-child {
   margin-left: auto;
+}
+
+.profile-picture {
+  border-radius: 100%;
 }
 
 .info-popup button {
@@ -318,6 +343,7 @@ input:checked + .alog-slider:before {
 
 .flex-container-inner {
   display: flex;
+  padding: 0 !important;
   flex-direction: column;
   background-color: transparent;
 }
