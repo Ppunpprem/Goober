@@ -80,7 +80,8 @@ const H_ALog_Page = () => {
     setCommentText("");
   };
 
-  
+  const [selected, setSelected] = useState(null);
+
   return (
     <div className="alog-page">
       {/* Always Visible Search & Filter Popup */}
@@ -132,6 +133,36 @@ const H_ALog_Page = () => {
               <h3>{First_test_building.building_name}</h3>
               <h2>{First_test_building.floor_number}th Floor</h2>
               <h4>Is this information correct?</h4>
+              <div className="container">
+                {selected === null && (
+                  <div className="button-group">
+                    <button
+                      className={
+                        selected === "yes"
+                          ? "yes-button selected"
+                          : "yes-button"
+                      }
+                      onClick={() => setSelected("yes")}
+                    >
+                      Yes
+                    </button>
+                    <button
+                      className={
+                        selected === "no" ? "no-button selected" : "no-button"
+                      }
+                      onClick={() => setSelected("no")}
+                    >
+                      No?
+                    </button>
+                  </div>
+                )}
+              </div>
+              <div>
+                {selected === "yes" && <h5>Thanks! for your answer</h5>}
+                {selected === "no" && (
+                  <h5>Please comment the correct information</h5>
+                )}
+              </div>
             </div>
             <div className="flex-container-inner">
               <h4>Features</h4>

@@ -10,6 +10,10 @@
   overflow: hidden; /* Prevent scrolling */
 }
 
+p {
+  font-size: 24px;
+}
+
 h3 {
   margin-top: 8px !important;
 }
@@ -237,6 +241,15 @@ input:checked + .alog-slider:before {
   text-align: left;
 }
 
+.info-popup h5 {
+  font-size: 20px;
+  color: #17005a;
+  margin: 0px 0px 0px 12px;
+  font-weight: 400;
+  font-family: "Afacad", sans-serif;
+  text-align: left;
+}
+
 .info-popup h2 {
   margin: 5px 25px;
   text-decoration: underline;
@@ -386,51 +399,47 @@ input:checked + .alog-slider:before {
 
 /* confirmation button */
 .container {
+  margin: 0px !important;
   text-align: center;
   font-family: Arial, sans-serif;
 }
 
-.question {
-  font-size: 18px;
-  font-weight: bold;
-  color: #200050;
-}
-
 .button-group {
+  margin: 0px 0px 0px 25px;
   display: flex;
-  justify-content: center;
+  justify-content: left;
   gap: 10px;
-  margin-top: 10px;
+  margin-top: 0px;
 }
 
 .yes-button,
 .no-button {
-  font-weight: bold;
-  border: none;
-  padding: 10px 20px;
-  border-radius: 20px;
-  cursor: pointer;
-  transition: background-color 0.3s, color 0.3s;
+  font-size: 20px !important;
+  border: none !important;
+  padding: 10px 20px !important;
+  border-radius: 20px !important;
+  cursor: pointer !important;
+  transition: background-color 0.3s, color 0.3s !important;
 }
 
 /* Default button colors */
 .yes-button {
-  background-color: #b0d8f0;
+  background-color: #b0d8f0 !important;
   color: #200050;
 }
 
 .no-button {
-  background-color: #b0d8f0;
+  background-color: #b0d8f0 !important;
   color: #200050;
 }
 
 /* Active/Selected button colors */
-.yes-button.selected {
-  background-color: #17005a;
-  color: white;
+.selected {
+  background-color: #17005a !important;
+  color: #b0d8f0;
 }
 
-.no-button.selected {
+/* .no-button.selected {
   background-color: #17005a;
   color: white;
-}
+} */
