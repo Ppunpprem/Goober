@@ -75,11 +75,11 @@ const HomePage = () => {
     Check_type_hazardous_waste = <img src={cross} width={24} height={24}></img>;
   }
 
-  const [commentText, setCommentText] = useState("");
+  // const [commentText, setCommentText] = useState("");
 
-  const handleCancel = () => {
-    setCommentText("");
-  };
+  // const handleCancel = () => {
+  //   setCommentText("");
+  // };
 
   const [selected, setSelected] = useState(null);
 
