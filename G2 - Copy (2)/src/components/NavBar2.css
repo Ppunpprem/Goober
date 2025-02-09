@@ -1,289 +1,287 @@
-@import url('https://fonts.googleapis.com/css2?family=Afacad:ital,wght@0,400..700;1,400..700&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Afacad:ital,wght@0,400..700;1,400..700&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap");
 
 .navbar {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    z-index: 1000;
-    background-color: #ffffff;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 5px 20px;
-    font-family: 'Afacad';
-    border-bottom: 1px solid #ddd;
-    height: 60px;
-    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  background-color: #ffffff;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 5px 20px;
+  font-family: "Afacad";
+  border-bottom: 1px solid #ddd;
+  height: 60px;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .navbar-container {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    width: 100%;
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
 }
 
 .logo-container {
-    display: flex;
-    align-items: center;
-    justify-content: flex-start;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
 }
 
 .navbar-title {
-    font-size: 25px;
-    color: #17005A;
-    font-family: 'Afacad';
-    font-weight: 500;
-    margin-left: -140px;
-    margin-right: 10px;
+  font-size: 25px;
+  color: #17005a;
+  font-family: "Afacad";
+  font-weight: 500;
+  margin-left: -140px;
+  margin-right: 10px;
 }
 
 .navbar-logo {
-    width: 50px;
-    height: 50px;
-    margin-right: 10px;
-    border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  margin-right: 10px;
+  border-radius: 50%;
 }
 
 .navbar-link {
-    font-size: 20px;
-    text-decoration: none;
-    color: #17005A;
-    margin-left: 30px;
-    font-family: 'Afacad';
-    transition: color 0.3s;
-    cursor: pointer;
+  font-size: 20px;
+  text-decoration: none;
+  color: #17005a;
+  margin-left: 30px;
+  font-family: "Afacad";
+  transition: color 0.3s;
+  cursor: pointer;
 }
 
 .navbar-link:hover {
-    color: #9AD4EC;
+  color: #9ad4ec;
 }
 
 .navbar-links {
-    display: flex;
-    align-items: center;
-    margin-left: auto;
+  display: flex;
+  align-items: center;
+  margin-left: auto;
 }
 
 .navbar-lr {
-    margin-right: -120px;
+  margin-right: -120px;
 }
 
 .navbar-logo-right {
-    position: absolute;
-    right: 20px;
-    width: 40px;
-    height: 40px;
-    margin-left: 8px;
-    border-radius: 50%;
-    border: 1px solid black;
+  position: absolute;
+  right: 20px;
+  width: 40px;
+  height: 40px;
+  margin-left: 8px;
+  border-radius: 50%;
+  border: 1px solid black;
 }
 
 /* Popup for d2theadi */
 .menu-container {
-    position: fixed;
-    top: 18.5%;
-    left: 91.5%;
-    transform: translate(-50%, -50%);
-    z-index: 1100;
-    background-color: #ffffff;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    padding: 10px 0;
-    font-family: 'Afacad';
-    border-radius: 8px;
-    border: 1px solid #ddd;
-    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
-    width: 170px;
-    text-align: center;
+  position: fixed;
+  top: 18.5%;
+  left: 91.5%;
+  transform: translate(-50%, -50%);
+  z-index: 1100;
+  background-color: #ffffff;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 10px 0;
+  font-family: "Afacad";
+  border-radius: 8px;
+  border: 1px solid #ddd;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+  width: 170px;
+  text-align: center;
 }
 
 .edit-link {
-    font-size: 20px;
-    text-decoration: none;
-    color: #17005A;
-    font-family: 'Afacad';
-    transition: color 0.3s;
-    display: block;
-    margin: 0;
-    padding: 10px 0;
-    width: 100%;
-    text-align: center;
-    border-bottom: 1px solid #17005A;
+  font-size: 20px;
+  text-decoration: none;
+  color: #17005a;
+  font-family: "Afacad";
+  transition: color 0.3s;
+  display: block;
+  margin: 0;
+  padding: 10px 0;
+  width: 100%;
+  text-align: center;
+  border-bottom: 1px solid #17005a;
 }
 
 .edit-link:last-child {
-    border-bottom: none;
+  border-bottom: none;
 }
 
 .edit-link:hover {
-    color: #9AD4EC;
+  color: #9ad4ec;
 }
 
 /* Popup for Add a Trashcan */
 .popup-addtrashcan {
-    position: fixed;
-    top: 18%;
-    right: 0%;
-    z-index: 1001;
-    background-color: #ffffff;
-    border: 1px solid #ddd;
-    border-radius: 30px;
-    width: 30%;
-    height: 67%;
-    padding: 20px;
-    box-shadow: 0px 2px 4px rgba(0,0,0,0.1);
+  position: fixed;
+  top: 18%;
+  right: 0%;
+  z-index: 1001;
+  background-color: #ffffff;
+  border: 1px solid #ddd;
+  border-radius: 30px;
+  width: 30%;
+  height: 67%;
+  padding: 20px;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .addtrashcan-container h2 {
-    margin-top: 0;
-    margin-bottom: 10px;
-    font-family: 'Afacad';
-    font-size: 45px;
-    text-align: center;
+  margin-top: 0;
+  margin-bottom: 10px;
+  font-family: "Afacad";
+  font-size: 45px;
+  text-align: center;
 }
 
 .addtrashcan-container p {
-    margin: 8px 0;
-    font-family: 'Afacad';
+  margin: 8px 0;
+  font-family: "Afacad";
 }
 
 .input-group {
-    margin-bottom: 20px;
+  margin-bottom: 20px;
 }
 
 .input-group label {
-    display: block;
-    margin-bottom: 4px;
-    font-family: 'Afacad';
-    font-size: 30px;
+  display: block;
+  margin-bottom: 4px;
+  font-family: "Afacad";
+  font-size: 30px;
 }
 
 .input-group input[type="text"] {
-    width: 85%;
-    padding: 6px;
-    font-size: 25px;
-    font-family: 'Afacad';
-    border: 1px solid #17005A;
-    border-radius: 4px;
+  width: 85%;
+  padding: 6px;
+  font-size: 25px;
+  font-family: "Afacad";
+  border: 1px solid #17005a;
+  border-radius: 4px;
 }
 
 .input-group input[type="number"] {
-    width: 85%;
-    padding: 6px;
-    font-size: 25px;
-    font-family: 'Afacad';
-    border: 1px solid #17005A;
-    border-radius: 4px;
+  width: 85%;
+  padding: 6px;
+  font-size: 25px;
+  font-family: "Afacad";
+  border: 1px solid #17005a;
+  border-radius: 4px;
 }
 .inline-group {
-    display: flex;
-    flex-direction: row;
-    gap: 20px;
-    align-items: flex-start;
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+  align-items: flex-start;
 }
 
 .form-field {
-    display: flex;
-    flex-direction: column;
+  display: flex;
+  flex-direction: column;
 }
 
 /* Styling for Trashcan Types */
 .trashcan-types {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    margin-bottom: 30px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 30px;
 }
 
 .trashcan-header {
-    display: flex;
-    justify-content: space-between;
-    font-weight: bold;
-    padding: 0 30px;
-    color: #17005A;
-    font-size: 20px;
+  display: flex;
+  justify-content: space-between;
+  font-weight: bold;
+  padding: 0 30px;
+  color: #17005a;
+  font-size: 20px;
 }
 
 .trashcan-type-label {
-    font-family: 'Afacad', sans-serif; /* Change to your preferred font */
-    font-size: 30px;
-    font-weight: bold;
-    color: #17005A;
-    margin-top: 1.70%;
-    margin-left: -7%;
-    margin-bottom: 2%;
-    align-items: flex-start;
+  font-family: "Afacad", sans-serif; /* Change to your preferred font */
+  font-size: 30px;
+  font-weight: bold;
+  color: #17005a;
+  margin-top: 1.7%;
+  margin-left: -7%;
+  margin-bottom: 2%;
+  align-items: flex-start;
 }
 
 .trashcan-row {
-    display: flex;
-    align-items: center;
-    gap: 15px;
-    justify-content: space-between;
-    width: 100%;
-    padding: 5px;
-   
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  justify-content: space-between;
+  width: 100%;
+  padding: 5px;
 }
 
 .trashcan-row img {
-    width: 25px;
-    height: 25px;
+  width: 25px;
+  height: 25px;
 }
 
 .trashcan-row span {
-    flex: 1;
-    font-size: 18px;
-    font-family: 'Afacad';
-    color: #17005A;
+  flex: 1;
+  font-size: 18px;
+  font-family: "Afacad";
+  color: #17005a;
 }
 
 .trashcan-row input[type="radio"] {
-    transform: scale(1.2);
+  transform: scale(1.2);
 }
 
 .radio-group {
-    display: flex;
-    gap: 105px; /* Adds spacing between Yes and No */
-    margin-right: 7%; /* Moves Yes/No to the right */
+  display: flex;
+  gap: 105px; /* Adds spacing between Yes and No */
+  margin-right: 7%; /* Moves Yes/No to the right */
 }
 
 .yes-no-labels {
-    display: flex;
-    align-items: center;
-    gap: 100px;
+  display: flex;
+  align-items: center;
+  gap: 100px;
 }
 
 .yes-fix {
-    margin-right: 0px;
+  margin-right: 0px;
 }
 /* Buttons */
 .button-group {
-    display: flex;
-    justify-content: space-between;
-    margin-top: 20px;
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
 }
 
 .button-group button {
-    padding: 10px 16px;
-    font-size: 16px;
-    font-family: 'Afacad';
-    cursor: pointer;
-    background-color: #17005A;
-    color: #fff;
-    border: none;
-    border-radius: 30px;
-    width: 20%;
-    transition: background-color 0.3s;
+  padding: 10px 16px;
+  font-size: 16px;
+  font-family: "Afacad";
+  cursor: pointer;
+  background-color: #17005a;
+  color: #fff;
+  border: none;
+  border-radius: 30px;
+  width: 20%;
+  transition: background-color 0.3s;
 }
 
 .button-group button:hover {
-    background-color: #9AD4EC;
+  background-color: #9ad4ec;
 }
-
