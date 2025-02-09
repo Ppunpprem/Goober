@@ -74,6 +74,13 @@ const H_ALog_Page = () => {
     setFilters(reset);
   };
 
+  const [commentText, setCommentText] = useState("");
+
+  const handleCancel = () => {
+    setCommentText("");
+  };
+
+  
   return (
     <div className="alog-page">
       {/* Always Visible Search & Filter Popup */}
@@ -190,11 +197,13 @@ const H_ALog_Page = () => {
                 className="user_comment"
                 name="postComment"
                 placeholder="Say something..."
+                value={commentText}
+                onChange={(e) => setCommentText(e.target.value)}
               />
 
               <div className="sent_comment">
-                <button>Cancel</button>
-                <button>Post</button>
+                <button onClick={handleCancel}>Cancel</button>
+                <button onClick={() => setShowPopup(false)}>Post</button>
               </div>
             </div>
 
