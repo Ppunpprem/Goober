@@ -130,6 +130,12 @@ const H_ALog_Page = () => {
         <div className={`info-popup ${showPopup ? "show" : ""}`}>
           <div className="flex-container">
             <div className="flex-container-inner">
+              <button
+                className="close-button"
+                onClick={() => setShowPopup(false)}
+              >
+                ✕
+              </button>
               <h3>{First_test_building.building_name}</h3>
               <h2>{First_test_building.floor_number}th Floor</h2>
               <h4>Is this information correct?</h4>

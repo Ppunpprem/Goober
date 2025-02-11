@@ -131,6 +131,12 @@ const HomePage = () => {
         <div className={`info-popup ${showHomePopup ? "show" : ""}`}>
           <div className="flex-container">
             <div className="flex-container-inner">
+              <button
+                className="close-button"
+                onClick={() => setShowHomePopup(false)}
+              >
+                ✕
+              </button>
               <h3>{First_test_building.building_name}</h3>
               <h2>{First_test_building.floor_number}th Floor</h2>
               <h4>Is this information correct?</h4>
