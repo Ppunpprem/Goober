@@ -158,7 +158,7 @@ const H_ALog_Page = () => {
                       }
                       onClick={() => setSelected("no")}
                     >
-                      No?
+                      No
                     </button>
                   </div>
                 )}

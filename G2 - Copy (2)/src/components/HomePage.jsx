@@ -159,7 +159,7 @@ const HomePage = () => {
                       }
                       onClick={() => setSelected("no")}
                     >
-                      No?
+                      No
                     </button>
                   </div>
                 )}

@@ -249,3 +249,41 @@ input:checked + .home-slider:before {
   align-items: center;
   justify-content: center;
 }
+
+button.yes-button {
+  padding: 10px 20px !important;
+  background-color: #9AD4EC !important; /* Background color before hover */
+  color: white !important;
+  border: none !important;
+  border-radius: 25px !important;
+  font-size: 18px !important;
+  cursor: pointer !important;
+  transition: background-color 0.3s ease !important;
+}
+
+button.yes-button:hover {
+  background-color: #17005a !important; /* Background color after hover */
+}
+
+button.yes-button.selected {
+  background-color: #17005a !important; /* Different color when selected */
+}
+
+button.no-button {
+  padding: 10px 20px !important;
+  background-color: #9AD4EC !important; /* Background color before hover */
+  color: white !important;
+  border: none !important;
+  border-radius: 25px !important;
+  font-size: 18px !important;
+  cursor: pointer !important;
+  transition: background-color 0.3s ease !important;
+}
+
+button.no-button:hover {
+  background-color: #17005a !important; /* Background color after hover */
+}
+
+button.no-button.selected {
+  background-color: #17005a !important; /* Different color when selected */
+}
