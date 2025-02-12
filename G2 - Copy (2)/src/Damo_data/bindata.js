@@ -39,7 +39,7 @@ export const commnents = [{
     profile: "https://www.w3schools.com/w3images/avatar2.png"
   },
   {
-    text: "The bin is supper clean",
+    text: "The bin is super clean",
     profile: "https://www.w3schools.com/w3images/avatar2.png"
   },
 ];
