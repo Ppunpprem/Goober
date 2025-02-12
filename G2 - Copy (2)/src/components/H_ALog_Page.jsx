@@ -52,7 +52,7 @@ const H_ALog_Page = () => {
   useEffect(() => {
     document.body.style.overflow = "hidden"; // Disable scrolling
     return () => {
-      document.body.style.overflow = "auto";
+      document.body.style.overflow = "auto"; //pppppp
     };
   }, []);
 
