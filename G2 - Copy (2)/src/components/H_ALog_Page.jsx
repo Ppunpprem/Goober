@@ -8,6 +8,7 @@ import mag from "../assets/mag.png";
 import check from "../assets/check-mark-button.png";
 import cross from "../assets/cross-mark.png";
 import organic from "../assets/organic.png";
+import MapComp from "../components/Mapcomp";
 import { First_test_building, commnents } from "../Damo_data/bindata";
 
 var Check_type_general_waste;
@@ -48,7 +49,8 @@ const defaultFilters = {
 const H_ALog_Page = () => {
   const [filters, setFilters] = useState(defaultFilters);
   const [showPopup, setShowPopup] = useState(false);
-
+  const [selectedMarker, setSelectedMarker] = useState(null);
+  
   useEffect(() => {
     document.body.style.overflow = "hidden"; // Disable scrolling
     return () => {
@@ -83,8 +85,14 @@ const H_ALog_Page = () => {
   const [selected, setSelected] = useState(null);
 
   return (
+    
     <div className="alog-page">
       {/* Always Visible Search & Filter Popup */}
+       <div className="map-container">
+        <MapComp 
+        setShowHomePopup={setShowPopup} 
+        setSelectedMarker={setSelectedMarker} />
+      </div>
       <div className="alog-popup">
         <h2>Search</h2>
         <div className="alog-search-container">
@@ -126,7 +134,7 @@ const H_ALog_Page = () => {
       </button>
 
       {/* Hello Popup */}
-      {showPopup && (
+      {showPopup && selectedMarker && (
         <div className={`info-popup ${showPopup ? "show" : ""}`}>
           <div className="flex-container">
             <div className="flex-container-inner">

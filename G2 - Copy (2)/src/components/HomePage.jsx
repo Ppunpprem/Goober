@@ -8,6 +8,8 @@ import mag from "../assets/mag.png";
 import check from "../assets/check-mark-button.png";
 import cross from "../assets/cross-mark.png";
 import organic from "../assets/organic.png";
+import MapComp from "../components/Mapcomp";
+
 
 import { First_test_building, commnents } from "../Damo_data/bindata";
 
@@ -21,6 +23,7 @@ const defaultHomeFilters = {
 const HomePage = () => {
   const [homeFilters, setHomeFilters] = useState(defaultHomeFilters);
   const [showHomePopup, setShowHomePopup] = useState(false);
+  const [selectedMarker, setSelectedMarker] = useState(null);
 
   useEffect(() => {
     document.body.style.overflow = "hidden";
@@ -85,6 +88,11 @@ const HomePage = () => {
 
   return (
     <div className="home-page">
+      <div className="map-container">
+        <MapComp 
+        setShowHomePopup={setShowHomePopup} 
+        setSelectedMarker={setSelectedMarker} />
+      </div>
       <div className="home-popup">
         <h2>Search</h2>
         <div className="home-search-container">
@@ -127,7 +135,7 @@ const HomePage = () => {
         <div className="home-add-button">+</div>
       </button>
 
-      {showHomePopup && (
+       {showHomePopup && selectedMarker && (
         <div className={`info-popup ${showHomePopup ? "show" : ""}`}>
           <div className="flex-container">
             <div className="flex-container-inner">

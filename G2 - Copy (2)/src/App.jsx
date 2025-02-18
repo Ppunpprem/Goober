@@ -32,7 +32,7 @@ function MainLayout() {
           <Route path="/" element={<HomePage />} />
           <Route path="/log-regist" element={<LogPage />} />
           <Route path="/info-regist" element={<InfoRegistPage />} />
-          <Route path="/home_after_login" element={<H_ALog_Page />} />
+          <Route path="/home_after_login" element={<H_ALog_Page key={location.pathname} />} />
           <Route path="/location_info" element={<Location_Popup />} />
           <Route path="/badges" element={<BadgesPage />} />
           <Route path="/edit" element={<EditPage />} />
