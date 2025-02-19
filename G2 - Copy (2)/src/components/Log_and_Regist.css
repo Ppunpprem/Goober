@@ -64,14 +64,14 @@ button:focus-visible {
 
 p1 {
   color: #17005A;
-  font-size: 90px;
+  font-size: 5.5rem;
   font-weight: bold;
-  margin-left: 875px;
+  margin-left: 870px;
   display: flex;
   text-align: right;
   font-family: 'Afacad';
   font-weight:300; 
-  margin-top: 80px;
+  margin-top: 5%;
 }
 
 
