@@ -25,11 +25,10 @@ const MapComp = ({ setShowHomePopup, setSelectedMarker }) => {
       { id: 1, lat: 13.7292802, lng: 100.7755859, title: "Trash Can 1" },
       { id: 2, lat: 13.728, lng: 100.774, title: "Trash Can 2" },
     ];
-    
+
     console.log("Loaded markers from localStorage:", savedMarkers); // Debugging
     setMarkers(savedMarkers);
   }, []);
-  
 
   // Save markers to localStorage whenever they change
   useEffect(() => {
@@ -46,12 +45,11 @@ const MapComp = ({ setShowHomePopup, setSelectedMarker }) => {
 
   return (
     <LoadScript googleMapsApiKey="AIzaSyAn_jXXK48brxhnm4UmId0jBEbPGFe1UGM">
-      <GoogleMap
-        mapContainerStyle={containerStyle}
-        center={center}
-        zoom={15}>
-        
-
+      <GoogleMap mapContainerStyle={containerStyle} center={center} zoom={15}>
+        <Marker
+          position={{ lat: 13.723, lng: 100.7755859 }}
+          onClick={() => console.log("Static Marker clicked")}
+        />
         {markers.map((marker) => {
           console.log("Rendering Marker:", marker);
           return (
@@ -74,9 +72,7 @@ MapComp.propTypes = {
 
 export default MapComp;
 
-
-
-//<Marker
-//         position={{ lat: 13.7292802, lng: 100.7755859 }}
-//          onClick={() => console.log("Static Marker clicked")}
+// <Marker
+//   position={{ lat: 13.7292802, lng: 100.7755859 }}
+//   onClick={() => console.log("Static Marker clicked")}
 //       /> AIzaSyAn_jXXK48brxhnm4UmId0jBEbPGFe1UGM

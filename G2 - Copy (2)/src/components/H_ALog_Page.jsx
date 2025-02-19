@@ -50,7 +50,7 @@ const H_ALog_Page = () => {
   const [filters, setFilters] = useState(defaultFilters);
   const [showPopup, setShowPopup] = useState(false);
   const [selectedMarker, setSelectedMarker] = useState(null);
-  
+
   useEffect(() => {
     document.body.style.overflow = "hidden"; // Disable scrolling
     return () => {
@@ -85,13 +85,13 @@ const H_ALog_Page = () => {
   const [selected, setSelected] = useState(null);
 
   return (
-    
     <div className="alog-page">
       {/* Always Visible Search & Filter Popup */}
-       <div className="map-container">
-        <MapComp 
-        setShowHomePopup={setShowPopup} 
-        setSelectedMarker={setSelectedMarker} />
+      <div className="map-container">
+        <MapComp
+          setShowHomePopup={setShowPopup}
+          setSelectedMarker={setSelectedMarker}
+        />
       </div>
       <div className="alog-popup">
         <h2>Search</h2>
@@ -129,9 +129,9 @@ const H_ALog_Page = () => {
       </div>
 
       {/* Button to Show Hello Popup */}
-      <button className="alog-circle-button" onClick={() => setShowPopup(true)}>
+      {/* <button className="alog-circle-button" onClick={() => setShowPopup(true)}>
         <div className="alog-add-button">+</div>
-      </button>
+      </button> */}
 
       {/* Hello Popup */}
       {showPopup && selectedMarker && (

@@ -10,7 +10,6 @@ import cross from "../assets/cross-mark.png";
 import organic from "../assets/organic.png";
 import MapComp from "../components/Mapcomp";
 
-
 import { First_test_building, commnents } from "../Damo_data/bindata";
 
 const defaultHomeFilters = {
@@ -89,9 +88,10 @@ const HomePage = () => {
   return (
     <div className="home-page">
       <div className="map-container">
-        <MapComp 
-        setShowHomePopup={setShowHomePopup} 
-        setSelectedMarker={setSelectedMarker} />
+        <MapComp
+          setShowHomePopup={setShowHomePopup}
+          setSelectedMarker={setSelectedMarker}
+        />
       </div>
       <div className="home-popup">
         <h2>Search</h2>
@@ -128,14 +128,14 @@ const HomePage = () => {
         </div>
       </div>
 
-      <button
+      {/* <button
         className="home-circle-button"
         onClick={() => setShowHomePopup(true)}
       >
         <div className="home-add-button">+</div>
-      </button>
+      </button> */}
 
-       {showHomePopup && selectedMarker && (
+      {showHomePopup && selectedMarker && (
         <div className={`info-popup ${showHomePopup ? "show" : ""}`}>
           <div className="flex-container">
             <div className="flex-container-inner">
