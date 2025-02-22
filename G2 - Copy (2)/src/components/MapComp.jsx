@@ -37,8 +37,6 @@ const MapComp = ({ setShowHomePopup, setSelectedMarker }) => {
     }
   }, [markers]);
 
-  
-
   const handleMarkerClick = (marker) => {
     console.log("Marker clicked:", marker);
     setSelectedMarker(marker);
@@ -48,10 +46,10 @@ const MapComp = ({ setShowHomePopup, setSelectedMarker }) => {
   return (
     <LoadScript googleMapsApiKey="AIzaSyAn_jXXK48brxhnm4UmId0jBEbPGFe1UGM">
       <GoogleMap mapContainerStyle={containerStyle} center={center} zoom={15}>
-        {/* <Marker
+        <Marker
           position={{ lat: 13.72, lng: 100.7755859 }}
           onClick={() => console.log("Static Marker clicked")}
-        /> */}
+        />
         {markers.map((marker) => {
           console.log("Rendering Marker:", marker);
           return (
