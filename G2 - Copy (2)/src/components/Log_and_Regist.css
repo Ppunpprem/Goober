@@ -1,24 +1,25 @@
 @import url('https://fonts.googleapis.com/css2?family=Afacad:ital,wght@0,400..700;1,400..700&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+
 :root {
   font-family: 'Afacad', sans-serif;
-  font-size: 16px; /* Adjusted from 100px */
+  font-size: 16px;
   color: rgba(255, 255, 255, 0.87);
   background-color: #242424;
-
 }
-
 
 body {
   margin: 0;
   display: flex;
   flex-direction: column;
-  align-items: center; /* Center content */
+  align-items: center;
   justify-content: center;
+  height: 100vh;
 }
 
 h1 {
   font-size: 3.2em;
-  text-align: center; /* Avoid text-align: right globally */
+  text-align: center;
+  margin-left: calc(58%);
 }
 
 button {
@@ -32,9 +33,11 @@ button {
   cursor: pointer;
   transition: border-color 0.25s;
 }
+
 button:hover {
   border-color: #9AD4EC;
 }
+
 button:focus,
 button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
@@ -45,9 +48,11 @@ button:focus-visible {
     color: #ffffff;
     background-color: #ffffff;
   }
+
   a:hover {
     color: #9AD4EC;
   }
+
   button {
     background-color: #f9f9f9;
   }
@@ -57,51 +62,42 @@ button:focus-visible {
   text-decoration: underline;
   text-decoration-thickness: 3px;
   text-underline-offset: 15px;
-  margin-bottom: 20px; 
-  /* add space btw trashcan map and sign up */
-
+  margin-bottom: 20px;
 }
-
-p1 {
-  color: #17005A;
-  font-size: 5.5rem;
-  font-weight: bold;
-  margin-left: 850px;
-  display: flex;
-  text-align: right;
-  font-family: 'Afacad';
-  font-weight:300; 
-  margin-top: 5%;
-}
-
 
 .or-text {
-  font-size: 35px; /* Adjust font size of "OR" */
-  color: #17005A; /* Color for "OR" */
-  margin-top: 20px; /* Add space above the "OR" text */
-  margin-bottom: 0px;
+  font-size: 35px;
+  color: #17005A;
+  margin-top: 0;
+  margin-bottom: 0;
+  margin-left: calc(43%);
 }
 
 .log-in {
   color: #17005A;
   margin-top: 0px;
+  margin-bottom: 0;
+  margin-left: calc(43%);
 }
 
 .log-in-user {
   color: black;
   font-size: 25px;
-  margin-top: -30px;
-  margin-left: 555px;
-  
+  margin-top: 0;
+  margin-bottom: 30px;
+  margin-left: calc(43%);
+  text-align: center;
 }
 
 div p {
   font-size: 40px;
   color: #17005A;
-  margin-left: 800px;
-
+  margin: 0 auto;
+  margin-top: 70px;
+  margin-bottom: 0;
+  margin-left: calc(48%);
+  text-align: center;
 }
-
 
 .regist-button {
   background-color: #17005A;
@@ -109,12 +105,9 @@ div p {
   font-size: 23px;
   border-radius: 20px;
   padding: 10px 20px;
-  display: block; /* Ensure it takes up space */
-  margin-top: 150px;
-  margin-left: 1100px;/* Center horizontally */
-  width: 200px; /* Adjust button width */
+  width: 200px;
+  margin: 20px auto;
   text-align: center;
-  
 }
 
 .regist-button:hover {
@@ -123,59 +116,55 @@ div p {
   transition: 0.3s ease;
 }
 
-
 .signup-container {
-  display: flex;
-  flex-direction: column; /* Stack items vertically */
-  align-items: center; /* Center-align items horizontally */
-  gap: 20px; /* Space between "Sign Up" and the button */
-  margin-left: 800px; /* Adjust horizontal positioning */
-  margin-top: 0px;
-}
-
-.signup-container p {
-  margin: 0; /* Remove default margin for proper alignment */
-}
-
-.signup-container a {
-  text-decoration: none; /* Remove underline from the link */
-}
-
-
-.signup-container button {
-  margin: 0; /* Remove extra margins */
-}
-
-
-/* Username and Password box-set */
-.auth-box {
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 20px;
-  padding: 20px;
-  margin-bottom: -130px;
-  margin-left: 970px;
-  border: 2px solid #17005A;
-  border-radius: 10px;
-  width: 400px;
-  background-color: #f9f9f9;
-  position: relative; /* Ensure it is clickable */
-  z-index: 10;
 
+  margin-left: calc(43%);
+  text-align: center;
 }
 
+.signup-container p {
+  margin: 0;
+}
 
+.signup-container a {
+  text-decoration: none;
+}
+
+.signup-container button {
+  margin: 0;
+}
+
+/* Username and Password box-set */
+.auth-box {
+  background: rgba(255, 255, 255, 0.9);
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.2);
+  width: 350px;
+  text-align: center;
+  margin-left: calc(58%); /* Move the form slightly to the right (one-third) */
+  margin-top: 10px;
+}
+
+/* Input Field Styling */
 .input-field {
   display: flex;
-  align-items: center; /* Align icon and input vertically */
-  gap: 10px; /* Space between icon and input field */
-  width: 100%;
+  align-items: center;
+  background: #fff;
+  border: 1px solid #ccc;
+  padding: 12px;
+  border-radius: 8px;
+  margin: 10px 0;
 }
 
-.icon {
-  width: 30px; /* Adjust icon size */
-  height: 30px;
+.input-field .icon {
+  width: 20px;
+  height: 20px;
+  margin-right: 10px;
 }
 
 input {
@@ -188,35 +177,32 @@ input {
 
 input:focus {
   outline: none;
-  border-color: #9AD4EC; /* Highlight border on focus */
+  border-color: #9AD4EC;
 }
 
-
+/* Login Button */
 .login-button {
   background-color: #17005A;
-  color: #9AD4EC;
-  font-size: 23px;
-  border-radius: 20px;
-  padding: 10px 20px;
-  display: block; /* Ensure it takes up space */
-  margin-top: 150px;
-  margin-left: 1100px;/* Center horizontally */
-  width: 200px; /* Adjust button width */
-  text-align: center;
+  color: white;
+  font-size: 16px;
+  border: none;
+  padding: 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  width: 100%;
+  transition: 0.3s;
 }
-
-
 
 .login-button:hover {
   background-color: #9AD4EC;
   color: #17005A;
   transition: 0.3s ease;
-} 
+}
 
 .login-container {
-  text-decoration: none; /* Remove underline from the link */
+  text-decoration: none;
 }
 
 .login-container:visited {
-  text-decoration: none; /* Ensure visited links are also without underline */
+  text-decoration: none;
 }

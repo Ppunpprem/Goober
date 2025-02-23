@@ -10,6 +10,9 @@ import BadgesPage from "./components/Badges_Page";
 import EditPage from "./components/E_ALog_Page";
 import "./App.css";
 
+
+
+
 function App() {
   return (
     <Router>

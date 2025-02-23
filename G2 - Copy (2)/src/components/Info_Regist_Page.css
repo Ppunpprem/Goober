@@ -9,11 +9,20 @@ body {
   overflow: auto; /* Allow scrolling */
 }
 
+
+.information-title {
+  font-size: 50px;
+  margin-bottom: 20px;
+  margin-top: -10px;
+  font-weight: 550;
+  color: green;
+  text-align: center;
+  text-decoration: underline
+}
 .app-container {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
-  
 }
 
 .content-container {
@@ -41,24 +50,22 @@ body {
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
+.form-row {
+  display: flex;
+  flex-direction: column;
+  color: #17005A;
+  margin-bottom: 15px;
+  width: 100%; /* Ensure it takes up 100% width */
+}
+
 .form-row label {
   font-size: 16px;
   font-weight: 600;
   margin-bottom: 5px;
-  margin-right: auto;
   color: #17005A;
 }
 
-.form-row input {
-  padding: 10px;
-  font-size: 16px;
-  border: 1px solid #BEBEBE;
-  border-radius: 5px;
-  width: 100%;
-  box-sizing: border-box;
-  font-family: 'Afacad', sans-serif; /* Apply Afacad font */
-}
-
+.form-row input,
 .form-row select {
   padding: 10px;
   font-size: 16px;
@@ -66,13 +73,11 @@ body {
   border-radius: 5px;
   width: 100%;
   box-sizing: border-box;
-  font-family: 'Afacad', sans-serif; /* Apply Afacad font */
-  color: #666;
+  font-family: 'Afacad', sans-serif;
 }
 
-
-.form-row select option[value=""][disabled] {
-  color: #BEBEBE; /* Default gray color */
+.form-row select {
+  color: #666;
 }
 
 .form-row select:valid {
@@ -81,7 +86,6 @@ body {
 
 .save-button {
   margin-top: 20px;
-  width: 800px;
   padding: 15px;
   font-size: 18px;
   background-color: #17005A;
@@ -91,17 +95,11 @@ body {
   cursor: pointer;
   text-transform: uppercase;
   font-weight: 700;
+  width: 100%;
 }
 
 .save-button:hover {
   background-color: #9AD4EC;
-}
-
-.acc {
-  font-size: 25px;
-  margin-left: 10px;
-  margin-top: 5px;
-  text-align: center;
 }
 
 .profile-section {
@@ -128,7 +126,6 @@ body {
 .plus-sign {
   font-size: 48px;
   color: #666;
-  line-height: 1;  /* ให้ข้อความไม่ดันขึ้นลงเกินไป */
 }
 
 .image-upload {
@@ -142,8 +139,6 @@ body {
   border-radius: 50%;
 }
 
-
-
 .placeholder-text {
   font-size: 48px;
   color: #ffffff;
@@ -152,38 +147,87 @@ body {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  z-index: 2; /* Ensure the "+" is on top */
+  z-index: 2;
   pointer-events: none;
 }
 
-
+/* Flexbox for form rows */
 .info-form {
   display: flex;
   flex-wrap: wrap;
   gap: 20px;
-  justify-content: center;
+  justify-content: space-between;
 }
 
 .form-row {
-  flex: 1 1 calc(50% - 20px);
-  display: flex;
-  flex-direction: column;
-  color:#17005A;
+  flex: 1 1 45%; /* Ensure form fields take 45% of the container, creating space for 2 columns */
+  margin-bottom: 20px;
 }
 
-label {
-  font-size: 10px;
-  color: #17005A;
-  font-weight: bold;
-  margin-bottom: 5px;
-}
-
+.form-row input,
 .form-row select {
-  color: #7b7b7b; /* Default gray color */
+  width: 100%;
 }
 
-.form-row select option {
-  font-family: 'Afacad', sans-serif; /* Apply Montserrat font to options */
+@media screen and (max-width: 768px) {
+  /* Adjust form layout for smaller screens */
+  .info-form {
+    flex-direction: column;
+  }
+
+  .form-row {
+    flex: 1 1 100%; /* Stack inputs vertically on smaller screens */
+  }
+
+  .save-button {
+    width: 100%; /* Ensure save button is full width on small screens */
+  }
 }
 
+.notification {
+  position: fixed;
+  top: 400px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: white;
+  color: #17005A;
+  padding: 15px;
+  border-radius: 5px;
+  z-index: 1000;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  transition: opacity 0.3s ease-in-out;
+}
 
+.notification.error {
+  color: white;
+  background-color: #f44336;
+}
+
+.notification.success {
+  background-color: white;
+}
+
+.profile-photo-container {
+  display: flex;
+  align-items: center;
+}
+
+.profile-photo {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-right: 10px;
+}
+
+.file-input {
+  display: none;
+}
+
+.profile-photo-container input[type="file"] {
+  display: block;
+}
