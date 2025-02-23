@@ -47,7 +47,7 @@ const MapComp = ({ setShowHomePopup, setSelectedMarker }) => {
     <LoadScript googleMapsApiKey="AIzaSyAn_jXXK48brxhnm4UmId0jBEbPGFe1UGM">
       <GoogleMap mapContainerStyle={containerStyle} center={center} zoom={15}>
         <Marker
-          position={{ lat: 13.723, lng: 100.7755859 }}
+          position={{ lat: 13.72, lng: 100.7755859 }}
           onClick={() => console.log("Static Marker clicked")}
         />
         {markers.map((marker) => {
