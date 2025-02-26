@@ -1,7 +1,7 @@
-import './NavBar2.css';
-import logo from '../assets/logo.png';
-import { Link, useNavigate } from 'react-router-dom';
-import { useState, useEffect } from 'react';
+import "./NavBar2.css";
+import logo from "../assets/logo.png";
+import { Link, useNavigate } from "react-router-dom";
+import { useState, useEffect } from "react";
 import bin from "../assets/bin.png";
 import hazard from "../assets/hazard.png";
 import recycle from "../assets/recycle.png";
@@ -16,16 +16,16 @@ const NavBar2 = () => {
 
   useEffect(() => {
     const fetchUserData = async () => {
-      const token = localStorage.getItem('token');
+      const token = localStorage.getItem("token");
       if (token) {
         try {
-          const res = await fetch("http://localhost:5000/api/auth/profile", {
+          const res = await fetch("http://localhost:5001/api/auth/profile", {
             method: "GET",
             headers: { "x-auth-token": token },
           });
-  
+
           const data = await res.json();
-          console.log('User data:', data); // Log the user data here
+          console.log("User data:", data); // Log the user data here
           if (res.ok) {
             setUser(data);
             setLoading(false); // Set loading to false once data is fetched
@@ -42,20 +42,18 @@ const NavBar2 = () => {
         setLoading(false); // If no token, set loading to false
       }
     };
-  
+
     fetchUserData();
   }, []);
-  
-  
 
   // Handle user logout
   const handleLogout = () => {
-    localStorage.removeItem('token');  // Remove token from localStorage
-    navigate('/');  // Redirect to login page
+    localStorage.removeItem("token"); // Remove token from localStorage
+    navigate("/"); // Redirect to login page
   };
 
-  const togglePopup = () => setShowPopup(prev => !prev);
-  const toggleAddTrashcanPopup = () => setShowAddTrashcanPopup(prev => !prev);
+  const togglePopup = () => setShowPopup((prev) => !prev);
+  const toggleAddTrashcanPopup = () => setShowAddTrashcanPopup((prev) => !prev);
 
   return (
     <nav className="navbar">
@@ -63,7 +61,9 @@ const NavBar2 = () => {
         <div className="logo-container">
           <h1 className="navbar-title">TRASHCAN MAP</h1>
           <img src={logo} alt="logo" className="navbar-logo" />
-          <Link to="/home_after_login" className="navbar-link">Home</Link>
+          <Link to="/home_after_login" className="navbar-link">
+            Home
+          </Link>
           <div className="navbar-link" onClick={toggleAddTrashcanPopup}>
             Add a trashcan
           </div>
@@ -72,19 +72,31 @@ const NavBar2 = () => {
         <div className="navbar-links">
           {/* Conditionally render the username only if user is available and not loading */}
           <div className="navbar-link navbar-lr" onClick={togglePopup}>
-            {loading ? "Loading..." : user ? user.username : "Guest"} {/* Render loading or username */}
+            {loading ? "Loading..." : user ? user.username : "Guest"}{" "}
+            {/* Render loading or username */}
           </div>
 
-          <img src={logo} alt="logo" className="navbar-logo navbar-logo-right" />
+          <img
+            src={logo}
+            alt="logo"
+            className="navbar-logo navbar-logo-right"
+          />
         </div>
       </div>
 
       {showPopup && (
         <div className="popup">
           <div className="menu-container">
-            <Link to="/edit" className="edit-link">Edit</Link>
-            <Link to="/badges" className="edit-link">Badges</Link>
-            <div className="edit-link" onClick={handleLogout}>Log Out</div> {/* Logout button */}
+            <Link to="/edit" className="edit-link">
+              Edit
+            </Link>
+            <Link to="/badges" className="edit-link">
+              Badges
+            </Link>
+            <div className="edit-link" onClick={handleLogout}>
+              Log Out
+            </div>{" "}
+            {/* Logout button */}
           </div>
         </div>
       )}
