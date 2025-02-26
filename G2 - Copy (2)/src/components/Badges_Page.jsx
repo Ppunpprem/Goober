@@ -15,16 +15,16 @@ const BadgesPage = () => {
   const badges = [
     {
       id: 1,
-      title: 'Trash Tracker',
-      description: 'Check in at 4 different trash or recycling bins to help promote cleanliness in your community.',
+      title: 'Bin Explorer',
+      description: 'Earn this badge by adding a trashcan to your collection a total of 4 times.',
       progress: '0/4',
       color: '#FFD580',
       icon: awardicon,
     },
     {
       id: 2,
-      title: 'Eco Champion',
-      description: 'Recycle at least 10 items to prove your dedication to a sustainable lifestyle and reducing waste.',
+      title: 'Trash Tracker',
+      description: 'Earn this badge by checking the trashcan information a total of 10 times.',
       progress: '2/10',
       color: '#B0DD9C',
       icon: appleicon,

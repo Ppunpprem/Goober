@@ -1,26 +1,26 @@
-import { useState, useEffect, useRef } from 'react';
-import { Link } from 'react-router-dom';
-import axios from 'axios';
-import './NavBar2.css';
-import './Info_Regist_Page.css';
+import { useState, useEffect, useRef } from "react";
+import { Link } from "react-router-dom";
+import axios from "axios";
+import "./NavBar2.css";
+import "./Info_Regist_Page.css";
 
 const EditPage = () => {
   const [userData, setUserData] = useState({
-    firstName: '',
-    middleName: '',
-    lastName: '',
-    age: '',
-    gender: '',
-    phone: '',
-    email: '',
-    homeAddress: '',
-    username: '',
-    password: '',
+    firstName: "",
+    middleName: "",
+    lastName: "",
+    age: "",
+    gender: "",
+    phone: "",
+    email: "",
+    homeAddress: "",
+    username: "",
+    password: "",
   });
 
   const [notification, setNotification] = useState({
-    message: '',
-    type: '',
+    message: "",
+    type: "",
     visible: false,
   });
 
@@ -31,13 +31,16 @@ const EditPage = () => {
   useEffect(() => {
     const fetchUserData = async () => {
       try {
-        const response = await axios.get('http://localhost:5000/api/auth/profile', {
-          headers: { 'x-auth-token': localStorage.getItem('token') },
-        });
+        const response = await axios.get(
+          "http://localhost:5001/api/auth/profile",
+          {
+            headers: { "x-auth-token": localStorage.getItem("token") },
+          }
+        );
         setUserData(response.data);
         setProfilePhoto(response.data.profilePhoto || null);
       } catch (error) {
-        console.error('Error fetching user data:', error);
+        console.error("Error fetching user data:", error);
       }
     };
 
@@ -51,83 +54,115 @@ const EditPage = () => {
 
   const handleImageUpload = (e) => {
     const file = e.target.files[0];
-    
+
     if (!file) return;
 
     const imageUrl = URL.createObjectURL(file);
     setProfilePhoto(imageUrl);
     const formData = new FormData();
-    formData.append('profilePhoto', file);
-    
-  
-    axios.put('http://localhost:5000/api/auth/profile', formData, {
-      headers: {
-        'x-auth-token': localStorage.getItem('token'),
-        'Content-Type': 'multipart/form-data',
-      },
-    })
-    .then(response => {
-      // Handle response, set the profilePhoto URL if needed
-      setProfilePhoto(response.data.profilePhoto || imageUrl);  // Optionally, set backend response URL
-    })
-    .catch(error => console.error('Error uploading image:', error));
+    formData.append("profilePhoto", file);
+
+    axios
+      .put("http://localhost:5001/api/auth/profile", formData, {
+        headers: {
+          "x-auth-token": localStorage.getItem("token"),
+          "Content-Type": "multipart/form-data",
+        },
+      })
+      .then((response) => {
+        // Handle response, set the profilePhoto URL if needed
+        setProfilePhoto(response.data.profilePhoto || imageUrl); // Optionally, set backend response URL
+      })
+      .catch((error) => console.error("Error uploading image:", error));
   };
-  
-  
-  
 
   const handleClick = () => {
     fileInputRef.current.click();
   };
 
   const handleSubmit = async (e) => {
-  e.preventDefault();
-  if (!window.confirm('Are you sure you want to save changes?')) return;
-  
-  try {
-    const response = await axios.put('http://localhost:5000/api/auth/profile', userData, {
-      headers: { 'x-auth-token': localStorage.getItem('token') },
-    });
-    setNotification({ message: 'Profile updated successfully!', type: 'success', visible: true });
-    setTimeout(() => setNotification({ ...notification, visible: false }), 3000);
-  } catch (err) {
-    setNotification({ message: 'Error updating profile. Try again.', type: 'error', visible: true });
-    setTimeout(() => setNotification({ ...notification, visible: false }), 3000);
-  }
-};
+    e.preventDefault();
+    if (!window.confirm("Are you sure you want to save changes?")) return;
 
+    try {
+      const response = await axios.put(
+        "http://localhost:5001/api/auth/profile",
+        userData,
+        {
+          headers: { "x-auth-token": localStorage.getItem("token") },
+        }
+      );
+      setNotification({
+        message: "Profile updated successfully!",
+        type: "success",
+        visible: true,
+      });
+      setTimeout(
+        () => setNotification({ ...notification, visible: false }),
+        3000
+      );
+    } catch (err) {
+      setNotification({
+        message: "Error updating profile. Try again.",
+        type: "error",
+        visible: true,
+      });
+      setTimeout(
+        () => setNotification({ ...notification, visible: false }),
+        3000
+      );
+    }
+  };
 
   return (
     <div className="app-container">
       <main className="content-container">
-        <h1 className="information-title" style={{marginLeft: "20px"}}>{isEditing ? 'Edit Information' : 'Profile Information'}</h1>
+        <h1 className="information-title" style={{ marginLeft: "20px" }}>
+          {isEditing ? "Edit Information" : "Profile Information"}
+        </h1>
 
-        {notification.visible && <div className={`notification ${notification.type}`}>{notification.message}</div>}
+        {notification.visible && (
+          <div className={`notification ${notification.type}`}>
+            {notification.message}
+          </div>
+        )}
 
         <div className="form-container">
           <div className="profile-section">
-            <p className="acc" style={{marginLeft: "35%"}}>Account Image</p>
+            <p className="acc" style={{ marginLeft: "35%" }}>
+              Account Image
+            </p>
             <div className="profile-image-placeholder" onClick={handleClick}>
               {profilePhoto ? (
-                <img src={profilePhoto} alt="Profile" className="profile-image" />
+                <img
+                  src={profilePhoto}
+                  alt="Profile"
+                  className="profile-image"
+                />
               ) : (
                 <p className="placeholder-text">+</p>
               )}
             </div>
-            <input type="file" accept="image/*" ref={fileInputRef} onChange={handleImageUpload} hidden />
+            <input
+              type="file"
+              accept="image/*"
+              ref={fileInputRef}
+              onChange={handleImageUpload}
+              hidden
+            />
           </div>
 
           <form className="info-form" onSubmit={handleSubmit}>
             {[
-              { label: 'First name', name: 'firstName', type: 'text' },
-              { label: 'Middle name', name: 'middleName', type: 'text' },
-              { label: 'Last name', name: 'lastName', type: 'text' },
-              { label: 'Age', name: 'age', type: 'number', min: '0' },
-              { label: 'Phone number', name: 'phone', type: 'tel' },
-              { label: 'Email', name: 'email', type: 'email' },
-              { label: 'Home Address', name: 'homeAddress', type: 'text' },
-              { label: 'Username', name: 'username', type: 'text' },
-              { label: 'Password', name: 'password', type: 'password' },
+              { label: "First name", name: "firstName", type: "text" },
+              { label: "Middle name", name: "middleName", type: "text" },
+              { label: "Last name", name: "lastName", type: "text" },
+              { label: "Age", name: "age", type: "number", min: "0" },
+              { label: "Phone number", name: "phone", type: "tel" },
+              { label: "Email", name: "email", type: "email" },
+              { label: "Home Address", name: "homeAddress", type: "text" },
+              { label: "Username", name: "username", type: "text" },
+              { label: "Password", name: "password", type: "password" },
             ].map(({ label, name, type, min }) => (
               <div className="form-row" key={name}>
                 <label>{label}</label>
@@ -137,7 +172,7 @@ const EditPage = () => {
                   value={userData[name]}
                   onChange={handleChange}
                   placeholder={label}
-                  className={isEditing ? '' : 'no-edit'}
+                  className={isEditing ? "" : "no-edit"}
                   readOnly={!isEditing}
                   min={min}
                 />
@@ -146,8 +181,16 @@ const EditPage = () => {
 
             <div className="form-row">
               <label>Gender</label>
-              <select name="gender" value={userData.gender} onChange={handleChange} required disabled={!isEditing}>
-                <option value="" disabled>Please choose your gender</option>
+              <select
+                name="gender"
+                value={userData.gender}
+                onChange={handleChange}
+                required
+                disabled={!isEditing}
+              >
+                <option value="" disabled>
+                  Please choose your gender
+                </option>
                 <option value="male">Male</option>
                 <option value="female">Female</option>
                 <option value="lgbtq">LGBTQ+</option>
@@ -155,27 +198,36 @@ const EditPage = () => {
               </select>
             </div>
 
-            <div className="form-actions" style={{ display: 'flex', justifyContent: 'center', flexDirection: 'column', alignItems: 'center', width: '100%' }}>
+            <div
+              className="form-actions"
+              style={{
+                display: "flex",
+                justifyContent: "center",
+                flexDirection: "column",
+                alignItems: "center",
+                width: "100%",
+              }}
+            >
               <button
                 type="button"
                 className="edit-toggle-button"
                 onClick={() => setIsEditing(!isEditing)}
                 style={{
-                  backgroundColor: isEditing ? '#4CAF50' : '#007BFF',
-                  color: 'white',
-                  padding: '12px 24px',
-                  border: 'none',
-                  borderRadius: '50px',
-                  cursor: 'pointer',
-                  fontSize: '16px',
-                  fontWeight: 'bold',
-                  transition: 'background-color 0.3s ease, transform 0.3s ease',
-                  boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
+                  backgroundColor: isEditing ? "#4CAF50" : "#007BFF",
+                  color: "white",
+                  padding: "12px 24px",
+                  border: "none",
+                  borderRadius: "50px",
+                  cursor: "pointer",
+                  fontSize: "16px",
+                  fontWeight: "bold",
+                  transition: "background-color 0.3s ease, transform 0.3s ease",
+                  boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
                 }}
-                onMouseEnter={(e) => (e.target.style.transform = 'scale(1.05)')}
-                onMouseLeave={(e) => (e.target.style.transform = 'scale(1)')}
+                onMouseEnter={(e) => (e.target.style.transform = "scale(1.05)")}
+                onMouseLeave={(e) => (e.target.style.transform = "scale(1)")}
               >
-                {isEditing ? 'Switch to View Mode' : 'Switch to Edit Mode'}
+                {isEditing ? "Switch to View Mode" : "Switch to Edit Mode"}
               </button>
 
               {isEditing && (
@@ -183,19 +235,22 @@ const EditPage = () => {
                   type="submit"
                   className="save-button"
                   style={{
-                    backgroundColor: '#17005A',
-                    color: 'white',
-                    padding: '12px 24px',
-                    border: 'none',
-                    borderRadius: '50px',
-                    cursor: 'pointer',
-                    fontSize: '16px',
-                    fontWeight: 'bold',
-                    transition: 'background-color 0.3s ease, transform 0.3s ease',
-                    boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
+                    backgroundColor: "#17005A",
+                    color: "white",
+                    padding: "12px 24px",
+                    border: "none",
+                    borderRadius: "50px",
+                    cursor: "pointer",
+                    fontSize: "16px",
+                    fontWeight: "bold",
+                    transition:
+                      "background-color 0.3s ease, transform 0.3s ease",
+                    boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
                   }}
-                  onMouseEnter={(e) => (e.target.style.transform = 'scale(1.05)')}
-                  onMouseLeave={(e) => (e.target.style.transform = 'scale(1)')}
+                  onMouseEnter={(e) =>
+                    (e.target.style.transform = "scale(1.05)")
+                  }
+                  onMouseLeave={(e) => (e.target.style.transform = "scale(1)")}
                 >
                   Save Changes
                 </button>
