@@ -163,7 +163,7 @@ router.get("/profile", authMiddleware, async (req, res) => {
       homeAddress: user.homeAddress,
       username: user.username,
       profilePhoto: user.profilePhoto
-        ? `http://localhost:5000/${user.profilePhoto.replace(/\\/g, "/")}`
+        ? `http://localhost:5001/${user.profilePhoto.replace(/\\/g, "/")}`
         : null,
     });
   } catch (err) {
@@ -223,7 +223,7 @@ router.put(
         // Delete the old profile photo if it exists
         if (user.profilePhoto) {
           const oldPath = user.profilePhoto.replace(
-            "http://localhost:5000/",
+            "http://localhost:5001/",
             ""
           );
           fs.unlink(oldPath, (err) => {
@@ -250,7 +250,7 @@ router.put(
           gender: user.gender,
           homeAddress: user.homeAddress,
           profilePhoto: user.profilePhoto
-            ? `http://localhost:5000/${user.profilePhoto.replace(/\\/g, "/")}`
+            ? `http://localhost:5001/${user.profilePhoto.replace(/\\/g, "/")}`
             : null,
         },
       });
