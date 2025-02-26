@@ -12,7 +12,6 @@ const userSchema = new mongoose.Schema({
     username: { type: String, required: true, unique: true },
     password: { type: String, required: true },
     profilePhoto: { type: String },
-    // profileImage: { type: String, default: 'C:\Users\Asus\Downloads\Documents\Uni\sec_yr\WebProg\Goober\G2 - Copy (2)\src\assets\profile.png' },
 });
 
 const User = mongoose.model('User', userSchema);

@@ -43,7 +43,7 @@ router.post(
         body('password').isLength({ min: 6 }).withMessage('Password must be at least 6 characters long'),
         body('firstName').notEmpty().withMessage('First name is required'),
         body('lastName').notEmpty().withMessage('Last name is required'),
-        body('age').isInt({ min: 18 }).withMessage('Age must be at least 18'),
+        body('age').notEmpty().withMessage('Age is required'),
         body('gender').notEmpty().withMessage('Gender is required'),
         body('phone').isLength({ min: 10, max: 10 }).withMessage('Phone number must be 10 digits'),
         body('username').notEmpty().withMessage('Username is required'),
