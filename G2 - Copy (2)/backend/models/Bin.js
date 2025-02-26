@@ -1,30 +1,28 @@
 import mongoose from "mongoose";
 
-const binSchema = new mongoose.Schema({
-    bin_location: {type:location}
-//   firstName: { type: String, required: true },
-//   middleName: { type: String },
-//   lastName: { type: String, required: true },
-//   age: { type: Number, required: true },
-//   gender: { type: String, required: true },
-//   phone: { type: String, required: true },
-//   email: { type: String, required: true, unique: true },
-//   homeAddress: { type: String },
-//   username: { type: String, required: true, unique: true },
-//   password: { type: String, required: true },
-//   profilePhoto: { type: String },
-  // profileImage: { type: String, default: 'C:\Users\Asus\Downloads\Documents\Uni\sec_yr\WebProg\Goober\G2 - Copy (2)\src\assets\profile.png' },
+// Comment Schema
+const commentSchema = new mongoose.Schema({
+  user: { type: mongoose.Schema.Types.ObjectId, ref: "User", required: true }, // Reference to User
+  bin: { type: mongoose.Schema.Types.ObjectId, ref: "Bin", required: true }, // Reference to Bin
+  text: { type: String, required: true }, // Comment text
+  createdAt: { type: Date, default: Date.now }, // Timestamp
 });
 
-// lat: 13.72, lng: 100.7755859
-//  this.building_name = Building;
-// info correct or not how many times
-//   this.floor_number = Floor;
-//   this.general_waste = Features_general_waste;
-//   this.recycle_waste = Features_recycle_waste;
-//   this.organic_waste = Features_organic_waste;
-//   this.hazardous_waste = Features_hazardous_waste;
-//  comment text and profile
-const User = mongoose.model("Bin", userSchema);
+// Bin Schema
+const binSchema = new mongoose.Schema({
+  bin_location: { type: Object, required: true }, // Changed 'location' to 'Object' to avoid errors
+  bin_name_location: { type: String, required: true },
+  bin_info_correction: { type: Number, default: 0 },
+  bin_floor_number: { type: Number, required: true },
+  bin_features_general_waste: { type: Boolean, required: true },
+  bin_features_recycle_waste: { type: Boolean, required: true },
+  bin_features_organic_waste: { type: Boolean, required: true },
+  bin_features_hazardous_waste: { type: Boolean, required: true },
+  comments: [{ type: mongoose.Schema.Types.ObjectId, ref: "Comment" }], // Array of comments
+});
 
-export default User;
+// Models
+const Bin = mongoose.model("Bin", binSchema);
+const Comment = mongoose.model("Comment", commentSchema);
+
+export { Bin, Comment };
