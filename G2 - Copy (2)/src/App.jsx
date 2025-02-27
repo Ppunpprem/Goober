@@ -9,15 +9,15 @@ import Location_Popup from "./components/Location_Info";
 import BadgesPage from "./components/Badges_Page";
 import EditPage from "./components/E_ALog_Page";
 import "./App.css";
-
-
-
+import { UserProvider } from "./context/UserContext";
 
 function App() {
   return (
-    <Router>
-      <MainLayout />
-    </Router>
+    <UserProvider> 
+      <Router>
+        <MainLayout />
+      </Router>
+    </UserProvider>
   );
 }
 
@@ -44,6 +44,5 @@ function MainLayout() {
     </>
   );
 }
-
 
 export default App;

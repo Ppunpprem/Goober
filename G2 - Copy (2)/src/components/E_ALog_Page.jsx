@@ -52,6 +52,8 @@ const EditPage = () => {
     setUserData((prev) => ({ ...prev, [name]: value }));
   };
 
+  const [selectedFile, setSelectedFile] = useState(null);
+
   const handleImageUpload = (e) => {
     const file = e.target.files[0];
 
@@ -59,21 +61,10 @@ const EditPage = () => {
 
     const imageUrl = URL.createObjectURL(file);
     setProfilePhoto(imageUrl);
-    const formData = new FormData();
-    formData.append("profilePhoto", file);
+    setSelectedFile(file);
+    // const formData = new FormData();
+    // formData.append("profilePhoto", file);
 
-    axios
-      .put("http://localhost:5001/api/auth/profile", formData, {
-        headers: {
-          "x-auth-token": localStorage.getItem("token"),
-          "Content-Type": "multipart/form-data",
-        },
-      })
-      .then((response) => {
-        // Handle response, set the profilePhoto URL if needed
-        setProfilePhoto(response.data.profilePhoto || imageUrl); // Optionally, set backend response URL
-      })
-      .catch((error) => console.error("Error uploading image:", error));
   };
 
   const handleClick = () => {
@@ -83,22 +74,38 @@ const EditPage = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!window.confirm("Are you sure you want to save changes?")) return;
-
+  
     try {
+      const formData = new FormData();
+  
+      if (selectedFile) {
+        formData.append("profilePhoto", selectedFile);
+      }
+  
+      Object.keys(userData).forEach((key) => {
+        formData.append(key, userData[key]);
+      });
+  
       const response = await axios.put(
         "http://localhost:5001/api/auth/profile",
-        userData,
+        formData, 
         {
-          headers: { "x-auth-token": localStorage.getItem("token") },
+          headers: {
+            "x-auth-token": localStorage.getItem("token"),
+            "Content-Type": "multipart/form-data",
+          },
         }
       );
+  
+      setProfilePhoto(response.data.profilePhoto || profilePhoto);
       setNotification({
         message: "Profile updated successfully!",
         type: "success",
         visible: true,
       });
+  
       setTimeout(
-        () => setNotification({ ...notification, visible: false }),
+        () => setNotification((prev) => ({ ...prev, visible: false })),
         3000
       );
     } catch (err) {
@@ -107,12 +114,14 @@ const EditPage = () => {
         type: "error",
         visible: true,
       });
+  
       setTimeout(
-        () => setNotification({ ...notification, visible: false }),
+        () => setNotification((prev) => ({ ...prev, visible: false })),
         3000
       );
     }
   };
+  
 
   return (
     <div className="app-container">
@@ -132,7 +141,9 @@ const EditPage = () => {
             <p className="acc" style={{ marginLeft: "35%" }}>
               Account Image
             </p>
-            <div className="profile-image-placeholder" onClick={handleClick}>
+            <div className="profile-image-placeholder" onClick={handleClick} style={{
+                cursor: isEditing ? "pointer" : "default", // Disable cursor when not in edit mode
+              }}>
               {profilePhoto ? (
                 <img
                   src={profilePhoto}
@@ -149,6 +160,7 @@ const EditPage = () => {
               ref={fileInputRef}
               onChange={handleImageUpload}
               hidden
+              disabled={!isEditing} 
             />
           </div>
 

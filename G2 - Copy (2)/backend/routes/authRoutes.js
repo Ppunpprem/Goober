@@ -145,7 +145,7 @@ router.get('/profile', authMiddleware, async (req, res) => {
         gender: user.gender,
         homeAddress: user.homeAddress,
         username: user.username,
-        profilePhoto: user.profilePhoto ? `http://localhost:5000/${user.profilePhoto.replace(/\\/g, "/")}` : null
+        profilePhoto: user.profilePhoto ? `http://localhost:5001/${user.profilePhoto.replace(/\\/g, "/")}` : null
 
     });
     } catch (err) {
@@ -188,7 +188,7 @@ router.put('/profile', authMiddleware, upload.single('profilePhoto'), async (req
         if (req.file) {
             // Delete the old profile photo if it exists
             if (user.profilePhoto) {
-                const oldPath = user.profilePhoto.replace('http://localhost:5000/', '');
+                const oldPath = user.profilePhoto.replace('http://localhost:5001/', '');
                 fs.unlink(oldPath, (err) => {
                     if (err) console.error("Failed to delete old profile photo:", err);
                 });
@@ -212,7 +212,7 @@ router.put('/profile', authMiddleware, upload.single('profilePhoto'), async (req
                 age: user.age,
                 gender: user.gender,
                 homeAddress: user.homeAddress,
-                profilePhoto: user.profilePhoto ? `http://localhost:5000/${user.profilePhoto.replace(/\\/g, "/")}` : null
+                profilePhoto: user.profilePhoto ? `http://localhost:5001/${user.profilePhoto.replace(/\\/g, "/")}` : null
 
                         }
         });

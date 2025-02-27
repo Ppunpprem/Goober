@@ -6,12 +6,17 @@ import bin from "../assets/bin.png";
 import hazard from "../assets/hazard.png";
 import recycle from "../assets/recycle.png";
 import organic from "../assets/organic.png";
+import { useUser } from "../context/UserContext"; // Import the useUser hook
+
 
 const NavBar2 = () => {
+
+  const { user, updateUser } = useUser(); // Use the context to get user data and the update function
+
   const [showPopup, setShowPopup] = useState(false);
   const [showAddTrashcanPopup, setShowAddTrashcanPopup] = useState(false);
   const navigate = useNavigate();
-  const [user, setUser] = useState(null); // Initial user state is null
+  // const [user, setUser] = useState(null); // Initial user state is null
   const [loading, setLoading] = useState(true); // Loading state to indicate data fetching
 
   useEffect(() => {
@@ -27,7 +32,7 @@ const NavBar2 = () => {
           const data = await res.json();
           console.log("User data:", data); // Log the user data here
           if (res.ok) {
-            setUser(data);
+            updateUser(data);
             setLoading(false); // Set loading to false once data is fetched
           } else {
             alert("Failed to load profile");
@@ -44,7 +49,7 @@ const NavBar2 = () => {
     };
 
     fetchUserData();
-  }, []);
+  }, [updateUser]);
 
   // Handle user logout
   const handleLogout = () => {
@@ -73,14 +78,20 @@ const NavBar2 = () => {
           {/* Conditionally render the username only if user is available and not loading */}
           <div className="navbar-link navbar-lr" onClick={togglePopup}>
             {loading ? "Loading..." : user ? user.username : "Guest"}{" "}
+            
             {/* Render loading or username */}
           </div>
 
-          <img
+          <img 
+            src={user?.profilePhoto || logo} 
+            alt="profile" 
+            className="navbar-logo navbar-logo-right" />
+
+          {/* <img
             src={logo}
             alt="logo"
             className="navbar-logo navbar-logo-right"
-          />
+          /> */}
         </div>
       </div>
 
