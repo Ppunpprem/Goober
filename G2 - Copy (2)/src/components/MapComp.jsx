@@ -1,78 +1,91 @@
 import PropTypes from "prop-types";
-import { useState, useEffect } from "react";
-import { GoogleMap, LoadScript, Marker } from "@react-google-maps/api";
+import { useEffect, useState } from "react";
+import { GoogleMap, useJsApiLoader, Marker, InfoWindow } from "@react-google-maps/api";
 
-const containerStyle = {
-  width: "100%",
-  height: "100vh",
-  position: "absolute",
-  top: 0,
-  left: 0,
-};
-
-const center = {
-  lat: 13.7292802,
-  lng: 100.7755859,
-};
+const mapCenter = { lat:13.729109970727297, lng:100.77557815261738 };
 
 const MapComp = ({ setShowHomePopup, setSelectedMarker }) => {
-  // Initialize markers state
-  const [markers, setMarkers] = useState([]);
-
-  // Load markers from localStorage on mount
-  useEffect(() => {
-    const savedMarkers = JSON.parse(localStorage.getItem("markers")) || [
-      { id: 1, lat: 13.7292802, lng: 100.7755859, title: "Trash Can 1" },
-      { id: 2, lat: 13.728, lng: 100.774, title: "Trash Can 2" },
-    ];
-
-    console.log("Loaded markers from localStorage:", savedMarkers); // Debugging
-    setMarkers(savedMarkers);
-  }, []);
-
-  // Save markers to localStorage whenever they change
-  useEffect(() => {
-    if (markers.length > 0) {
-      localStorage.setItem("markers", JSON.stringify(markers));
-    }
-  }, [markers]);
+  const [userLocation, setUserLocation] = useState(null);
+  const [trashCanLocations, setTrashCanLocations] = useState([]);
+  // const [selectedMarker, setSelectedMarker] = useState(null); // Track selected marker for popup
+  
+  // Load Google Maps API
+  const { isLoaded } = useJsApiLoader({
+    googleMapsApiKey: import.meta.env.VITE_GOOGLE_MAPS_API_KEY,
+  });
 
   const handleMarkerClick = (marker) => {
-    console.log("Marker clicked:", marker);
     setSelectedMarker(marker);
     setShowHomePopup(true);
   };
+  // Load saved markers from localStorage when the component mounts
+  useEffect(() => {
+    if (isLoaded) {
+      const savedMarkers = localStorage.getItem("trashCanMarkers");
+      if (savedMarkers) {
+        setTrashCanLocations(JSON.parse(savedMarkers));
+      }
+
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(
+          (position) => {
+            setUserLocation({
+              lat: position.coords.latitude,
+              lng: position.coords.longitude,
+            });
+          },
+          (error) => console.log("Geolocation permission denied:", error)
+        );
+      }
+    }
+  }, [isLoaded]);
+
+  // Handle map click to add a new trash can marker
+  const handleMapClick = (event) => {
+    const newMarker = {
+      lat: event.latLng.lat(),
+      lng: event.latLng.lng(),
+    };
+    const updatedMarkers = [...trashCanLocations, newMarker];
+
+    setTrashCanLocations(updatedMarkers);
+    localStorage.setItem("trashCanMarkers", JSON.stringify(updatedMarkers));
+  };
+
+  if (!isLoaded) return <h2>Loading Map...</h2>;
 
   return (
-    <LoadScript googleMapsApiKey="AIzaSyAn_jXXK48brxhnm4UmId0jBEbPGFe1UGM">
-      <GoogleMap mapContainerStyle={containerStyle} center={center} zoom={15}>
+    <GoogleMap
+      center={userLocation || mapCenter}
+      zoom={16}
+      mapContainerStyle={{ height: "100vh", width: "100%" }}
+      onClick={handleMapClick}
+    >
+      {/* Render trash can markers */}
+      {trashCanLocations.map((loc, idx) => (
         <Marker
-          position={{ lat: 13.72, lng: 100.7755859 }}
-          onClick={() => console.log("Static Marker clicked")}
+          key={`trash-can-${idx}`} // Use index for marker keys
+          position={loc}
+          icon="https://maps.google.com/mapfiles/ms/icons/green-dot.png"
+          onClick={() => handleMarkerClick(loc)} // Trigger popup on marker click
         />
-        {markers.map((marker) => {
-          console.log("Rendering Marker:", marker);
-          return (
-            <Marker
-              key={marker.id}
-              position={{ lat: marker.lat, lng: marker.lng }}
-              onClick={() => handleMarkerClick(marker)}
-            />
-          );
-        })}
-      </GoogleMap>
-    </LoadScript>
+      ))}
+
+      {/* Render user location marker if available */}
+      {userLocation && (
+        <Marker
+          position={userLocation}
+          icon="https://maps.google.com/mapfiles/ms/icons/blue-dot.png"
+        />
+      )}
+
+     
+
+    </GoogleMap>
   );
 };
-
 MapComp.propTypes = {
   setShowHomePopup: PropTypes.func.isRequired,
   setSelectedMarker: PropTypes.func.isRequired,
 };
-
 export default MapComp;
-
-// <Marker
-//   position={{ lat: 13.7292802, lng: 100.7755859 }}
-//   onClick={() => console.log("Static Marker clicked")}
-//       /> AIzaSyAn_jXXK48brxhnm4UmId0jBEbPGFe1UGM

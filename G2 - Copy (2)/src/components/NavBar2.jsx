@@ -22,29 +22,26 @@ const NavBar2 = () => {
   useEffect(() => {
     const fetchUserData = async () => {
       const token = localStorage.getItem("token");
-      if (token) {
-        try {
-          const res = await fetch("http://localhost:5001/api/auth/profile", {
-            method: "GET",
-            headers: { "x-auth-token": token },
-          });
+      if (!token) {
+        setLoading(false);
+        return;
+      }
 
-          const data = await res.json();
-          console.log("User data:", data); // Log the user data here
-          if (res.ok) {
-            updateUser(data);
-            setLoading(false); // Set loading to false once data is fetched
-          } else {
-            alert("Failed to load profile");
-            setLoading(false); // Set loading to false on error too
-          }
-        } catch (error) {
-          console.error("Error fetching user data:", error);
-          alert("Failed to load profile");
-          setLoading(false); // Set loading to false on error
-        }
-      } else {
-        setLoading(false); // If no token, set loading to false
+      try {
+        const res = await fetch("http://localhost:5001/api/auth/profile", {
+          method: "GET",
+          headers: { "x-auth-token": token },
+        });
+
+        if (!res.ok) throw new Error("Failed to load profile");
+
+        const data = await res.json();
+        updateUser(data);
+        console.log(updateUser)
+      } catch (error) {
+        console.error("Error fetching user data:", error);
+      } finally {
+        setLoading(false);
       }
     };
 
