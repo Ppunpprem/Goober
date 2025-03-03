@@ -2,7 +2,7 @@ import express from "express";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import { body, validationResult } from "express-validator";
-import User from "../models/User.js";
+import { User } from "../models/User.js";
 import authMiddleware from "../middleware/authMiddleware.js";
 import authenticateToken from "../middleware/authenticateToken.js";
 import multer from "multer";
@@ -144,26 +144,27 @@ router.post(
 );
 
 // Protected Route
- 
-router.get('/profile', authMiddleware, async (req, res) => {
-    try {
-      const user = await User.findById(req.user); // Access the user with the ID stored in `req.user`
-      if (!user) {
-        return res.status(404).json({ msg: "User not found" });
-      }
-      
-      // Return user details, including the profile photo path
-      res.json({ 
-        firstName: user.firstName, 
-        lastName: user.lastName, 
-        email: user.email, 
-        phone: user.phone,
-        age: user.age,
-        gender: user.gender,
-        homeAddress: user.homeAddress,
-        username: user.username,
-        profilePhoto: user.profilePhoto ? `http://localhost:5001/${user.profilePhoto.replace(/\\/g, "/")}` : null
 
+router.get("/profile", authMiddleware, async (req, res) => {
+  try {
+    const user = await User.findById(req.user); // Access the user with the ID stored in `req.user`
+    if (!user) {
+      return res.status(404).json({ msg: "User not found" });
+    }
+
+    // Return user details, including the profile photo path
+    res.json({
+      firstName: user.firstName,
+      lastName: user.lastName,
+      email: user.email,
+      phone: user.phone,
+      age: user.age,
+      gender: user.gender,
+      homeAddress: user.homeAddress,
+      username: user.username,
+      profilePhoto: user.profilePhoto
+        ? `http://localhost:5001/${user.profilePhoto.replace(/\\/g, "/")}`
+        : null,
     });
   } catch (err) {
     console.error(err);
@@ -217,38 +218,42 @@ router.put(
         user.password = await bcrypt.hash(password, salt);
       }
 
-        // Handle profile photo update
-        if (req.file) {
-            // Delete the old profile photo if it exists
-            if (user.profilePhoto) {
-                const oldPath = user.profilePhoto.replace('http://localhost:5001/', '');
-                fs.unlink(oldPath, (err) => {
-                    if (err) console.error("Failed to delete old profile photo:", err);
-                });
-            }
-            // Save the new photo path
-            user.profilePhoto = `public/uploads/profile_photos/${req.file.filename}`;
+      // Handle profile photo update
+      if (req.file) {
+        // Delete the old profile photo if it exists
+        if (user.profilePhoto) {
+          const oldPath = user.profilePhoto.replace(
+            "http://localhost:5001/",
+            ""
+          );
+          fs.unlink(oldPath, (err) => {
+            if (err) console.error("Failed to delete old profile photo:", err);
+          });
         }
+        // Save the new photo path
+        user.profilePhoto = `public/uploads/profile_photos/${req.file.filename}`;
+      }
 
       // Save the updated user
       await user.save();
 
-        // Respond with a success message and the updated user data
-        res.json({
-            msg: "Profile updated successfully!",
-            user: {
-                firstName: user.firstName,
-                lastName: user.lastName,
-                username: user.username,
-                email: user.email,
-                phone: user.phone,
-                age: user.age,
-                gender: user.gender,
-                homeAddress: user.homeAddress,
-                profilePhoto: user.profilePhoto ? `http://localhost:5001/${user.profilePhoto.replace(/\\/g, "/")}` : null
-
-                        }
-        });
+      // Respond with a success message and the updated user data
+      res.json({
+        msg: "Profile updated successfully!",
+        user: {
+          firstName: user.firstName,
+          lastName: user.lastName,
+          username: user.username,
+          email: user.email,
+          phone: user.phone,
+          age: user.age,
+          gender: user.gender,
+          homeAddress: user.homeAddress,
+          profilePhoto: user.profilePhoto
+            ? `http://localhost:5001/${user.profilePhoto.replace(/\\/g, "/")}`
+            : null,
+        },
+      });
     } catch (err) {
       console.error(err);
       res.status(500).json({ msg: "Server error" });
