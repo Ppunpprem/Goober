@@ -1,6 +1,6 @@
 /* Info_Regist_Page.css */
 @import url('https://fonts.googleapis.com/css2?family=Afacad:ital,wght@0,400..700;1,400..700&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
-
+@import "tailwindcss";
 body {
   margin: 0;
   padding: 0;

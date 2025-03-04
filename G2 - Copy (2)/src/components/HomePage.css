@@ -6,7 +6,7 @@
   left: 0;
   width: 100%;
   height: 100vh; /* Full screen height */
-  z-index: -1; /* Keeps the map behind other content */
+  z-index: 0; /* Keeps the map behind other content */
   background: none; /* Remove background if it was causing issues */
 }
 
@@ -22,9 +22,9 @@
 
 .home-popup {
   position: fixed;
-  top: 90px;
-  left: 30px;
-  width: 320px;
+  top: 10%;
+  margin-left: 0%;
+  width: 287px;  /* odd one was w : 325px */
   background: white;
   padding: 20px;
   border-radius: 20px;
@@ -36,8 +36,8 @@
 .home-search-container {
   display: flex;
   align-items: center;
-  width: 90%;
-  margin-top: -12px;
+  width: 93%;
+  margin-bottom: -5%;
   margin-left: 1.5%;
   padding: 5px 10px;
   background: #ffffff;
@@ -54,7 +54,7 @@
 
 .home-search-button {
   position: absolute;
-  right: 10px; /* จัดปุ่มให้อยู่ชิดขวา */
+  right: 1%; /* จัดปุ่มให้อยู่ชิดขวา */
   background-color: #17005a;
   color: white;
   border: none;

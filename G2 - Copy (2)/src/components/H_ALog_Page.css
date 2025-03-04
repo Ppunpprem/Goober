@@ -21,7 +21,7 @@ h3 {
   margin-top: 8px !important;
 }
 /* Always Visible Popup */
-.alog-popup {
+/* .alog-popup {
   position: fixed;
   top: 90px;
   left: 30px;
@@ -35,6 +35,18 @@ h3 {
   pointer-events: auto;
   transition: none;
   z-index: 1000;
+} */
+
+.alog-popup {
+  position: fixed;
+  top: 10%;
+  margin-left: 0%;
+  width: 287px;  /* odd one was w : 325px */
+  background: white;
+  padding: 20px;
+  border-radius: 20px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  z-index: 1000; /* Ensure the popup is on top */
 }
 
 .alog-popup h2 {
@@ -46,8 +58,8 @@ h3 {
 .alog-search-container {
   display: flex;
   align-items: center;
-  width: 90%;
-  margin-top: -12px;
+  width: 93%;
+  margin-bottom: -5%;
   margin-left: 1.5%;
   padding: 5px 10px;
   background: #ffffff;
@@ -75,7 +87,7 @@ h3 {
 
 .alog-search-button {
   position: absolute;
-  right: 10px; /* จัดปุ่มให้อยู่ชิดขวา */
+  right: 1%; /* จัดปุ่มให้อยู่ชิดขวา */
   background-color: #17005a;
   color: white;
   border: none;
