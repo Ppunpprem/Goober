@@ -19,11 +19,11 @@ const defaultHomeFilters = {
   hazardousWaste: { name: "Hazardous Waste", icon: hazard, active: true },
 };
 
-const HomePage = () => {
+const HomePage = ({ isPopupVisible, togglePopupVisibility  }) => {
   const [homeFilters, setHomeFilters] = useState(defaultHomeFilters);
   const [showHomePopup, setShowHomePopup] = useState(false);
   const [selectedMarker, setSelectedMarker] = useState(null);
-
+ 
   useEffect(() => {
     document.body.style.overflow = "hidden";
     return () => {
@@ -48,6 +48,7 @@ const HomePage = () => {
     }, {});
     setHomeFilters(reset);
   };
+
 
   var Check_type_general_waste;
   if (First_test_building.general_waste) {
@@ -93,39 +94,48 @@ const HomePage = () => {
           setSelectedMarker={setSelectedMarker}
         />
       </div>
-      <div className="home-popup">
-        <h2>Search</h2>
-        <div className="home-search-container">
-          <img src={mag} alt="Search Icon" className="home-search-icon" />
-          <input
-            type="text"
-            placeholder="Search Location..."
-            className="home-search-bar"
-          />
-          <button className="home-search-button">Search</button>
-        </div>
+      <div className={`home-popup ${isPopupVisible ? 'block' : 'hidden'} md:block`}>
 
-        <div className="home-filter-section">
-          <h3>
-            <img src={filter} alt="Filter Icon" className="home-icon" /> Filter
-            <span className="home-reset-filter" onClick={resetHomeFilters}>
-              Reset Filter
-            </span>
-          </h3>
-          {Object.entries(homeFilters).map(([key, { name, icon, active }]) => (
-            <div className="home-filter-option" key={key}>
-              <img src={icon} alt={name} className="home-icon" /> {name}
-              <label className="home-switch">
-                <input
-                  type="checkbox"
-                  checked={active}
-                  onChange={() => toggleHomeFilter(key)}
-                />
-                <span className="home-slider"></span>
-              </label>
-            </div>
-          ))}
-        </div>
+        <span
+          className="md:hidden absolute top-2 right-1 text-[#17005a] bg-white text-xl p-2 font-medium cursor-pointer hover:bg-[#54008a] focus:outline-none"
+          onClick={togglePopupVisibility}
+        >
+          X
+        </span>
+
+
+        <div className="pb-5 text-[#17005a] text-xl font-bold">Search</div>
+          <div className="home-search-container">
+            <img src={mag} alt="Search Icon" className="home-search-icon" />
+            <input
+              type="text"
+              placeholder="Search Location..."
+              className="home-search-bar"
+            />
+            <button className="home-search-button">Search</button>
+          </div>
+
+          <div className="home-filter-section">
+            <h3>
+              <img src={filter} alt="Filter Icon" className="home-icon" /> Filter
+              <span className="home-reset-filter" onClick={resetHomeFilters}>
+                Reset Filter
+              </span>
+            </h3>
+            {Object.entries(homeFilters).map(([key, { name, icon, active }]) => (
+              <div className="home-filter-option" key={key}>
+                <img src={icon} alt={name} className="home-icon" /> {name}
+                <label className="home-switch">
+                  <input
+                    type="checkbox"
+                    checked={active}
+                    onChange={() => toggleHomeFilter(key)}
+                  />
+                  <span className="home-slider"></span>
+                </label>
+              </div>
+            ))}
+          </div>
       </div>
 
       {/* <button
