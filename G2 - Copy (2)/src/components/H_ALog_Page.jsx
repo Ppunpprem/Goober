@@ -126,159 +126,154 @@ const H_ALog_Page = () => {
             </div>
           ))}
         </div>
-      </div>
-
-      {/* Button to Show Hello Popup */}
-      {/* <button className="alog-circle-button" onClick={() => setShowPopup(true)}>
-        <div className="alog-add-button">+</div>
-      </button> */}
+      </div>  
 
       {/* Hello Popup */}
       {showPopup && selectedMarker && (
         <div className={`info-popup ${showPopup ? "show" : ""}`}>
-          <div className="flex-container">
-            <div className="flex-container-inner">
-              <button
-                className="close-button"
-                onClick={() => setShowPopup(false)}
-              >
-                ✕
-              </button>
-              <h3>{First_test_building.building_name}</h3>
-              <h2>{First_test_building.floor_number}th Floor</h2>
-              <h4>Is this information correct?</h4>
-              <div className="container">
-                {selected === null && (
-                  <div className="button-group">
-                    <button
-                      className={
-                        selected === "yes"
-                          ? "yes-button selected"
-                          : "yes-button"
-                      }
-                      onClick={() => setSelected("yes")}
-                    >
-                      Yes
-                    </button>
-                    <button
-                      className={
-                        selected === "no" ? "no-button selected" : "no-button"
-                      }
-                      onClick={() => setSelected("no")}
-                    >
-                      No
-                    </button>
-                  </div>
-                )}
-              </div>
-              <div>
-                {selected === "yes" && <h5>Thanks! for your answer</h5>}
-                {selected === "no" && (
-                  <h5>Please comment the correct information</h5>
-                )}
-              </div>
-            </div>
-            <div className="flex-container-inner">
-              <h4>Features</h4>
-              <ul className="trash-type-container">
-                <li>
-                  <div className="trash-type">
-                    <img src={bin} width={24} height={24}></img>
-                    <div>General Waste </div>
-                    {Check_type_general_waste}
-                  </div>
-                </li>
-                <li>
-                  <div className="trash-type">
-                    <img src={recycle} width={24} height={24}></img>
-                    <div>Recycle Waste</div>
-                    {Check_type_recycle_waste}
-                  </div>
-                </li>
-                <li>
-                  <div className="trash-type">
-                    <img src={organic} width={24} height={24}></img>
-                    <div>Organic Waste</div>
-                    {Check_type_organic_waste}
-                  </div>
-                </li>
-                <li>
-                  <div className="trash-type">
-                    <img src={hazard} width={24} height={24}></img>
-                    <div>Hazardous Waste</div>
-                    {Check_type_hazardous_waste}
-                  </div>
-                </li>
-              </ul>
-            </div>
-            <div className="flex-container-inner">
-              <h4>{commnents.length} Comments</h4>
-              {commnents.map((comment, index) => (
-                // <ul className="trash-type-container">
-                // <li>
-                //   <div className="trash-type">
-                //     <img src={bin} width={24} height={24}></img>
-                //     <div>General Waste </div>
-                //     {Check_type_general_waste}
-                //   </div>
-                // </li>
-                // <li></li>
-                <div key={index} className="comment">
-                  <img
-                    src={comment.profile}
-                    className="profile-picture"
-                    width={32}
-                    height={32}
-                  ></img>
-                  <div key={index} className="comment_format">
-                    {comment.text}
+          <div width="100%" className="big-container">
+            <div overflow="auto" className="padding-container">
+              <div className="infor-container">
+              <div width="100%,50%,25%" id="#toilet-details-heading" class="building-card">
+                <div display="flex" class="name-box">
+                  <div font-weight="bold" font-size="3,4" class="name">
+                    <span id="toilet-details-heading">NATIONAL GALLERY by cafe</span>
                   </div>
                 </div>
-              ))}
-            </div>
-            <div className="flex-container-inner">
-              <h4>Post a Comment</h4>
-              <textarea
-                className="user_comment"
-                name="postComment"
-                placeholder="Say something..."
-                value={commentText}
-                onChange={(e) => setCommentText(e.target.value)}
-              />
+                <div class="css-2j1fei"></div>
+                <div class="css-2j1fei"></div>
+                <a class="button " variant="primary" rel="noopener noreferrer" href="https://maps.apple.com/?dirflg=w&amp;daddr=51.508867663,-0.127614141">
+                  <span class="icon">
+                    <svg fill="currentColor" class="medium ">
+                      <use href="/sprites/solid.svg#diamond-turn-right"></use>
+                    </svg>
+                  </span>
+                  <span>Directions</span>
+                </a>
+                <div class="fresnel-container fresnel-greaterThanOrEqual-md ">
+                <div class="css-1j8t7y0">
+                </div>
+                <div class="css-hee5t0">
+                <div font-weight="bold" class="css-in3yi3">
+                  <span>Is this information correct?</span>
+                </div>
+                <div class="css-1xauv4x"></div>
+                  <div display="flex" class="css-3tftzz">
+                    <button class="button " variant="primary" type="button"><span>Yes</span></button>
+                          <div class="css-tobc9t"></div>
+                          <div display="flex" class="css-3tftzz">No?<div class="css-1blv7rk"></div><a class="button button--secondary" variant="secondary" data-testid="edit-button" href="/loos/644a91db011d9a18db57e8ef/edit">
+                          <span class="icon">
+                            <svg fill="currentColor" class="small ">
+                              <use href="/sprites/solid.svg#pen-to-square"></use>
+                            </svg>
+                          </span>
+                          <span>Edit</span></a>
+                          </div></div>
+                          <div class="css-ex1l0e"></div>Last verified: <a href="/explorer/loos/644a91db011d9a18db57e8ef">19/05/2024, 04:50 PM</a>
+              </div></div></div>
 
-              <div className="sent_comment">
-                <button onClick={handleCancel}>Cancel</button>
-                <button onClick={() => setShowPopup(false)}>Post</button>
-              </div>
-            </div>
 
-            {/* <div className="flex-container-inner">
-              <div>1.1</div>
-              <div>1.2</div>
-            </div>
-            <div className="flex-container-inner">
-              <div>2.1</div>
-              <div>2.2</div>
-            </div>
-            <div>3</div>
-            <div>4</div> */}
-            {/* <div className="flex-container">
-              <h3>{First_test_building.building_name}</h3>
-              <h2>{First_test_building.floor_number}th Floor</h2>
-              <h3>Is this infomation correct?</h3>
-            </div>
-            <div className="flex-container">
-              <h3>Comments</h3>
-              <h1>{First_comment}</h1>
-            </div>
-            <div>
-              <button onClick={() => setShowPopup(false)}>Close</button>
-            </div> */}
-          </div>
-        </div>
-      )}
-    </div>
-  );
-};
-
+              <div width="100%,50%,25%" class="css-ig8tjk">
+                <div font-weight="bold" class="css-in3yi3">
+                  <span>Features</span>
+                </div>
+                <div class="css-1xauv4x">
+                </div>
+                <ul class="css-66iazq">
+                  <div display="flex" class="css-m69v8h">
+                    <div display="flex" class="css-3tftzz">
+                      <div width="20px" display="flex" class="css-1hdpysa">
+                        <span class="icon">
+                          <svg fill="currentColor" class="medium ">
+                            <use href="/sprites/solid.svg#person-dress"></use>
+                          </svg>
+                        </span>
+                        </div>
+                      </div>
+                    <div class="css-1blv7rk">
+                    </div>
+                    Women
+                    </div>
+                    <div title="Available" class="css-hee5t0">
+                      <span class="icon">
+                      <svg fill="currentColor" class="medium " aria-label="Available">
+                        <use href="/sprites/solid.svg#check"></use>
+                      </svg>
+                      </span>
+                    </div>
+                            
+    
+                  <li display="flex" class="css-m69v8h">
+                    <div display="flex" class="css-3tftzz">
+                    <div width="20px" display="flex" class="css-1hdpysa">
+                      <span class="icon">
+                        <svg fill="currentColor" class="medium ">
+                          <use href="/sprites/solid.svg#person">
+                          </use>
+                        </svg>
+                      </span>
+                    </div>
+                    <div class="css-1blv7rk">
+                    </div>Men</div>
+                    <div title="Available" class="css-hee5t0">
+                      <span class="icon">
+                        <svg fill="currentColor" class="medium " aria-label="Available">
+                          <use href="/sprites/solid.svg#check"></use>
+                        </svg>
+                      </span>
+                    </div>
+                  </li>
+                  <li display="flex" class="css-m69v8h">
+                    <div display="flex" class="css-3tftzz">
+                    <div width="20px" display="flex" class="css-1hdpysa">
+                      <span class="icon">
+                        <svg fill="currentColor" class="medium ">
+                          <use href="/sprites/solid.svg#wheelchair-move">
+                          </use>
+                        </svg>
+                      </span>
+                    </div>
+                    <div class="css-1blv7rk">
+                    </div>Accessible</div>
+                    <div title="Available" class="css-hee5t0">
+                      <span class="icon">
+                        <svg fill="currentColor" class="medium " aria-label="Available">
+                          <use href="/sprites/solid.svg#check">
+                          </use>
+                        </svg>
+                      </span>
+                    </div>
+                  </li>
+                  <li display="flex" class="css-m69v8h">
+                    <div display="flex" class="css-3tftzz">
+                    <div width="20px" display="flex" class="css-1hdpysa">
+                      <span class="icon"><svg fill="currentColor" class="medium ">
+                        <use href="/sprites/solid.svg#key">
+                        </use>
+                      </svg>
+                      </span>
+                  </div>
+                  RADAR Key
+                  </div>
+                  <div title="Unknown" color="tertiary" class="css-12c5yrj">
+                    <span class="icon"><svg fill="currentColor" class="medium " aria-label="Unknown">
+                      <use href="/sprites/solid.svg#question">
+                      </use>
+                    </svg>
+                    </span>
+                  </div>
+                  </li>
+                                    </ul>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        )}
+                      </div>
+                    );
+                  };
+                  
 export default H_ALog_Page;
+
+
