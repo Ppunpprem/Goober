@@ -8,9 +8,7 @@ import recycle from "../assets/recycle.png";
 import organic from "../assets/organic.png";
 import { useUser } from "../context/UserContext"; // Import the useUser hook
 
-
 const NavBar2 = () => {
-
   const { user, updateUser } = useUser(); // Use the context to get user data and the update function
 
   const [showPopup, setShowPopup] = useState(false);
@@ -37,7 +35,7 @@ const NavBar2 = () => {
 
         const data = await res.json();
         updateUser(data);
-        console.log(updateUser)
+        console.log(updateUser);
       } catch (error) {
         console.error("Error fetching user data:", error);
       } finally {
@@ -75,14 +73,14 @@ const NavBar2 = () => {
           {/* Conditionally render the username only if user is available and not loading */}
           <div className="navbar-link navbar-lr" onClick={togglePopup}>
             {loading ? "Loading..." : user ? user.username : "Guest"}{" "}
-            
             {/* Render loading or username */}
           </div>
 
-          <img 
-            src={user?.profilePhoto || logo} 
-            alt="profile" 
-            className="navbar-logo navbar-logo-right" />
+          <img
+            src={user?.profilePhoto || logo}
+            alt="profile"
+            className="navbar-logo navbar-logo-right"
+          />
 
           {/* <img
             src={logo}
@@ -115,17 +113,17 @@ const NavBar2 = () => {
             <h2>Add a Trashcan!</h2>
 
             <div className="input-group">
-              <label>1. Pin a Location</label>
+              <label className="trashcan-header">1. Pin a Location</label>
             </div>
 
             <div className="input-group inline-group">
               <div className="form-field">
-                <label>2. Location</label>
+                <label className="trashcan-header">2. Location</label>
                 <input type="text" placeholder="Location Name" />
               </div>
 
               <div className="form-field">
-                <label>Floor</label>
+                <label className="trashcan-header">Floor</label>
                 <input
                   type="number"
                   placeholder="Floor?"
@@ -141,7 +139,7 @@ const NavBar2 = () => {
 
             <div className="trashcan-types">
               <div className="trashcan-header">
-                <label className="trashcan-type-label">3. Trashcan Type</label>
+                <label>3. Trashcan Type</label>
                 <div className="yes-no-labels">
                   <span>Yes</span>
                   <span>No</span>
