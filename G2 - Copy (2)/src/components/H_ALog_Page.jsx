@@ -275,5 +275,3 @@ const H_ALog_Page = () => {
                   };
                   
 export default H_ALog_Page;
-
-
