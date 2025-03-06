@@ -12,8 +12,8 @@ const mapCenter = { lat: 13.729109970727297, lng: 100.77557815261738 };
 const MapComp = ({
   setShowHomePopup,
   setSelectedMarker,
-  homeFilters,
-  binNameFilter,
+  homeFilters = {},
+  binNameFilter = "",
 }) => {
   const [userLocation, setUserLocation] = useState(null);
   const [trashCanLocations, setTrashCanLocations] = useState([]);
@@ -150,8 +150,8 @@ const MapComp = ({
 MapComp.propTypes = {
   setShowHomePopup: PropTypes.func.isRequired,
   setSelectedMarker: PropTypes.func.isRequired,
-  homeFilters: PropTypes.object.isRequired,
-  binNameFilter: PropTypes.string.isRequired,
+  homeFilters: PropTypes.object,
+  binNameFilter: PropTypes.string,
 };
 
 export default MapComp;
