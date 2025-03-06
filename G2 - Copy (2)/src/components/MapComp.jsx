@@ -126,7 +126,7 @@ const MapComp = ({
       {userLocation && (
         <Marker
           position={userLocation}
-          icon="https://maps.google.com/mapfiles/ms/icons/blue-dot.png"
+          icon="https://maps.google.com/mapfiles/ms/icons/red-dot.png"
         />
       )}
 
