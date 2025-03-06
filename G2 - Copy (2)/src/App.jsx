@@ -11,13 +11,17 @@ import EditPage from "./components/E_ALog_Page";
 import "./App.css";
 import { UserProvider } from "./context/UserContext";
 import { useState } from "react";
+import { LocationProvider } from "./context/LocationContext"; 
+import MapComp from "./components/Mapcomp";
 
 function App() {
   return (
     <UserProvider> 
-      <Router>
-        <MainLayout />
-      </Router>
+      <LocationProvider>
+        <Router>
+          <MainLayout />
+        </Router>
+      </LocationProvider>
     </UserProvider>
   );
 }
@@ -25,6 +29,7 @@ function App() {
 function MainLayout() {
   const location = useLocation();
   const [isPopupVisible, setIsPopupVisible] = useState(false);
+  
 
   const togglePopupVisibility = () => {
     setIsPopupVisible(prevState => !prevState);
@@ -35,16 +40,21 @@ function MainLayout() {
 
   return (
     <>
-      {isNavBar2 ? <NavBar2 /> : <NavBar togglePopupVisibility={togglePopupVisibility} />}
+      {isNavBar2 ? (
+    <NavBar2 togglePopupVisibility={togglePopupVisibility} />
+  ) : (
+    <NavBar togglePopupVisibility={togglePopupVisibility} />
+  )}
       <div className="main-content">
         <Routes>
           <Route path="/" element={<HomePage isPopupVisible={isPopupVisible} togglePopupVisibility={togglePopupVisibility} />} />
           <Route path="/log-regist" element={<LogPage />} />
           <Route path="/info-regist" element={<InfoRegistPage />} />
-          <Route path="/home_after_login" element={<H_ALog_Page key={location.pathname} />} />
+          <Route path="/home_after_login" element={<H_ALog_Page key={location.pathname}  isPopupVisible={isPopupVisible} togglePopupVisibility={togglePopupVisibility}/>} />
           <Route path="/location_info" element={<Location_Popup />} />
           <Route path="/badges" element={<BadgesPage />} />
           <Route path="/edit" element={<EditPage />} />
+          <Route path="/map" element={<MapComp />} />
         </Routes>
       </div>
     </>

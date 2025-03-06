@@ -83,7 +83,7 @@
   border: 1px solid black;
 }
 
-/* Popup for d2theadi */
+
 .menu-container {
   position: fixed;
   top: 18.5%;
@@ -126,7 +126,7 @@
   color: #9ad4ec;
 }
 
-/* Popup for Add a Trashcan */
+
 .popup-addtrashcan {
   position: fixed;
   top: 18%;
@@ -194,7 +194,7 @@
   flex-direction: column;
 }
 
-/* Styling for Trashcan Types */
+
 .trashcan-types {
   display: flex;
   flex-direction: column;
@@ -212,7 +212,7 @@
 }
 
 .trashcan-type-label {
-  font-family: "Afacad", sans-serif; /* Change to your preferred font */
+  font-family: "Afacad", sans-serif; 
   font-size: 30px;
   font-weight: bold;
   color: #17005a;
@@ -249,8 +249,8 @@
 
 .radio-group {
   display: flex;
-  gap: 105px; /* Adds spacing between Yes and No */
-  margin-right: 7%; /* Moves Yes/No to the right */
+  gap: 105px; 
+  margin-right: 7%; 
 }
 
 .yes-no-labels {
@@ -262,7 +262,7 @@
 .yes-fix {
   margin-right: 0px;
 }
-/* Buttons */
+
 .button-group {
   display: flex;
   justify-content: space-between;
