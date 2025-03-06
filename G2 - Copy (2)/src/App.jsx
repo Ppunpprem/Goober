@@ -9,12 +9,15 @@ import Location_Popup from "./components/Location_Info";
 import BadgesPage from "./components/Badges_Page";
 import EditPage from "./components/E_ALog_Page";
 import "./App.css";
+import { UserProvider } from "./context/UserContext";
 
 function App() {
   return (
-    <Router>
-      <MainLayout />
-    </Router>
+    <UserProvider> 
+      <Router>
+        <MainLayout />
+      </Router>
+    </UserProvider>
   );
 }
 
@@ -32,7 +35,7 @@ function MainLayout() {
           <Route path="/" element={<HomePage />} />
           <Route path="/log-regist" element={<LogPage />} />
           <Route path="/info-regist" element={<InfoRegistPage />} />
-          <Route path="/home_after_login" element={<H_ALog_Page />} />
+          <Route path="/home_after_login" element={<H_ALog_Page key={location.pathname} />} />
           <Route path="/location_info" element={<Location_Popup />} />
           <Route path="/badges" element={<BadgesPage />} />
           <Route path="/edit" element={<EditPage />} />
@@ -41,6 +44,5 @@ function MainLayout() {
     </>
   );
 }
-
 
 export default App;

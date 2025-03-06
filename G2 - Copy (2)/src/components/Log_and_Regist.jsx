@@ -1,72 +1,114 @@
-import trashcan from '../assets/trashcan.jpg'; // Import the background image
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import trashcan from '../assets/trashcan.jpg'; // Import background image
 import logo from '../assets/logo.png';
 import usericon from '../assets/usericon.png';
 import pwdicon from '../assets/pwdicon.png';
-import { Link } from 'react-router-dom'; // Import Link
-import './Log_and_Regist.css'; // Import any styles if needed
+import { Link } from 'react-router-dom';
+import './Log_and_Regist.css';
 
 const LogPage = () => {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const navigate = useNavigate();
+
+  const handleLogin = async (event) => {
+    event.preventDefault();
+
+    try {
+      const res = await fetch('http://localhost:5001/api/auth/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, password }),
+      });
+
+      const data = await res.json();
+      if (res.ok) {
+        localStorage.setItem('token', data.token);
+        alert('Login successful!');
+        navigate('/home_after_login'); // Redirect after login
+      } else {
+        alert(data.msg || 'Invalid credentials');
+      }
+    } catch (error) {
+      alert('Something went wrong. Please try again.');
+    }
+  };
+
   const appStyle = {
-    backgroundImage: `url(${trashcan})`, // Set the background image
-    backgroundSize: 'cover', // Ensure the image covers the entire screen proportionally
-    backgroundPosition: 'center', // Center the image on the screen
-    backgroundRepeat: 'no-repeat', // Prevent the image from repeating
-    height: '100vh', // Full vertical height
-    width: '100vw', // Full horizontal width
-    margin: 0, // Remove any default margin
-    padding: 0, // Remove any default padding
-    overflow: 'hidden', // Prevent scrolling if the image overflows
-    position: 'absolute', // Position it absolutely
+    backgroundImage: `url(${trashcan})`,
+    backgroundSize: 'cover',
+    backgroundPosition: 'center',
+    backgroundRepeat: 'no-repeat',
+    height: '100vh',
+    width: '100vw',
+    margin: 0,
+    padding: 0,
+    overflow: 'hidden',
+    position: 'absolute',
     top: 0,
-    left: 0, // Ensure it stretches to the edges of the viewport
+    left: 0,
   };
 
   const contentStyle = {
-    color: '#fff', // White text for contrast
-    textAlign: 'center', // Center text horizontally
-    fontSize: '2rem', // Adjust the font size
-    zIndex: 2, // Ensure content appears above the background
-    position: 'relative', // Required to ensure the content stays on top of the background
+    color: '#fff',
+    textAlign: 'center',
+    fontSize: '2rem',
+    zIndex: 2,
+    position: 'relative',
   };
 
   return (
     <div style={appStyle}>
       <div style={contentStyle}>
-        <p1 className="underlinetext">TRASHCAN MAP
+        <p className="underlinetext">
+          TRASHCAN MAP 
           <img src={logo} width="100" height="100" alt="Logo" />
-        </p1>
+        </p>
+
+        {/* Sign Up Section */}
         <div className="signup-container">
           <p>Sign Up</p>
           <Link to="/info-regist">
-            <button id="signup-container a" className="regist-button">Register</button>
+            <button className="regist-button">Register</button>
           </Link>
         </div>
 
-        <div>
-          <p className="or-text">OR</p>
-        </div>
+        <p className="or-text">OR</p>
 
-        <div>
-          <p className="log-in">Log In</p>
-          <p className="log-in-user">Log in with Username</p>
-        </div>
+        {/* Log In Section */}
+        <p className="log-in">Log In</p>
+        {/* <p className="log-in-user">Log in with Username</p> */}
 
-        <div className="auth-box">
+        {/* Login Form */}
+        <form onSubmit={handleLogin} className="auth-box">
           <div className="input-field">
             <img src={usericon} alt="Email Icon" className="icon" />
-            <input type="text" placeholder="Enter your username" />
+            <input
+              type="email"
+              placeholder="Enter your email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required
+            />
           </div>
+
           <div className="input-field">
             <img src={pwdicon} alt="Password Icon" className="icon" />
-            <input type="password" placeholder="Enter your password" />
+            <input
+              type="password"
+              placeholder="Enter your password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+            />
           </div>
-        </div>
 
-        <div>
-          <Link to="/home_after_login" className="login-container">
-            <button className="login-button">Log In</button>
-          </Link>
-        </div>
+          <button type="submit" className="login-button">
+            Log In
+          </button>
+        </form>
+        
       </div>
     </div>
   );

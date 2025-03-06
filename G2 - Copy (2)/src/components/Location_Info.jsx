@@ -8,10 +8,10 @@ import mag from "../assets/mag.png";
 import organic from "../assets/organic.png";
 
 const defaultFilters = {
-  generalWaste: { name: "General Waste", icon: bin, active: true },
-  recycleWaste: { name: "Recycle Waste", icon: recycle, active: true },
-  organicWaste: { name: "Organic Waste", icon: organic, active: true },
-  hazardousWaste: { name: "Hazardous Waste", icon: hazard, active: true },
+  generalWaste: { name: "General Waste", icon: bin, active: false },
+  recycleWaste: { name: "Recycle Waste", icon: recycle, active: false },
+  organicWaste: { name: "Organic Waste", icon: organic, active: false },
+  hazardousWaste: { name: "Hazardous Waste", icon: hazard, active: false },
 };
 
 const Location_Popup = () => {
@@ -30,7 +30,7 @@ const Location_Popup = () => {
 
   const resetFilters = () => {
     const reset = Object.keys(filters).reduce((acc, key) => {
-      acc[key] = { ...filters[key], active: true };
+      acc[key] = { ...filters[key], active: false };
       return acc;
     }, {});
     setFilters(reset);
@@ -43,20 +43,30 @@ const Location_Popup = () => {
         <h2>Search</h2>
         <div className="search-container">
           <img src={mag} alt="Search Icon" className="search-icon" />
-          <input type="text" placeholder="Search Location..." className="search-bar" />
+          <input
+            type="text"
+            placeholder="Search Location..."
+            className="search-bar"
+          />
         </div>
 
         <div className="filter-section">
           <h3>
             <img src={filter} alt="Filter Icon" className="icon" /> Filter
-            <span className="reset-filter" onClick={resetFilters}>Reset Filter</span>
+            <span className="reset-filter" onClick={resetFilters}>
+              Reset Filter
+            </span>
           </h3>
 
           {Object.entries(filters).map(([key, { name, icon, active }]) => (
             <div className="filter-option" key={key}>
               <img src={icon} alt={name} className="icon" /> {name}
               <label className="switch">
-                <input type="checkbox" checked={active} onChange={() => toggleFilter(key)} />
+                <input
+                  type="checkbox"
+                  checked={active}
+                  onChange={() => toggleFilter(key)}
+                />
                 <span className="slider"></span>
               </label>
             </div>
@@ -70,7 +80,11 @@ const Location_Popup = () => {
           <h4>Hello world</h4>
           <div className="search-container">
             <img src={mag} alt="Search Icon" className="search-icon" />
-            <input type="text" placeholder="Search Something Else..." className="search-bar" />
+            <input
+              type="text"
+              placeholder="Search Something Else..."
+              className="search-bar"
+            />
           </div>
         </div>
       )}
