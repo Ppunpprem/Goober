@@ -9,7 +9,12 @@ import {
 
 const mapCenter = { lat: 13.729109970727297, lng: 100.77557815261738 };
 
-const MapComp = ({ setShowHomePopup, setSelectedMarker, setUser }) => {
+const MapComp = ({
+  setShowHomePopup,
+  setSelectedMarker,
+  homeFilters,
+  binNameFilter,
+}) => {
   const [userLocation, setUserLocation] = useState(null);
   const [trashCanLocations, setTrashCanLocations] = useState([]);
   const [selectedMarker, setSelectedMarkerState] = useState(null);
@@ -45,6 +50,10 @@ const MapComp = ({ setShowHomePopup, setSelectedMarker, setUser }) => {
             name: bin.bin_name_location,
             floor: bin.bin_floor_number,
             infoCorrection: bin.bin_info_correction,
+            generalWaste: bin.bin_features_general_waste,
+            recycleWaste: bin.bin_features_recycle_waste,
+            organicWaste: bin.bin_features_organic_waste,
+            hazardousWaste: bin.bin_features_hazardous_waste,
           }));
           console.log("Processed markers:", markers); // Log processed markers
           setTrashCanLocations(markers);
@@ -75,18 +84,24 @@ const MapComp = ({ setShowHomePopup, setSelectedMarker, setUser }) => {
     console.log("Trash can locations updated:", trashCanLocations);
   }, [trashCanLocations]);
 
-  // Function to handle new user data safely
-  const handleNewUserData = (newUserData) => {
-    const safeUserData = {
-      username: newUserData.username,
-      profilePhoto: newUserData.profilePhoto,
-    };
-    setUser(safeUserData);
-  };
-
   const handleMarkerClick = (marker) => {
     setSelectedMarkerState(marker);
     setShowHomePopup(true);
+  };
+
+  const filterMarkers = (markers) => {
+    return markers.filter((marker) => {
+      const matchesName = marker.name
+        .toLowerCase()
+        .includes(binNameFilter.toLowerCase());
+      const matchesFilters = Object.entries(homeFilters).every(
+        ([key, filter]) => {
+          if (!filter.active) return true;
+          return marker[key];
+        }
+      );
+      return matchesName && matchesFilters;
+    });
   };
 
   if (!isLoaded) return <h2>Loading Map...</h2>;
@@ -98,7 +113,7 @@ const MapComp = ({ setShowHomePopup, setSelectedMarker, setUser }) => {
       mapContainerStyle={{ height: "100vh", width: "100%" }}
     >
       {/* Render trash bin markers */}
-      {trashCanLocations.map((loc, idx) => (
+      {filterMarkers(trashCanLocations).map((loc, idx) => (
         <Marker
           key={`bin-${idx}`}
           position={{ lat: loc.lat, lng: loc.lng }}
@@ -135,7 +150,8 @@ const MapComp = ({ setShowHomePopup, setSelectedMarker, setUser }) => {
 MapComp.propTypes = {
   setShowHomePopup: PropTypes.func.isRequired,
   setSelectedMarker: PropTypes.func.isRequired,
-  setUser: PropTypes.func.isRequired, // Ensure setUser is passed in
+  homeFilters: PropTypes.object.isRequired,
+  binNameFilter: PropTypes.string.isRequired,
 };
 
 export default MapComp;
