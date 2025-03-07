@@ -46,7 +46,7 @@ const NavBar = ({togglePopupVisibility }) => {
         <div className="md:hidden block">
           <button
             onClick={() => setMenuOpen(!menuOpen)}
-            className="text-3xl cursor-pointer bg-[#17005a]"
+            className="text-3xl cursor-pointer bg-[#17005a] text-white p-2 rounded-lg focus:outline-none"
             aria-label={menuOpen ? "Close menu" : "Open menu"} 
           >
             {menuOpen ? "✖" : "☰"} 

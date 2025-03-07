@@ -6,7 +6,7 @@ import bubbleicon from '../assets/bubbleicon.png';
 
 const BadgesPage = () => {
   useEffect(() => {
-    document.body.style.overflow = "hidden"; // Disable scrolling
+    document.body.style.overflow = "auto"; // Disable scrolling
     return () => {
       document.body.style.overflow = "auto"; // Re-enable scrolling on unmount
     };
