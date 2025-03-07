@@ -46,7 +46,7 @@ const defaultFilters = {
   hazardousWaste: { name: "Hazardous Waste", icon: hazard, active: false },
 };
 
-const H_ALog_Page = () => {
+const H_ALog_Page = ({ isPopupVisible, togglePopupVisibility  }) => {
   const [filters, setFilters] = useState(defaultFilters);
   const [showPopup, setShowPopup] = useState(false);
   const [selectedMarker, setSelectedMarker] = useState(null);
@@ -96,8 +96,14 @@ const H_ALog_Page = () => {
           binNameFilter={binNameFilter}
         />
       </div>
-      <div className="alog-popup">
-        <h2>Search</h2>
+      <div className={`alog-popup ${isPopupVisible ? 'block' : 'hidden'} md:block`}>
+      <span
+          className="md:hidden absolute top-2 right-1 text-[#17005a] bg-white text-xl p-2 font-medium cursor-pointer hover:bg-[#54008a] focus:outline-none"
+          onClick={togglePopupVisibility}
+        >
+          X
+        </span>
+        <div className="pb-5 text-[#17005a] text-xl font-bold">Search</div>
         <div className="alog-search-container">
           <img src={mag} alt="Search Icon" className="alog-search-icon" />
           <input
