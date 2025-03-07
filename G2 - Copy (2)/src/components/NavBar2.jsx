@@ -8,6 +8,10 @@ import hazard from "../assets/hazard.png";
 import recycle from "../assets/recycle.png";
 import organic from "../assets/organic.png";
 import { useLocation } from "../context/LocationContext";
+import { useUser } from "../context/UserContext"; // Import the useUser hook
+
+// const NavBar2 = () => {
+//   const { user, updateUser } = useUser(); // Use the context to get user data and the update function
 
 const NavBar2 = ({ togglePopupVisibility }) => {
   const { user, updateUser } = useUser();
@@ -37,6 +41,8 @@ const NavBar2 = ({ togglePopupVisibility }) => {
 
         const data = await res.json();
         updateUser(data);
+
+        console.log(updateUser);
       } catch (error) {
         console.error("Error fetching user data:", error);
       } finally {
@@ -148,6 +154,19 @@ const NavBar2 = ({ togglePopupVisibility }) => {
             </li>
           </ul>
         </nav>
+// 
+//         <div className="navbar-links">
+//           {/* Conditionally render the username only if user is available and not loading */}
+//           <div className="navbar-link navbar-lr" onClick={togglePopup}>
+//             {loading ? "Loading..." : user ? user.username : "Guest"}{" "}
+//             {/* Render loading or username */}
+//           </div>
+
+//           <img
+//             src={user?.profilePhoto || logo}
+//             alt="profile"
+//             className="navbar-logo navbar-logo-right"
+//           />
 
         <div className="md:hidden block">
           {/* Menu Button */}
@@ -265,6 +284,19 @@ const NavBar2 = ({ togglePopupVisibility }) => {
 
               <div className="w-24">
                 <label className="block text-gray-700">Floor</label>
+
+//             <div className="input-group">
+//               <label className="trashcan-header">1. Pin a Location</label>
+//             </div>
+
+//             <div className="input-group inline-group">
+//               <div className="form-field">
+//                 <label className="trashcan-header">2. Location</label>
+//                 <input type="text" placeholder="Location Name" />
+//               </div>
+
+//               <div className="form-field">
+//                 <label className="trashcan-header">Floor</label>
                 <input
                   type="number"
                   placeholder="Floor?"
@@ -282,6 +314,15 @@ const NavBar2 = ({ togglePopupVisibility }) => {
               <label className="block font-medium text-gray-700 mb-2">
                 3. Trashcan Type
               </label>
+
+//             <div className="trashcan-types">
+//               <div className="trashcan-header">
+//                 <label>3. Trashcan Type</label>
+//                 <div className="yes-no-labels">
+//                   <span>Yes</span>
+//                   <span>No</span>
+//                 </div>
+//               </div>
 
               {[
                 { name: "General Waste", icon: bin },

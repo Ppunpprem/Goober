@@ -8,22 +8,24 @@ import mag from "../assets/mag.png";
 import check from "../assets/check-mark-button.png";
 import cross from "../assets/cross-mark.png";
 import organic from "../assets/organic.png";
-import MapComp from "../components/Mapcomp";
+import MapComp from "../components/MapComp.jsx";
 
 import { First_test_building, commnents } from "../Damo_data/bindata";
 
 const defaultHomeFilters = {
-  generalWaste: { name: "General Waste", icon: bin, active: true },
-  recycleWaste: { name: "Recycle Waste", icon: recycle, active: true },
-  organicWaste: { name: "Organic Waste", icon: organic, active: true },
-  hazardousWaste: { name: "Hazardous Waste", icon: hazard, active: true },
+  generalWaste: { name: "General Waste", icon: bin, active: false },
+  recycleWaste: { name: "Recycle Waste", icon: recycle, active: false },
+  organicWaste: { name: "Organic Waste", icon: organic, active: false },
+  hazardousWaste: { name: "Hazardous Waste", icon: hazard, active: false },
 };
 
 const HomePage = ({ isPopupVisible, togglePopupVisibility  }) => {
   const [homeFilters, setHomeFilters] = useState(defaultHomeFilters);
   const [showHomePopup, setShowHomePopup] = useState(false);
   const [selectedMarker, setSelectedMarker] = useState(null);
- 
+  const [binNameFilter, setBinNameFilter] = useState("");
+
+
   useEffect(() => {
     document.body.style.overflow = "hidden";
     return () => {
@@ -43,12 +45,11 @@ const HomePage = ({ isPopupVisible, togglePopupVisibility  }) => {
 
   const resetHomeFilters = () => {
     const reset = Object.keys(homeFilters).reduce((acc, key) => {
-      acc[key] = { ...homeFilters[key], active: true };
+      acc[key] = { ...homeFilters[key], active: false };
       return acc;
     }, {});
     setHomeFilters(reset);
   };
-
 
   var Check_type_general_waste;
   if (First_test_building.general_waste) {
@@ -92,9 +93,24 @@ const HomePage = ({ isPopupVisible, togglePopupVisibility  }) => {
         <MapComp
           setShowHomePopup={setShowHomePopup}
           setSelectedMarker={setSelectedMarker}
+          homeFilters={homeFilters}
+          binNameFilter={binNameFilter}
         />
       </div>
+
       <div className={`home-popup ${isPopupVisible ? 'block' : 'hidden'} md:block`}>
+        <h2>Search</h2>
+        <div className="home-search-container">
+          <img src={mag} alt="Search Icon" className="home-search-icon" />
+          <input
+            type="text"
+            placeholder="Search Location..."
+            className="home-search-bar"
+            value={binNameFilter}
+            onChange={(e) => setBinNameFilter(e.target.value)}
+          />
+          <button className="home-search-button">Search</button>
+        </div>
 
         <span
           className="md:hidden absolute top-2 right-1 text-[#17005a] bg-white text-xl p-2 font-medium cursor-pointer hover:bg-[#54008a] focus:outline-none"
@@ -137,158 +153,6 @@ const HomePage = ({ isPopupVisible, togglePopupVisibility  }) => {
             ))}
           </div>
       </div>
-
-      {/* <button
-        className="home-circle-button"
-        onClick={() => setShowHomePopup(true)}
-      >
-        <div className="home-add-button">+</div>
-      </button> */}
-
-      {showHomePopup && selectedMarker && (
-        <div className={`info-popup ${showHomePopup ? "show" : ""}`}>
-          <div className="flex-container">
-            <div className="flex-container-inner">
-              <button
-                className="close-button"
-                onClick={() => setShowHomePopup(false)}
-              >
-                ✕
-              </button>
-              <h3>{First_test_building.building_name}</h3>
-              <h2>{First_test_building.floor_number}th Floor</h2>
-              <h4>Is this information correct?</h4>
-              <div className="container">
-                {selected === null && (
-                  <div className="button-group">
-                    <button
-                      className={
-                        selected === "yes"
-                          ? "yes-button selected"
-                          : "yes-button"
-                      }
-                      onClick={() => setSelected("yes")}
-                    >
-                      Yes
-                    </button>
-                    <button
-                      className={
-                        selected === "no" ? "no-button selected" : "no-button"
-                      }
-                      onClick={() => setSelected("no")}
-                    >
-                      No
-                    </button>
-                  </div>
-                )}
-              </div>
-              <div>
-                {selected === "yes" && <h5>Thanks! for your answer</h5>}
-                {selected === "no" && (
-                  <h5>Please comment the correct information</h5>
-                )}
-              </div>
-            </div>
-            <div className="flex-container-inner">
-              <h4>Features</h4>
-              <ul className="trash-type-container">
-                <li>
-                  <div className="trash-type">
-                    <img src={bin} width={24} height={24}></img>
-                    <div>General Waste </div>
-                    {Check_type_general_waste}
-                  </div>
-                </li>
-                <li>
-                  <div className="trash-type">
-                    <img src={recycle} width={24} height={24}></img>
-                    <div>Recycle Waste</div>
-                    {Check_type_recycle_waste}
-                  </div>
-                </li>
-                <li>
-                  <div className="trash-type">
-                    <img src={organic} width={24} height={24}></img>
-                    <div>Organic Waste</div>
-                    {Check_type_organic_waste}
-                  </div>
-                </li>
-                <li>
-                  <div className="trash-type">
-                    <img src={hazard} width={24} height={24}></img>
-                    <div>Hazardous Waste</div>
-                    {Check_type_hazardous_waste}
-                  </div>
-                </li>
-              </ul>
-            </div>
-            <div className="flex-container-inner">
-              <h4>{commnents.length} Comments</h4>
-              {commnents.map((comment, index) => (
-                // <ul className="trash-type-container">
-                // <li>
-                //   <div className="trash-type">
-                //     <img src={bin} width={24} height={24}></img>
-                //     <div>General Waste </div>
-                //     {Check_type_general_waste}
-                //   </div>
-                // </li>
-                // <li></li>
-                <div key={index} className="comment">
-                  <img
-                    src={comment.profile}
-                    className="profile-picture"
-                    width={32}
-                    height={32}
-                  ></img>
-                  <div key={index} className="comment_format">
-                    {comment.text}
-                  </div>
-                </div>
-              ))}
-            </div>
-            <div className="flex-container-inner">
-              <h4>! Please Login first to comment !</h4>
-              {/* <h4>Post a Comment</h4>
-                      <textarea
-                        className="user_comment"
-                        name="postComment"
-                        placeholder="Say something..."
-                        value={commentText}
-                        onChange={(e) => setCommentText(e.target.value)}
-                      />
-        
-                      <div className="sent_comment">
-                        <button onClick={handleCancel}>Cancel</button>
-                        <button onClick={() => setShowHomePopup(false)}>Post</button>
-                      </div> */}
-            </div>
-
-            {/* <div className="flex-container-inner">
-                      <div>1.1</div>
-                      <div>1.2</div>
-                    </div>
-                    <div className="flex-container-inner">
-                      <div>2.1</div>
-                      <div>2.2</div>
-                    </div>
-                    <div>3</div>
-                    <div>4</div> */}
-            {/* <div className="flex-container">
-                      <h3>{First_test_building.building_name}</h3>
-                      <h2>{First_test_building.floor_number}th Floor</h2>
-                      <h3>Is this infomation correct?</h3>
-                    </div>
-                    <div className="flex-container">
-                      <h3>Comments</h3>
-                      <h1>{First_comment}</h1>
-                    </div>
-                    <div>
-                      <button onClick={() => setShowPopup(false)}>Close</button>
-                    </div> */}
-          </div>
-        </div>
-      )}
     </div>
   );
 };

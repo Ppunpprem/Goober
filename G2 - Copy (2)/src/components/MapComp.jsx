@@ -1,18 +1,27 @@
 import PropTypes from "prop-types";
 import { useEffect, useState } from "react";
-import { GoogleMap, useJsApiLoader, Marker, InfoWindow } from "@react-google-maps/api";
 import { useLocation } from "../context/LocationContext"
 import logo from "../assets/logo.png"; // Replace with your actual logo path
+import {
+  GoogleMap,
+  useJsApiLoader,
+  Marker,
+  InfoWindow,
+} from "@react-google-maps/api";
+
+const mapCenter = { lat: 13.729109970727297, lng: 100.77557815261738 };
 
 
-const mapCenter = { lat:13.729109970727297, lng:100.77557815261738 };
-
-const MapComp = ({ setShowHomePopup, setSelectedMarker}) => {
+const MapComp = ({
+  setShowHomePopup,
+  setSelectedMarker,
+  homeFilters = {},
+  binNameFilter = "",
+}) => {
   const [userLocation, setUserLocation] = useState(null);
   const [trashCanLocations, setTrashCanLocations] = useState([]);
-  // const [selectedMarker, setSelectedMarker] = useState(null); // Track selected marker for popup
+  const [selectedMarker, setSelectedMarkerState] = useState(null);
   const { updateLocation, setClearMarkers } = useLocation();
-  
 
 
   // Load Google Maps API
@@ -20,18 +29,45 @@ const MapComp = ({ setShowHomePopup, setSelectedMarker}) => {
     googleMapsApiKey: import.meta.env.VITE_GOOGLE_MAPS_API_KEY,
   });
 
-  const handleMarkerClick = (marker) => {
-    setSelectedMarker(marker);
-    setShowHomePopup(true);
-  };
-  // Load saved markers from localStorage when the component mounts
+  // Fetch bin locations from database
   useEffect(() => {
     if (isLoaded) {
-      const savedMarkers = localStorage.getItem("trashCanMarkers");
-      if (savedMarkers) {
-        setTrashCanLocations(JSON.parse(savedMarkers));
-      }
+      fetch("http://localhost:5001/api/bin")
+        .then(async (res) => {
+          const contentType = res.headers.get("content-type");
 
+          if (!res.ok) {
+            throw new Error(`HTTP error! status: ${res.status}`);
+          }
+
+          if (contentType && contentType.includes("application/json")) {
+            return res.json(); // Parse JSON normally
+          } else {
+            const htmlText = await res.text(); // Read as HTML text
+            throw new Error(`Expected JSON but received HTML: ${htmlText}`);
+          }
+        })
+        .then((data) => {
+          console.log("Fetched bin data:", data); // Log fetched data
+          const markers = data.map((bin) => ({
+            lat: parseFloat(bin.bin_location.$lat),
+            lng: parseFloat(bin.bin_location.$lng),
+            name: bin.bin_name_location,
+            floor: bin.bin_floor_number,
+            infoCorrection: bin.bin_info_correction,
+            generalWaste: bin.bin_features_general_waste,
+            recycleWaste: bin.bin_features_recycle_waste,
+            organicWaste: bin.bin_features_organic_waste,
+            hazardousWaste: bin.bin_features_hazardous_waste,
+          }));
+          console.log("Processed markers:", markers); // Log processed markers
+          setTrashCanLocations(markers);
+        })
+        .catch((error) => {
+          console.error("Error fetching bins:", error);
+        });
+
+      // Get user location
       if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(
           (position) => {
@@ -40,20 +76,24 @@ const MapComp = ({ setShowHomePopup, setSelectedMarker}) => {
               lng: position.coords.longitude,
             });
           },
-          (error) => console.log("Geolocation permission denied:", error)
+          (error) => {
+            console.log("Geolocation permission denied:", error);
+            setUserLocation(mapCenter); // Fallback location
+          }
         );
       }
     }
     setClearMarkers(() => handleClearLocation);
   }, [isLoaded]);
 
-  // Handle map click to add a new trash can marker
-  const handleMapClick = (event) => {
-    const newMarker = {
-      lat: event.latLng.lat(),
-      lng: event.latLng.lng(),
-    };
-    const updatedMarkers = [...trashCanLocations, newMarker];
+  useEffect(() => {
+    console.log("Trash can locations updated:", trashCanLocations);
+  }, [trashCanLocations]);
+
+  const handleMarkerClick = (marker) => {
+    setSelectedMarkerState(marker);
+    setShowHomePopup(true);
+  };
 
     setTrashCanLocations(updatedMarkers);
     updateLocation(newMarker);
@@ -63,6 +103,19 @@ const MapComp = ({ setShowHomePopup, setSelectedMarker}) => {
   const handleClearLocation = () => {
     setTrashCanLocations((prev) => prev.slice(0, -1)); // Remove last marker
     clearLocation();
+  const filterMarkers = (markers) => {
+    return markers.filter((marker) => {
+      const matchesName = marker.name
+        .toLowerCase()
+        .includes(binNameFilter.toLowerCase());
+      const matchesFilters = Object.entries(homeFilters).every(
+        ([key, filter]) => {
+          if (!filter.active) return true;
+          return marker[key];
+        }
+      );
+      return matchesName && matchesFilters;
+    });
   };
 
   if (!isLoaded) return <h2>Loading Map...</h2>;
@@ -72,21 +125,33 @@ const MapComp = ({ setShowHomePopup, setSelectedMarker}) => {
       center={userLocation || mapCenter}
       zoom={16}
       mapContainerStyle={{ height: "100vh", width: "100%" }}
-      onClick={handleMapClick}
     >
-      {/* Render trash can markers */}
+
+//       {/* Render trash can markers */}
       
-{trashCanLocations.map((loc, idx) => (
-  <Marker
-    key={`trash-can-${idx}`} 
-    position={loc}
-    icon={{
-      url: logo, // ✅ Use imported image
-      scaledSize: new window.google.maps.Size(40, 40), // ✅ Adjust size
-    }}
-    onClick={() => handleMarkerClick(loc)}
-  />
-))}
+// {trashCanLocations.map((loc, idx) => (
+//   <Marker
+//     key={`trash-can-${idx}`} 
+//     position={loc}
+//     icon={{
+//       url: logo, // ✅ Use imported image
+//       scaledSize: new window.google.maps.Size(40, 40), // ✅ Adjust size
+//     }}
+//     onClick={() => handleMarkerClick(loc)}
+//   />
+// ))}
+
+      {/* Render trash bin markers */}
+      {filterMarkers(trashCanLocations).map((loc, idx) => (
+        <Marker
+          key={`bin-${idx}`}
+          position={{ lat: loc.lat, lng: loc.lng }}
+          icon="https://maps.google.com/mapfiles/ms/icons/green-dot.png"
+          onClick={() => handleMarkerClick(loc)}
+        />
+      ))}
+
+
       {/* Render user location marker if available */}
       {userLocation && (
         <Marker
@@ -95,13 +160,28 @@ const MapComp = ({ setShowHomePopup, setSelectedMarker}) => {
         />
       )}
 
-     
-
+      {/* Render InfoWindow if a marker is selected */}
+      {selectedMarker && (
+        <InfoWindow
+          position={{ lat: selectedMarker.lat, lng: selectedMarker.lng }}
+          onCloseClick={() => setSelectedMarkerState(null)}
+        >
+          <div>
+            <h3>{selectedMarker.name}</h3>
+            <p>Floor: {selectedMarker.floor}</p>
+            <p>Info Correction: {selectedMarker.infoCorrection}</p>
+          </div>
+        </InfoWindow>
+      )}
     </GoogleMap>
   );
 };
+
 MapComp.propTypes = {
   setShowHomePopup: PropTypes.func.isRequired,
   setSelectedMarker: PropTypes.func.isRequired,
+  homeFilters: PropTypes.object,
+  binNameFilter: PropTypes.string,
 };
+
 export default MapComp;

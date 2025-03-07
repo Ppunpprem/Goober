@@ -8,7 +8,7 @@ import mag from "../assets/mag.png";
 import check from "../assets/check-mark-button.png";
 import cross from "../assets/cross-mark.png";
 import organic from "../assets/organic.png";
-import MapComp from "../components/Mapcomp";
+import MapComp from "../components/MapComp.jsx";
 import { First_test_building, commnents } from "../Damo_data/bindata";
 
 var Check_type_general_waste;
@@ -40,21 +40,22 @@ if (First_test_building.hazardous_waste) {
 }
 
 const defaultFilters = {
-  generalWaste: { name: "General Waste", icon: bin, active: true },
-  recycleWaste: { name: "Recycle Waste", icon: recycle, active: true },
-  organicWaste: { name: "Organic Waste", icon: organic, active: true },
-  hazardousWaste: { name: "Hazardous Waste", icon: hazard, active: true },
+  generalWaste: { name: "General Waste", icon: bin, active: false },
+  recycleWaste: { name: "Recycle Waste", icon: recycle, active: false },
+  organicWaste: { name: "Organic Waste", icon: organic, active: false },
+  hazardousWaste: { name: "Hazardous Waste", icon: hazard, active: false },
 };
 
 const H_ALog_Page = ({ isPopupVisible, togglePopupVisibility  }) => {
   const [filters, setFilters] = useState(defaultFilters);
   const [showPopup, setShowPopup] = useState(false);
   const [selectedMarker, setSelectedMarker] = useState(null);
+  const [binNameFilter, setBinNameFilter] = useState("");
 
   useEffect(() => {
     document.body.style.overflow = "hidden"; // Disable scrolling
     return () => {
-      document.body.style.overflow = "auto"; //pppppp
+      document.body.style.overflow = "auto"; // Enable scrolling on cleanup
     };
   }, []);
 
@@ -70,7 +71,7 @@ const H_ALog_Page = ({ isPopupVisible, togglePopupVisibility  }) => {
 
   const resetFilters = () => {
     const reset = Object.keys(filters).reduce((acc, key) => {
-      acc[key] = { ...filters[key], active: true };
+      acc[key] = { ...filters[key], active: false };
       return acc;
     }, {});
     setFilters(reset);
@@ -91,6 +92,8 @@ const H_ALog_Page = ({ isPopupVisible, togglePopupVisibility  }) => {
         <MapComp
           setShowHomePopup={setShowPopup}
           setSelectedMarker={setSelectedMarker}
+          homeFilters={filters}
+          binNameFilter={binNameFilter}
         />
       </div>
       <div className={`alog-popup ${isPopupVisible ? 'block' : 'hidden'} md:block`}>
@@ -107,6 +110,8 @@ const H_ALog_Page = ({ isPopupVisible, togglePopupVisibility  }) => {
             type="text"
             placeholder="Search Location..."
             className="alog-search-bar"
+            value={binNameFilter}
+            onChange={(e) => setBinNameFilter(e.target.value)}
           />
           <button className="alog-search-button">Search</button>
         </div>
@@ -133,11 +138,6 @@ const H_ALog_Page = ({ isPopupVisible, togglePopupVisibility  }) => {
           ))}
         </div>
       </div>
-
-      {/* Button to Show Hello Popup */}
-      {/* <button className="alog-circle-button" onClick={() => setShowPopup(true)}>
-        <div className="alog-add-button">+</div>
-      </button> */}
 
       {/* Hello Popup */}
       {showPopup && selectedMarker && (
@@ -220,15 +220,6 @@ const H_ALog_Page = ({ isPopupVisible, togglePopupVisibility  }) => {
             <div className="flex-container-inner">
               <h4>{commnents.length} Comments</h4>
               {commnents.map((comment, index) => (
-                // <ul className="trash-type-container">
-                // <li>
-                //   <div className="trash-type">
-                //     <img src={bin} width={24} height={24}></img>
-                //     <div>General Waste </div>
-                //     {Check_type_general_waste}
-                //   </div>
-                // </li>
-                // <li></li>
                 <div key={index} className="comment">
                   <img
                     src={comment.profile}
@@ -257,29 +248,6 @@ const H_ALog_Page = ({ isPopupVisible, togglePopupVisibility  }) => {
                 <button onClick={() => setShowPopup(false)}>Post</button>
               </div>
             </div>
-
-            {/* <div className="flex-container-inner">
-              <div>1.1</div>
-              <div>1.2</div>
-            </div>
-            <div className="flex-container-inner">
-              <div>2.1</div>
-              <div>2.2</div>
-            </div>
-            <div>3</div>
-            <div>4</div> */}
-            {/* <div className="flex-container">
-              <h3>{First_test_building.building_name}</h3>
-              <h2>{First_test_building.floor_number}th Floor</h2>
-              <h3>Is this infomation correct?</h3>
-            </div>
-            <div className="flex-container">
-              <h3>Comments</h3>
-              <h1>{First_comment}</h1>
-            </div>
-            <div>
-              <button onClick={() => setShowPopup(false)}>Close</button>
-            </div> */}
           </div>
         </div>
       )}
