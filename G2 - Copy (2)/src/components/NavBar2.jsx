@@ -17,7 +17,7 @@ const NavBar2 = ({ togglePopupVisibility }) => {
   const [loading, setLoading] = useState(true);
   const [menuOpen, setMenuOpen] = useState(false);
   const [showProfileDropdown, setShowProfileDropdown] = useState(false);
-  const { lastLocation, setLastLocation, clearLocation, setIsAddingTrashCan } = useLocation();
+  const { lastLocation, setLastLocation, clearLocation, isAddingTrashCan, setIsAddingTrashCan } = useLocation();
 
   useEffect(() => {
     const fetchUserData = async () => {
@@ -107,7 +107,7 @@ const NavBar2 = ({ togglePopupVisibility }) => {
                   e.preventDefault(); // Prevents default anchor behavior (e.g., page scroll)
                   toggleAddTrashcanPopup(); // Call the toggle function
                   // handleAddTrashcanClick(); // Call the handle click function
-                  handleAddTrashCanClick();
+                  // handleAddTrashCanClick();
                 }}
               >
                 Add TrashCan
@@ -189,7 +189,7 @@ const NavBar2 = ({ togglePopupVisibility }) => {
             <a
               href="#"
               className="text-[#17005a] hover:text-gray-500"
-              onClick={() => {toggleAddTrashcanPopup();  handleAddTrashCanClick();}}
+              onClick={() => {toggleAddTrashcanPopup();}}
             >
               Add TrashCan
             </a>
@@ -232,6 +232,18 @@ const NavBar2 = ({ togglePopupVisibility }) => {
             <div className="mb-4">
               <label className="block font-medium text-gray-700">
                 1. Pin a Location
+                <button
+                  className="bg-[#17005a] text-white px-4 py-2 rounded-md hover:bg-blue-300 m-2 hover:cursor-pointer transition duration-300 transform hover:scale-105 flex items-center"
+                  onClick={() => setIsAddingTrashCan(true)}
+                >
+                  Click
+                </button>
+
+                {isAddingTrashCan && (
+                  <h6 className="text-grey-800 font-semibold m-2">
+                    Click anywhere on the map to pin the location!
+                  </h6>
+                )}
               </label>
               {/* Display the last clicked location */}
               <div className="bg-gray-100 p-4 rounded-lg shadow-md flex items-center gap-4 w-fit">

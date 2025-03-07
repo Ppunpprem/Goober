@@ -111,7 +111,7 @@ const MapComp = ({
     const updatedMarkers = [...trashCanLocations, newMarker];
 
   
-    setTrashCanLocations(updatedMarkers);
+    setTrashCanLocations([newMarker]);
     updateLocation(newMarker);
     setIsAddingTrashCan(false);
     // localStorage.setItem("trashCanMarkers", JSON.stringify(updatedMarkers));
