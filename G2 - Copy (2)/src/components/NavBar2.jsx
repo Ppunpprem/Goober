@@ -239,7 +239,7 @@ const NavBar2 = ({ togglePopupVisibility }) => {
                     {lastLocation.lng}
                   </div>
                 ) : (
-                  <span className="text-gray-500 italic">
+                  <span className="text-black-500 italic">
                     Location not selected
                   </span>
                 )}
@@ -247,7 +247,7 @@ const NavBar2 = ({ togglePopupVisibility }) => {
 
               {lastLocation && (
                 <button
-                  className="ml-2 px-2 py-1 mt-3 text-sm bg-red-500 text-white rounded-md hover:bg-red-600"
+                  className="ml-2 px-2 py-1 mt-3 text-sm bg-red-500 text-white rounded-md hover:bg-red-600 "
                   onClick={clearLocation}
                 >
                   Clear
@@ -261,20 +261,16 @@ const NavBar2 = ({ togglePopupVisibility }) => {
                 <input
                   type="text"
                   placeholder="Location Name"
-                  className="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
+                  className="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400 text-black"
                 />
               </div>
 
               <div className="w-24">
                 <label className="block text-gray-700">Floor</label>
                 <input
-                  type="number"
+                  type="text" // Changed from "number" to "text"
                   placeholder="Floor?"
-                  min="0"
-                  className="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
-                  onChange={(f) => {
-                    f.target.value = f.target.value.replace(/\D/, "");
-                  }}
+                  className="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400 text-black"
                 />
               </div>
             </div>
