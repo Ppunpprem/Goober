@@ -17,7 +17,7 @@ const NavBar2 = ({ togglePopupVisibility }) => {
   const [loading, setLoading] = useState(true);
   const [menuOpen, setMenuOpen] = useState(false);
   const [showProfileDropdown, setShowProfileDropdown] = useState(false);
-  const { lastLocation, setLastLocation, clearLocation } = useLocation();
+  const { lastLocation, setLastLocation, clearLocation, setIsAddingTrashCan } = useLocation();
 
   useEffect(() => {
     const fetchUserData = async () => {
@@ -65,12 +65,16 @@ const NavBar2 = ({ togglePopupVisibility }) => {
     setShowProfileDropdown((prevState) => !prevState); // Toggle the dropdown visibility
   };
 
-  const handleAddTrashcanClick = () => {
-    if (latLng && latLng.lat && latLng.lng) {
-      console.log("Adding trashcan at:", latLng);
-    } else {
-      console.log("Location is not available yet");
-    }
+  // const handleAddTrashcanClick = () => {
+  //   if (latLng && latLng.lat && latLng.lng) {
+  //     console.log("Adding trashcan at:", latLng);
+  //   } else {
+  //     console.log("Location is not available yet");
+  //   }
+  // };
+
+  const handleAddTrashCanClick = () => {
+    setIsAddingTrashCan(true);  // Enable "adding trash can" mode
   };
 
   return (
@@ -102,7 +106,8 @@ const NavBar2 = ({ togglePopupVisibility }) => {
                 onClick={(e) => {
                   e.preventDefault(); // Prevents default anchor behavior (e.g., page scroll)
                   toggleAddTrashcanPopup(); // Call the toggle function
-                  handleAddTrashcanClick(); // Call the handle click function
+                  // handleAddTrashcanClick(); // Call the handle click function
+                  handleAddTrashCanClick();
                 }}
               >
                 Add TrashCan
@@ -184,7 +189,7 @@ const NavBar2 = ({ togglePopupVisibility }) => {
             <a
               href="#"
               className="text-[#17005a] hover:text-gray-500"
-              onClick={toggleAddTrashcanPopup}
+              onClick={() => {toggleAddTrashcanPopup();  handleAddTrashCanClick();}}
             >
               Add TrashCan
             </a>

@@ -20,7 +20,7 @@ const MapComp = ({
   const [userLocation, setUserLocation] = useState(null);
   const [trashCanLocations, setTrashCanLocations] = useState([]);
   const [selectedMarker, setSelectedMarkerState] = useState(null);
-  const { updateLocation, setClearMarkers } = useLocation();
+  const { updateLocation, setClearMarkers, isAddingTrashCan, setIsAddingTrashCan } = useLocation();
 
   // Load Google Maps API
   const { isLoaded } = useJsApiLoader({
@@ -95,6 +95,8 @@ const MapComp = ({
   };
 
   const handleMapClick = (event) => {
+    console.log("click",isAddingTrashCan);
+    if (!isAddingTrashCan) return; 
     const newMarker = {
       lat: event.latLng.lat(),
       lng: event.latLng.lng(),
@@ -108,8 +110,10 @@ const MapComp = ({
     };
     const updatedMarkers = [...trashCanLocations, newMarker];
 
+  
     setTrashCanLocations(updatedMarkers);
     updateLocation(newMarker);
+    setIsAddingTrashCan(false);
     // localStorage.setItem("trashCanMarkers", JSON.stringify(updatedMarkers));
   };
 
