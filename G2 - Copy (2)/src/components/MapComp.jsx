@@ -50,7 +50,7 @@ const MapComp = ({
           const markers = data.map((bin) => ({
             lat: parseFloat(bin.bin_location.$lat),
             lng: parseFloat(bin.bin_location.$lng),
-            name: bin.bin_name_location,
+            name: bin.bin_name_location || "Unknown Bin",
             floor: bin.bin_floor_number,
             infoCorrection: bin.bin_info_correction,
             generalWaste: bin.bin_features_general_waste,
@@ -89,9 +89,31 @@ const MapComp = ({
   }, [trashCanLocations]);
 
   const handleMarkerClick = (marker) => {
+    console.log("Marker clicked:", marker);
     setSelectedMarkerState(marker);
     setShowHomePopup(true);
   };
+
+  const handleMapClick = (event) => {
+    const newMarker = {
+      lat: event.latLng.lat(),
+      lng: event.latLng.lng(),
+      name: "New Bin",  // Provide a default name
+    floor: "Unknown",
+    infoCorrection: false,
+    generalWaste: false,
+    recycleWaste: false,
+    organicWaste: false,
+    hazardousWaste: false,
+    };
+    const updatedMarkers = [...trashCanLocations, newMarker];
+
+    setTrashCanLocations(updatedMarkers);
+    updateLocation(newMarker);
+    // localStorage.setItem("trashCanMarkers", JSON.stringify(updatedMarkers));
+  };
+
+
 
   const handleClearLocation = () => {
     setTrashCanLocations((prev) => prev.slice(0, -1)); // Remove last marker
@@ -100,9 +122,9 @@ const MapComp = ({
 
   const filterMarkers = (markers) => {
     return markers.filter((marker) => {
-      const matchesName = marker.name
-        .toLowerCase()
-        .includes(binNameFilter.toLowerCase());
+      const matchesName = marker.name 
+        ? marker.name.toLowerCase().includes(binNameFilter.toLowerCase()) 
+        : false;
       const matchesFilters = Object.entries(homeFilters).every(
         ([key, filter]) => {
           if (!filter.active) return true;
@@ -120,6 +142,7 @@ const MapComp = ({
       center={userLocation || mapCenter}
       zoom={16}
       mapContainerStyle={{ height: "100vh", width: "100%" }}
+      onClick={handleMapClick}
     >
       {/* Render trash bin markers */}
       {filterMarkers(trashCanLocations).map((loc, idx) => (
