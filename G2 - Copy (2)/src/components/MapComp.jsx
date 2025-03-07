@@ -1,7 +1,7 @@
 import PropTypes from "prop-types";
 import { useEffect, useState } from "react";
-import { useLocation } from "../context/LocationContext"
-import logo from "../assets/logo.png"; // Replace with your actual logo path
+import { useLocation } from "../context/LocationContext";
+// import logo from "../assets/logo.png"; // Replace with your actual logo path
 import {
   GoogleMap,
   useJsApiLoader,
@@ -10,7 +10,6 @@ import {
 } from "@react-google-maps/api";
 
 const mapCenter = { lat: 13.729109970727297, lng: 100.77557815261738 };
-
 
 const MapComp = ({
   setShowHomePopup,
@@ -22,7 +21,6 @@ const MapComp = ({
   const [trashCanLocations, setTrashCanLocations] = useState([]);
   const [selectedMarker, setSelectedMarkerState] = useState(null);
   const { updateLocation, setClearMarkers } = useLocation();
-
 
   // Load Google Maps API
   const { isLoaded } = useJsApiLoader({
@@ -95,14 +93,11 @@ const MapComp = ({
     setShowHomePopup(true);
   };
 
-    setTrashCanLocations(updatedMarkers);
-    updateLocation(newMarker);
-    // localStorage.setItem("trashCanMarkers", JSON.stringify(updatedMarkers));
-  };
-
   const handleClearLocation = () => {
     setTrashCanLocations((prev) => prev.slice(0, -1)); // Remove last marker
     clearLocation();
+  };
+
   const filterMarkers = (markers) => {
     return markers.filter((marker) => {
       const matchesName = marker.name
@@ -126,21 +121,6 @@ const MapComp = ({
       zoom={16}
       mapContainerStyle={{ height: "100vh", width: "100%" }}
     >
-
-//       {/* Render trash can markers */}
-      
-// {trashCanLocations.map((loc, idx) => (
-//   <Marker
-//     key={`trash-can-${idx}`} 
-//     position={loc}
-//     icon={{
-//       url: logo, // ✅ Use imported image
-//       scaledSize: new window.google.maps.Size(40, 40), // ✅ Adjust size
-//     }}
-//     onClick={() => handleMarkerClick(loc)}
-//   />
-// ))}
-
       {/* Render trash bin markers */}
       {filterMarkers(trashCanLocations).map((loc, idx) => (
         <Marker
@@ -151,8 +131,6 @@ const MapComp = ({
         />
       ))}
 
-
-      {/* Render user location marker if available */}
       {userLocation && (
         <Marker
           position={userLocation}

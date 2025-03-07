@@ -19,12 +19,11 @@ const defaultHomeFilters = {
   hazardousWaste: { name: "Hazardous Waste", icon: hazard, active: false },
 };
 
-const HomePage = ({ isPopupVisible, togglePopupVisibility  }) => {
+const HomePage = ({ isPopupVisible, togglePopupVisibility }) => {
   const [homeFilters, setHomeFilters] = useState(defaultHomeFilters);
   const [showHomePopup, setShowHomePopup] = useState(false);
   const [selectedMarker, setSelectedMarker] = useState(null);
   const [binNameFilter, setBinNameFilter] = useState("");
-
 
   useEffect(() => {
     document.body.style.overflow = "hidden";
@@ -98,7 +97,9 @@ const HomePage = ({ isPopupVisible, togglePopupVisibility  }) => {
         />
       </div>
 
-      <div className={`home-popup ${isPopupVisible ? 'block' : 'hidden'} md:block`}>
+      <div
+        className={`home-popup ${isPopupVisible ? "block" : "hidden"} md:block`}
+      >
         <h2>Search</h2>
         <div className="home-search-container">
           <img src={mag} alt="Search Icon" className="home-search-icon" />
@@ -109,7 +110,12 @@ const HomePage = ({ isPopupVisible, togglePopupVisibility  }) => {
             value={binNameFilter}
             onChange={(e) => setBinNameFilter(e.target.value)}
           />
-          <button className="home-search-button">Search</button>
+          <button
+            className="home-search-button"
+            onClick={() => setBinNameFilter("")}
+          >
+            Clear
+          </button>
         </div>
 
         <span
@@ -118,40 +124,39 @@ const HomePage = ({ isPopupVisible, togglePopupVisibility  }) => {
         >
           X
         </span>
-
-
+        {/* 
         <div className="pb-5 text-[#17005a] text-xl font-bold">Search</div>
-          <div className="home-search-container">
-            <img src={mag} alt="Search Icon" className="home-search-icon" />
-            <input
-              type="text"
-              placeholder="Search Location..."
-              className="home-search-bar"
-            />
-            <button className="home-search-button">Search</button>
-          </div>
+        <div className="home-search-container">
+          <img src={mag} alt="Search Icon" className="home-search-icon" />
+          <input
+            type="text"
+            placeholder="Search Location..."
+            className="home-search-bar"
+          />
+          <button className="home-search-button">Search1</button>
+        </div> */}
 
-          <div className="home-filter-section">
-            <h3>
-              <img src={filter} alt="Filter Icon" className="home-icon" /> Filter
-              <span className="home-reset-filter" onClick={resetHomeFilters}>
-                Reset Filter
-              </span>
-            </h3>
-            {Object.entries(homeFilters).map(([key, { name, icon, active }]) => (
-              <div className="home-filter-option" key={key}>
-                <img src={icon} alt={name} className="home-icon" /> {name}
-                <label className="home-switch">
-                  <input
-                    type="checkbox"
-                    checked={active}
-                    onChange={() => toggleHomeFilter(key)}
-                  />
-                  <span className="home-slider"></span>
-                </label>
-              </div>
-            ))}
-          </div>
+        <div className="home-filter-section">
+          <h3>
+            <img src={filter} alt="Filter Icon" className="home-icon" /> Filter
+            <span className="home-reset-filter" onClick={resetHomeFilters}>
+              Reset Filter
+            </span>
+          </h3>
+          {Object.entries(homeFilters).map(([key, { name, icon, active }]) => (
+            <div className="home-filter-option" key={key}>
+              <img src={icon} alt={name} className="home-icon" /> {name}
+              <label className="home-switch">
+                <input
+                  type="checkbox"
+                  checked={active}
+                  onChange={() => toggleHomeFilter(key)}
+                />
+                <span className="home-slider"></span>
+              </label>
+            </div>
+          ))}
+        </div>
       </div>
     </div>
   );
