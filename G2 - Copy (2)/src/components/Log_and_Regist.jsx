@@ -1,42 +1,40 @@
-import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import trashcan from '../assets/trashcan.jpg'; // Import background image
-import logo from '../assets/logo.png';
-import usericon from '../assets/usericon.png';
-import pwdicon from '../assets/pwdicon.png';
-import { Link } from 'react-router-dom';
-import './Log_and_Regist.css';
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
+import trashcanBackground from "../assets/trashcan_bg.jpg"; // Ensure this path is correct
+import userIcon from "../assets/usericon.png";
+import pwdIcon from "../assets/pwdicon.png";
+import "./Log_and_Regist.css"; // Make sure this CSS file exists and is properly configured
 
-const LogPage = () => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+const TrashcanMapAuth = () => {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const navigate = useNavigate();
 
   const handleLogin = async (event) => {
     event.preventDefault();
-
     try {
-      const res = await fetch('http://localhost:5001/api/auth/login', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+      const res = await fetch("http://localhost:5001/api/auth/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email, password }),
       });
-
       const data = await res.json();
       if (res.ok) {
-        localStorage.setItem('token', data.token);
-        alert('Login successful!');
-        navigate('/home_after_login'); // Redirect after login
+        localStorage.setItem("token", data.token);
+        alert("Login successful!");
+        navigate("/home_after_login");
       } else {
-        alert(data.msg || 'Invalid credentials');
+        alert(data.msg || "Invalid credentials");
       }
     } catch (error) {
-      alert('Something went wrong. Please try again.');
+      alert("Something went wrong. Please try again.");
     }
   };
 
+  // Define the appStyle object for background image
   const appStyle = {
-    backgroundImage: `url(${trashcan})`,
+    backgroundImage: `url(${trashcanBackground})`,
     backgroundSize: 'cover',
     backgroundPosition: 'center',
     backgroundRepeat: 'no-repeat',
@@ -45,73 +43,62 @@ const LogPage = () => {
     margin: 0,
     padding: 0,
     overflow: 'hidden',
-    position: 'absolute',
+    position: 'absolute', // 'absolute' to make sure the background covers the full viewport
     top: 0,
     left: 0,
-  };
-
-  const contentStyle = {
-    color: '#fff',
-    textAlign: 'center',
-    fontSize: '2rem',
-    zIndex: 2,
-    position: 'relative',
+    zIndex: 0, // background should be behind the container
   };
 
   return (
     <div style={appStyle}>
-      <div style={contentStyle}>
-        <p className="underlinetext">
-          TRASHCAN MAP 
-          <img src={logo} width="100" height="100" alt="Logo" />
-        </p>
+      {/* Container with higher z-index */}
+      <div className="auth-container">
 
-        {/* Sign Up Section */}
-        <div className="signup-container">
-          <p>Sign Up</p>
-          <Link to="/info-regist">
-            <button className="regist-button">Register</button>
-          </Link>
+        <h2 className="text-xl font-semibold text-indigo-800">Sign Up</h2>
+        <Link to="/info-regist">
+        <button className="auth-button">Register</button>
+
+        </Link>
+
+        <div className="my-4 text-gray-600">OR</div>
+
+        <h2 className="text-xl font-semibold text-indigo-800">Log In</h2>
+        <form onSubmit={handleLogin} className="mt-2 w-full">
+        <div className="email-box-container">
+          <span className="icon">
+            <img src={userIcon} alt="User Icon" />
+          </span>
+          <input
+            type="email"
+            placeholder="Enter your email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            required
+            className="email-box"
+          />
         </div>
 
-        <p className="or-text">OR</p>
 
-        {/* Log In Section */}
-        <p className="log-in">Log In</p>
-        {/* <p className="log-in-user">Log in with Username</p> */}
+        <div className="email-box-container">
+        <span className="icon">
+            <img src={pwdIcon} alt="Password Icon" className="pwd-icon text-gray-400" />
+          </span>
+          <input
+            type="password"
+            placeholder="Enter your password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            required
+            className="email-box"
+          />
+        </div>
 
-        {/* Login Form */}
-        <form onSubmit={handleLogin} className="auth-box">
-          <div className="input-field">
-            <img src={usericon} alt="Email Icon" className="icon" />
-            <input
-              type="email"
-              placeholder="Enter your email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              required
-            />
-          </div>
 
-          <div className="input-field">
-            <img src={pwdicon} alt="Password Icon" className="icon" />
-            <input
-              type="password"
-              placeholder="Enter your password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              required
-            />
-          </div>
-
-          <button type="submit" className="login-button">
-            Log In
-          </button>
+          <button type="submit" className="auth-button">Log In</button>
         </form>
-        
       </div>
     </div>
   );
 };
 
-export default LogPage;
+export default TrashcanMapAuth;

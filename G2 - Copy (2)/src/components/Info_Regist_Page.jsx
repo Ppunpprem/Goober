@@ -84,10 +84,10 @@ const InfoRegistPage = () => {
     <div className="app-container" style={{ overflowY: "auto" }}>
       <NavBar />
       <main className="content-container">
-        <h1 className="information-title" style={{marginLeft: "20px"}}>Information</h1>
+        <h1 className="information-title">Information</h1>
         <div className="form-container">
           <div className="profile-section">
-            <p className="acc" style={{marginLeft: "35%"}}>Account Image</p>
+            <p className="acc">Account Image</p>
             <div className="profile-image-placeholder" onClick={handleClick}>
               {profilePhoto ? (
                 <img src={profilePhoto} alt="Profile" className="profile-image" />

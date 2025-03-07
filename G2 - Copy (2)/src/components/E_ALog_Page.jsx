@@ -126,8 +126,8 @@ const EditPage = () => {
   return (
     <div className="app-container">
       <main className="content-container">
-        <h1 className="information-title" style={{ marginLeft: "20px" }}>
-          {isEditing ? "Edit Information" : "Profile Information"}
+        <h1 className="information-title">
+          {isEditing ? "Edit Information" : "Information"}
         </h1>
 
         {notification.visible && (
@@ -138,7 +138,7 @@ const EditPage = () => {
 
         <div className="form-container">
           <div className="profile-section">
-            <p className="acc" style={{ marginLeft: "35%" }}>
+            <p className="acc">
               Account Image
             </p>
             <div className="profile-image-placeholder" onClick={handleClick} style={{
