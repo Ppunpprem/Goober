@@ -9,8 +9,7 @@ import recycle from "../assets/recycle.png";
 import organic from "../assets/organic.png";
 import { useLocation } from "../context/LocationContext";
 
-
-const NavBar2 = ({togglePopupVisibility}) => {
+const NavBar2 = ({ togglePopupVisibility }) => {
   const { user, updateUser } = useUser();
   const [showPopup, setShowPopup] = useState(false);
   const [showAddTrashcanPopup, setShowAddTrashcanPopup] = useState(false);
@@ -18,7 +17,7 @@ const NavBar2 = ({togglePopupVisibility}) => {
   const [loading, setLoading] = useState(true);
   const [menuOpen, setMenuOpen] = useState(false);
   const [showProfileDropdown, setShowProfileDropdown] = useState(false);
-  const { lastLocation,setLastLocation, clearLocation } = useLocation();
+  const { lastLocation, setLastLocation, clearLocation } = useLocation();
 
   useEffect(() => {
     const fetchUserData = async () => {
@@ -72,37 +71,52 @@ const NavBar2 = ({togglePopupVisibility}) => {
     }
   };
 
-
   return (
     <>
       <header className="fixed top-0 left-0 right-0 z-[1000] bg-white shadow-md px-6 py-1 flex justify-between items-center">
         <div className="flex items-center space-x-3">
-          <span className="text-xl font-medium text-[#17005a] leading-none py-3">TRASHCAN MAP</span>
-          <img src={logo} alt="Adidas Logo" className="w-16 h-16 object-contain" />
+          <span className="text-xl font-medium text-[#17005a] leading-none py-3">
+            TRASHCAN MAP
+          </span>
+          <img
+            src={logo}
+            alt="Adidas Logo"
+            className="w-16 h-16 object-contain"
+          />
         </div>
 
         {/* Desktop Navbar */}
         <nav className="hidden md:flex">
           <ul className="flex h-full items-center space-x-10 text-xl font-medium text-[#17005a]">
             <li>
-              <Link to="/home_after_login" className="hover:text-gray-500">Home</Link>
+              <Link to="/home_after_login" className="hover:text-gray-500">
+                Home
+              </Link>
             </li>
             <li>
-              <a href="#" className="hover:text-gray-500"  onClick={(e) => {
-                e.preventDefault(); // Prevents default anchor behavior (e.g., page scroll)
-                toggleAddTrashcanPopup(); // Call the toggle function
-                handleAddTrashcanClick(); // Call the handle click function
-              }}>Add TrashCan</a>
+              <a
+                href="#"
+                className="hover:text-gray-500"
+                onClick={(e) => {
+                  e.preventDefault(); // Prevents default anchor behavior (e.g., page scroll)
+                  toggleAddTrashcanPopup(); // Call the toggle function
+                  handleAddTrashcanClick(); // Call the handle click function
+                }}
+              >
+                Add TrashCan
+              </a>
             </li>
             <li>
-              <div 
+              <div
                 className="flex items-center gap-3 pl-1 px-3 py-3 font-medium text-xl rounded-2xl cursor-pointer hover:bg-gray-200 transition"
                 onClick={toggleUser}
               >
-                <span>{loading ? "Loading..." : user?.username || "Guest"}</span>
-                <img 
-                  src={user?.profilePhoto || logo} 
-                  alt="profile" 
+                <span>
+                  {loading ? "Loading..." : user?.username || "Guest"}
+                </span>
+                <img
+                  src={user?.profilePhoto || logo}
+                  alt="profile"
                   className="w-10 h-10 rounded-full border border-gray-300"
                 />
               </div>
@@ -110,9 +124,19 @@ const NavBar2 = ({togglePopupVisibility}) => {
               {showProfileDropdown && (
                 <div className="absolute right-0 mt-2 w-48 bg-white shadow-lg rounded-lg border border-gray-200 z-50">
                   <div className="flex flex-col">
-                    <Link to="/edit" className="px-4 py-2 text-gray-700 hover:text-blue-300 rounded-t-lg">Edit</Link>
-                    <Link to="/badges" className="px-4 py-2 text-gray-700 hover:text-blue-300">Badges</Link>
-                    <span 
+                    <Link
+                      to="/edit"
+                      className="px-4 py-2 text-gray-700 hover:text-blue-300 rounded-t-lg"
+                    >
+                      Edit
+                    </Link>
+                    <Link
+                      to="/badges"
+                      className="px-4 py-2 text-gray-700 hover:text-blue-300"
+                    >
+                      Badges
+                    </Link>
+                    <span
                       className="px-4 py-2 text-gray-700 hover:text-blue-300 rounded-b-lg text-left"
                       onClick={handleLogout}
                     >
@@ -128,9 +152,14 @@ const NavBar2 = ({togglePopupVisibility}) => {
         <div className="md:hidden block">
           {/* Menu Button */}
           <button
-            onClick={() => {setMenuOpen(!menuOpen);setShowProfileDropdown(false)}}
+            onClick={() => {
+              setMenuOpen(!menuOpen);
+              setShowProfileDropdown(false);
+            }}
             className="text-3xl cursor-pointer bg-[#17005a] text-white px-4 py-2 rounded-md"
-            aria-label={menuOpen && !showProfileDropdown ? "Close menu" : "Open menu"}
+            aria-label={
+              menuOpen && !showProfileDropdown ? "Close menu" : "Open menu"
+            }
           >
             {menuOpen ? "✖" : "☰"}
           </button>
@@ -138,21 +167,45 @@ const NavBar2 = ({togglePopupVisibility}) => {
           {/* Mobile Navbar */}
           <nav
             className={`absolute left-0 w-full bg-white shadow-md flex flex-col items-center space-y-4 py-4 text-lg font-medium text-gray-800 transform transition-all duration-500 ease-in-out ${
-              menuOpen ? "translate-y-0 opacity-100 scale-100 pointer-events-auto" : "-translate-y-10 opacity-0 scale-95 pointer-events-none delay-100"
+              menuOpen
+                ? "translate-y-0 opacity-100 scale-100 pointer-events-auto"
+                : "-translate-y-10 opacity-0 scale-95 pointer-events-none delay-100"
             }`}
-          > 
-            <Link to="/home_after_login" className="text-[#17005a] hover:text-gray-500" onClick={() => setMenuOpen(false)}>Home</Link>
-            <a href="#" className="text-[#17005a] hover:text-gray-500" onClick={toggleAddTrashcanPopup}>Add TrashCan</a>
-            <a href="#" className="text-[#17005a] hover:text-gray-500" onClick={() => { togglePopupVisibility(); setMenuOpen(false); }}>Search</a>
+          >
+            <Link
+              to="/home_after_login"
+              className="text-[#17005a] hover:text-gray-500"
+              onClick={() => setMenuOpen(false)}
+            >
+              Home
+            </Link>
+            <a
+              href="#"
+              className="text-[#17005a] hover:text-gray-500"
+              onClick={toggleAddTrashcanPopup}
+            >
+              Add TrashCan
+            </a>
+            <a
+              href="#"
+              className="text-[#17005a] hover:text-gray-500"
+              onClick={() => {
+                togglePopupVisibility();
+                setMenuOpen(false);
+              }}
+            >
+              Search
+            </a>
 
             {/* Profile Section */}
-            <div 
+            <div
               className="flex items-center gap-3 pl-1 px-3 py-3 font-medium text-xl rounded-2xl cursor-pointer hover:bg-gray-200 transition"
-              onClick={toggleUser}>
+              onClick={toggleUser}
+            >
               <span>{loading ? "Loading..." : user?.username || "Guest"}</span>
-              <img 
-                src={user?.profilePhoto || logo} 
-                alt="profile" 
+              <img
+                src={user?.profilePhoto || logo}
+                alt="profile"
                 className="w-10 h-10 rounded-full border border-gray-300"
               />
             </div>
@@ -162,155 +215,186 @@ const NavBar2 = ({togglePopupVisibility}) => {
 
       {/* Add Trashcan Popup */}
       {showAddTrashcanPopup && (
-      <div className="fixed mt-19 right-0 bg-transparent bg-opacity-50 flex justify-center items-center z-50">
-        <div className="bg-white p-6 rounded-lg shadow-xl w-96">
-          <h2 className="text-xl font-semibold text-gray-900 mb-4">Add a Trashcan!</h2>
+        <div className="fixed mt-19 right-0 bg-transparent bg-opacity-50 flex justify-center items-center z-50">
+          <div className="bg-white p-6 rounded-lg shadow-xl w-96">
+            <h2 className="text-xl font-semibold text-gray-900 mb-4">
+              Add a Trashcan!
+            </h2>
 
-          {/* Location Selection */}
-          <div className="mb-4">
-            <label className="block font-medium text-gray-700">1. Pin a Location</label>
-            {/* Display the last clicked location */}
-            <div className="bg-gray-100 p-4 rounded-lg shadow-md flex items-center gap-4 w-fit">
-              <div className="text-blue-600 font-semibold">Location:</div>
-              {lastLocation ? (
-                <div className="text-gray-800 flex flex-col">
-                  <strong className="text-blue-500">Lat:</strong> {lastLocation.lat}, 
-                  <strong className="text-blue-500">Lng:</strong> {lastLocation.lng}
-                </div>
-              ) : (
-                <span className="text-gray-500 italic">Location not selected</span>
+            {/* Location Selection */}
+            <div className="mb-4">
+              <label className="block font-medium text-gray-700">
+                1. Pin a Location
+              </label>
+              {/* Display the last clicked location */}
+              <div className="bg-gray-100 p-4 rounded-lg shadow-md flex items-center gap-4 w-fit">
+                <div className="text-blue-600 font-semibold">Location:</div>
+                {lastLocation ? (
+                  <div className="text-gray-800 flex flex-col">
+                    <strong className="text-blue-500">Lat:</strong>{" "}
+                    {lastLocation.lat},
+                    <strong className="text-blue-500">Lng:</strong>{" "}
+                    {lastLocation.lng}
+                  </div>
+                ) : (
+                  <span className="text-gray-500 italic">
+                    Location not selected
+                  </span>
+                )}
+              </div>
+
+              {lastLocation && (
+                <button
+                  className="ml-2 px-2 py-1 mt-3 text-sm bg-red-500 text-white rounded-md hover:bg-red-600"
+                  onClick={clearLocation}
+                >
+                  Clear
+                </button>
               )}
             </div>
 
-{lastLocation && (
-            <button
-              className="ml-2 px-2 py-1 mt-3 text-sm bg-red-500 text-white rounded-md hover:bg-red-600"
-              onClick={clearLocation}
-            >
-              Clear
-            </button>
-          )}
+            <div className="mb-4 flex gap-4">
+              <div className="flex-1">
+                <label className="block text-gray-700">2. Location</label>
+                <input
+                  type="text"
+                  placeholder="Location Name"
+                  className="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
+                />
+              </div>
 
+              <div className="w-24">
+                <label className="block text-gray-700">Floor</label>
+                <input
+                  type="number"
+                  placeholder="Floor?"
+                  min="0"
+                  className="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
+                  onChange={(f) => {
+                    f.target.value = f.target.value.replace(/\D/, "");
+                  }}
+                />
+              </div>
             </div>
 
-      <div className="mb-4 flex gap-4">
-        <div className="flex-1">
-          <label className="block text-gray-700">2. Location</label>
-          <input 
-            type="text" 
-            placeholder="Location Name" 
-            className="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
-          />
-        </div>
+            {/* Trashcan Types */}
+            <div className="mb-4">
+              <label className="block font-medium text-gray-700 mb-2">
+                3. Trashcan Type
+              </label>
 
-        <div className="w-24">
-          <label className="block text-gray-700">Floor</label>
-          <input 
-            type="number" 
-            placeholder="Floor?" 
-            min="0" 
-            className="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
-            onChange={(f) => {
-              f.target.value = f.target.value.replace(/\D/, "");
-            }}
-          />
-        </div>
-      </div>
+              {[
+                { name: "General Waste", icon: bin },
+                { name: "Recycle Waste", icon: recycle },
+                { name: "Organic Waste", icon: organic },
+                { name: "Hazardous Waste", icon: hazard },
+              ].map((trashcan, index) => (
+                <div
+                  key={index}
+                  className="flex items-center justify-between bg-white p-2 rounded-lg mb-2"
+                >
+                  <div className="flex items-center space-x-3">
+                    <img
+                      src={trashcan.icon}
+                      alt={trashcan.name}
+                      className="w-8 h-8"
+                    />
+                    <span className="text-gray-700">{trashcan.name}</span>
+                  </div>
 
-      {/* Trashcan Types */}
-      <div className="mb-4">
-        <label className="block font-medium text-gray-700 mb-2">3. Trashcan Type</label>
+                  <div className="flex space-x-3">
+                    <label className="flex items-center space-x-1 cursor-pointer">
+                      <input
+                        type="radio"
+                        name={trashcan.name.toLowerCase()}
+                        value="yes"
+                        className="peer hidden"
+                      />
+                      <div className="w-5 h-5 border-2 border-gray-500 rounded-full peer-checked:border-red-500 peer-checked:bg-red-500"></div>
+                      <span className="text-gray-600 peer-checked:text-red-500">
+                        Yes
+                      </span>
+                    </label>
 
-        {[
-          { name: "General Waste", icon: bin },
-          { name: "Recycle Waste", icon: recycle },
-          { name: "Organic Waste", icon: organic },
-          { name: "Hazardous Waste", icon: hazard }
-        ].map((trashcan, index) => (
-          <div key={index} className="flex items-center justify-between bg-white p-2 rounded-lg mb-2">
-            <div className="flex items-center space-x-3">
-              <img src={trashcan.icon} alt={trashcan.name} className="w-8 h-8" />
-              <span className="text-gray-700">{trashcan.name}</span>
+                    <label className="flex items-center space-x-1 cursor-pointer">
+                      <input
+                        type="radio"
+                        name={trashcan.name.toLowerCase()}
+                        value="no"
+                        className="peer hidden"
+                      />
+                      <div className="w-5 h-5 border-2 border-gray-500 rounded-full peer-checked:border-blue-500 peer-checked:bg-blue-500"></div>
+                      <span className="text-gray-600 peer-checked:text-blue-500">
+                        No
+                      </span>
+                    </label>
+                  </div>
+                </div>
+              ))}
             </div>
 
-            <div className="flex space-x-3">
-  <label className="flex items-center space-x-1 cursor-pointer">
-    <input 
-      type="radio" 
-      name={trashcan.name.toLowerCase()} 
-      value="yes" 
-      className="peer hidden" 
-    />
-    <div className="w-5 h-5 border-2 border-gray-500 rounded-full peer-checked:border-red-500 peer-checked:bg-red-500"></div>
-    <span className="text-gray-600 peer-checked:text-red-500">Yes</span>
-  </label>
-
-  <label className="flex items-center space-x-1 cursor-pointer">
-    <input 
-      type="radio" 
-      name={trashcan.name.toLowerCase()} 
-      value="no" 
-      className="peer hidden" 
-    />
-    <div className="w-5 h-5 border-2 border-gray-500 rounded-full peer-checked:border-blue-500 peer-checked:bg-blue-500"></div>
-    <span className="text-gray-600 peer-checked:text-blue-500">No</span>
-  </label>
-</div>
-
+            {/* Buttons */}
+            <div className="flex justify-end space-x-3">
+              <button
+                className="px-4 py-2 bg-gray-300 text-white rounded-lg hover:bg-gray-400 transition duration-200"
+                onClick={toggleAddTrashcanPopup}
+              >
+                Cancel
+              </button>
+              <button
+                className="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition duration-200"
+                onClick={toggleAddTrashcanPopup}
+              >
+                Confirm
+              </button>
+            </div>
           </div>
-        ))}
-      </div>
-
-      {/* Buttons */}
-      <div className="flex justify-end space-x-3">
-        <button 
-          className="px-4 py-2 bg-gray-300 text-white rounded-lg hover:bg-gray-400 transition duration-200"
-          onClick={toggleAddTrashcanPopup}
-        >
-          Cancel
-        </button>
-        <button 
-          className="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition duration-200"
-          onClick={toggleAddTrashcanPopup}
-        >
-          Confirm
-        </button>
-      </div>
-    </div>
-  </div>
+        </div>
       )}
 
       {/* Profile Dropdown */}
-{showProfileDropdown && (
-  <div
-    className={`md:hidden absolute left-0 top-18 w-full bg-white shadow-lg rounded-lg border border-gray-200 z-[1000] 
-      transform transition-all duration-700 ease-in-out ${showProfileDropdown ?  
-        "translate-y-0 opacity-100 scale-100 pointer-events-auto" :
-       "-translate-y-10 opacity-0 scale-95 pointer-events-none delay-100"}`}
-  >
-    <div className="flex flex-col text-center py-4 space-y-4 text-lg font-medium text-[#17005a] hover:text-gray-500">
-      <div className="flex items-center justify-center gap-3 font-medium text-xl rounded-2xl cursor-pointer hover:bg-gray-200"
-        onClick={() => {setMenuOpen(true);
-        setShowProfileDropdown(false);}}>
-        <Link>{loading ? "Loading..." : user?.username || "Guest"}</Link>
-        <img 
-            src={user?.profilePhoto || logo} 
-            alt="profile" 
-            className="w-10 h-10 rounded-full border border-gray-300"
-         />
-      </div>
-      <Link to="/edit" className="text-[#17005a] hover:text-blue-300 rounded-t-lg">Edit</Link>
-      <Link to="/badges" className=" text-[#17005a] hover:text-blue-300">Badges</Link>
-      <Link
-        className="text-[#17005a] hover:text-blue-300 rounded-b-lg"
-        onClick={handleLogout}
-      >
-        Log Out
-      </Link>
-    </div>
-  </div>
-)}
-
+      {showProfileDropdown && (
+        <div
+          className={`md:hidden absolute left-0 top-18 w-full bg-white shadow-lg rounded-lg border border-gray-200 z-[1000] 
+      transform transition-all duration-700 ease-in-out ${
+        showProfileDropdown
+          ? "translate-y-0 opacity-100 scale-100 pointer-events-auto"
+          : "-translate-y-10 opacity-0 scale-95 pointer-events-none delay-100"
+      }`}
+        >
+          <div className="flex flex-col text-center py-4 space-y-4 text-lg font-medium text-[#17005a] hover:text-gray-500">
+            <div
+              className="flex items-center justify-center gap-3 font-medium text-xl rounded-2xl cursor-pointer hover:bg-gray-200"
+              onClick={() => {
+                setMenuOpen(true);
+                setShowProfileDropdown(false);
+              }}
+            >
+              <Link>{loading ? "Loading..." : user?.username || "Guest"}</Link>
+              <img
+                src={user?.profilePhoto || logo}
+                alt="profile"
+                className="w-10 h-10 rounded-full border border-gray-300"
+              />
+            </div>
+            <Link
+              to="/edit"
+              className="text-[#17005a] hover:text-blue-300 rounded-t-lg"
+            >
+              Edit
+            </Link>
+            <Link to="/badges" className=" text-[#17005a] hover:text-blue-300">
+              Badges
+            </Link>
+            <a
+              className="text-[#17005a] hover:text-blue-300 rounded-b-lg"
+              onClick={handleLogout}
+            >
+              Log Out
+            </a>
+          </div>
+        </div>
+      )}
     </>
   );
 };
