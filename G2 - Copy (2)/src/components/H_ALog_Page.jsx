@@ -46,7 +46,7 @@ const defaultFilters = {
   hazardousWaste: { name: "Hazardous Waste", icon: hazard, active: false },
 };
 
-const H_ALog_Page = ({ isPopupVisible, togglePopupVisibility  }) => {
+const H_ALog_Page = ({ isPopupVisible, togglePopupVisibility }) => {
   const [filters, setFilters] = useState(defaultFilters);
   const [showPopup, setShowPopup] = useState(false);
   const [selectedMarker, setSelectedMarker] = useState(null);
@@ -96,8 +96,10 @@ const H_ALog_Page = ({ isPopupVisible, togglePopupVisibility  }) => {
           binNameFilter={binNameFilter}
         />
       </div>
-      <div className={`alog-popup ${isPopupVisible ? 'block' : 'hidden'} md:block`}>
-      <span
+      <div
+        className={`alog-popup ${isPopupVisible ? "block" : "hidden"} md:block`}
+      >
+        <span
           className="md:hidden absolute top-2 right-1 text-[#17005a] bg-white text-xl p-2 font-medium cursor-pointer hover:bg-[#54008a] focus:outline-none"
           onClick={togglePopupVisibility}
         >
@@ -113,7 +115,12 @@ const H_ALog_Page = ({ isPopupVisible, togglePopupVisibility  }) => {
             value={binNameFilter}
             onChange={(e) => setBinNameFilter(e.target.value)}
           />
-          <button className="alog-search-button">Search</button>
+          <button
+            className="home-search-button"
+            onClick={() => setBinNameFilter("")}
+          >
+            Clear
+          </button>{" "}
         </div>
 
         <div className="alog-filter-section">
