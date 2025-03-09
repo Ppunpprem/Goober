@@ -10,56 +10,39 @@ import BadgesPage from "./components/Badges_Page";
 import EditPage from "./components/E_ALog_Page";
 import "./App.css";
 import { UserProvider } from "./context/UserContext";
-import { useState } from "react";
-import { LocationProvider } from "./context/LocationContext"; 
-import MapComp from "./components/Mapcomp";
 
 function App() {
   return (
     <UserProvider> 
-      <LocationProvider>
-        <Router>
-          <MainLayout />
-        </Router>
-      </LocationProvider>
+      <Router>
+        <MainLayout />
+      </Router>
     </UserProvider>
   );
 }
 
 function MainLayout() {
   const location = useLocation();
-  const [isPopupVisible, setIsPopupVisible] = useState(false);
-  
-
-  const togglePopupVisibility = () => {
-    setIsPopupVisible(prevState => !prevState);
-  };
   
   const navBar2Routes = ["/home_after_login", "/location_info", "/badges", "/edit"];
   const isNavBar2 = navBar2Routes.includes(location.pathname);
 
   return (
     <>
-      {isNavBar2 ? (
-    <NavBar2 togglePopupVisibility={togglePopupVisibility} />
-  ) : (
-    <NavBar togglePopupVisibility={togglePopupVisibility} />
-  )}
+      {isNavBar2 ? <NavBar2 /> : <NavBar />}
       <div className="main-content">
         <Routes>
-          <Route path="/" element={<HomePage isPopupVisible={isPopupVisible} togglePopupVisibility={togglePopupVisibility} />} />
+          <Route path="/" element={<HomePage />} />
           <Route path="/log-regist" element={<LogPage />} />
           <Route path="/info-regist" element={<InfoRegistPage />} />
-          <Route path="/home_after_login" element={<H_ALog_Page key={location.pathname}  isPopupVisible={isPopupVisible} togglePopupVisibility={togglePopupVisibility}/>} />
+          <Route path="/home_after_login" element={<H_ALog_Page key={location.pathname} />} />
           <Route path="/location_info" element={<Location_Popup />} />
           <Route path="/badges" element={<BadgesPage />} />
           <Route path="/edit" element={<EditPage />} />
-          <Route path="/map" element={<MapComp />} />
         </Routes>
       </div>
     </>
   );
 }
-
 
 export default App;
