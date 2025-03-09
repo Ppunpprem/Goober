@@ -42,6 +42,7 @@ const NavBar2 = () => {
         setLoading(false);
       }
     };
+    // test
 
     fetchUserData();
   }, [updateUser]);
