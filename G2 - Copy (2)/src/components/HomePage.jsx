@@ -8,7 +8,7 @@ import mag from "../assets/mag.png";
 import check from "../assets/check-mark-button.png";
 import cross from "../assets/cross-mark.png";
 import organic from "../assets/organic.png";
-import MapComp from "../components/Mapcomp";
+import MapComp from "../components/MapComp";
 
 import { First_test_building, commnents } from "../Damo_data/bindata";
 
