@@ -169,7 +169,8 @@ const NavBar2 = ({ togglePopupVisibility }) => {
         <nav className="hidden md:flex">
           <ul className="flex h-full items-center space-x-10 text-xl font-medium text-[#17005a]">
             <li>
-              <Link to="/home_after_login" className="hover:text-gray-500">
+              <Link to="/home_after_login" className="hover:text-gray-500"
+              onClick={() => {setShowProfileDropdown(false); setShowAddTrashcanPopup(false);}}>
                 Home
               </Link>
             </li>
@@ -208,12 +209,14 @@ const NavBar2 = ({ togglePopupVisibility }) => {
                     <Link
                       to="/edit"
                       className="px-4 py-2 text-gray-700 hover:text-blue-300 rounded-t-lg"
+                      onClick={() => {setShowProfileDropdown(false); setShowAddTrashcanPopup(false);}}
                     >
                       Edit
                     </Link>
                     <Link
                       to="/badges"
                       className="px-4 py-2 text-gray-700 hover:text-blue-300"
+                      onClick={() => {setShowProfileDropdown(false); setShowAddTrashcanPopup(false);}}
                     >
                       Badges
                     </Link>
