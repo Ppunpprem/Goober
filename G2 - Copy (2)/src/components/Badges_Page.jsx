@@ -1,12 +1,12 @@
-import React, { useState, useEffect } from 'react';  // Import useState and useEffect from React
-import './Badges_Page.css'; // Import global styles
+import React, { useState, useEffect } from 'react'; 
+import './Badges_Page.css'; 
 import appleicon from '../assets/appleicon.png';
 import awardicon from '../assets/awardicon.png';
 import bubbleicon from '../assets/bubbleicon.png';
-import axios from 'axios'; // Import axios
+import axios from 'axios'; 
 
 const BadgesPage = () => {
-  const [badges, setBadges] = useState([ // Initialize the state for badges
+  const [badges, setBadges] = useState([ 
     {
       id: 1,
       title: 'Bin Explorer',
@@ -42,7 +42,6 @@ const BadgesPage = () => {
       }
 
       try {
-        // Make a GET request to your backend to fetch badges
         const res = await fetch("http://localhost:5001/api/badge/profile", {
           method: "GET",
           headers: { "x-auth-token": token },
@@ -55,21 +54,20 @@ const BadgesPage = () => {
 
         const response = await res.json();
 
-        // Check if badges exist in the response and if binCount is provided
         if (response && response.binCount !== undefined) {
           setBadges((prevBadges) =>
             prevBadges.map((badge) => {
               if (badge.title === "Bin Explorer") {
-                // Update the progress for 'Bin Explorer' based on binCount
-                const maxProgress = 4;  // Maximum progress for Bin Explorer
-                const updatedProgress = Math.min(response.binCount, maxProgress);  // Don't exceed the max
+               
+                const maxProgress = 4;
+                const updatedProgress = Math.min(response.binCount, maxProgress); 
                 return { 
                   ...badge, 
                   progress: `${updatedProgress}/${maxProgress}`,
-                  isComplete: updatedProgress === maxProgress, // Flag to check if progress is complete
+                  isComplete: updatedProgress === maxProgress, 
                 };
               } else {
-                return badge;  // Keep other badges unchanged
+                return badge;  
               }
             })
           );
@@ -95,7 +93,7 @@ const BadgesPage = () => {
                 className="badge-circle"
                 style={{
                   backgroundColor: badge.color,
-                  border: `5px solid ${badge.color}`, // Dynamic border color
+                  border: `5px solid ${badge.color}`, 
                 }}
               >
                 <img
@@ -108,7 +106,7 @@ const BadgesPage = () => {
               <h2 className="badge-name">{badge.title}</h2>
               <p className="badge-description">{badge.description}</p>
               <p className="flex flex-col items-center">
-                <span className="text-4xl font-bold text-gray-600">{badge.progress}</span> {/* Increase font size */}
+                <span className="text-4xl font-bold text-gray-600">{badge.progress}</span> 
                 {badge.isComplete && <span className="font-bold text-green-500 mt-1">Complete</span>}
               </p>
             </div>

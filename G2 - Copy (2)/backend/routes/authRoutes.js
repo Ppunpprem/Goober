@@ -147,12 +147,11 @@ router.post(
 
 router.get("/profile", authMiddleware, async (req, res) => {
   try {
-    const user = await User.findById(req.user); // Access the user with the ID stored in `req.user`
+    const user = await User.findById(req.user); 
     if (!user) {
       return res.status(404).json({ msg: "User not found" });
     }
 
-    // Return user details, including the profile photo path
     res.json({
       id: user._id,
       firstName: user.firstName,

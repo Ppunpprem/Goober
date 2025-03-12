@@ -1,9 +1,7 @@
-// badgeController.js
 import { assignBadgeToUser } from "../services/userService.js";
 
 export const assignBadge = async (req, res) => {
-  const { userId, badge } = req.body; // Get userId & badge from request
-
+  const { userId, badge } = req.body; 
   if (!userId || !badge) {
     return res.status(400).json({ error: "User ID and badge are required" });
   }

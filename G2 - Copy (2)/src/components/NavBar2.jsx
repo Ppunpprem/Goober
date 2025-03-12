@@ -90,7 +90,6 @@ const NavBar2 = ({ togglePopupVisibility }) => {
     }
   
     try {
-      // Fetch user data from the backend
       const res = await fetch("http://localhost:5001/api/auth/profile", {
         method: "GET",
         headers: { "x-auth-token": token },
@@ -99,25 +98,20 @@ const NavBar2 = ({ togglePopupVisibility }) => {
       if (!res.ok) {
         if (res.status === 401) {
           setErrorMessage('Session expired. Please log in again.');
-          // Optionally redirect the user to login page
         } else {
           throw new Error("Failed to load profile");
         }
       }
   
-      const user = await res.json();
-      console.log('Fetched User:', user.id); // Log the user object
-  
-      // Ensure the user data is available
-      if (!user || !user.id) {  // Use _id from the backend response
+      const user = await res.json();  
+
+      if (!user || !user.id) { 
         setErrorMessage("User data is not available.");
         return;
       }
   
-      // Log the user._id before sending
       console.log("User ID:", user.id); 
   
-      // Prepare the data for submission
       const data = {
         bin_location: {
           $lat: `${lastLocation.lat}`,
@@ -130,10 +124,10 @@ const NavBar2 = ({ togglePopupVisibility }) => {
         bin_features_recycle_waste: binFeatures.recycleWaste,
         bin_features_organic_waste: binFeatures.organicWaste,
         bin_features_hazardous_waste: binFeatures.hazardousWaste,
-        user_id: user.id,  // Correct user ID from backend response
+        user_id: user.id,  
       };
   
-      // Make the API request to add the trashcan
+
       const response = await fetch("http://localhost:5001/api/bin", {
         method: "POST",
         headers: {
@@ -144,14 +138,13 @@ const NavBar2 = ({ togglePopupVisibility }) => {
   
       if (!response.ok) {
         const errorData = await response.json();
-        console.error('API Error Response:', errorData);  // Log the error response
+        console.error('API Error Response:', errorData); 
         throw new Error(`Failed to add trashcan: ${errorData.message || "Unknown error"}`);
       }
   
       const result = await response.json();
       console.log("Trashcan added successfully:", result);
   
-      // Reset the form or take any action after a successful submission
     } catch (error) {
       console.error("Error adding trashcan:", error);
       setErrorMessage(error.message || "An error occurred while adding trashcan.");

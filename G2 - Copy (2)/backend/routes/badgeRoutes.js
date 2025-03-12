@@ -5,10 +5,8 @@ import { User } from "../models/User.js";
 
 const router = express.Router();
 
-// Route to assign a badge
 router.post("/assign-badge", assignBadge);
 
-// Route to fetch user profile
 router.get("/profile", authMiddleware, async (req, res) => {
   try {
     // Ensure req.user exists
@@ -16,7 +14,7 @@ router.get("/profile", authMiddleware, async (req, res) => {
       return res.status(401).json({ msg: "Unauthorized. User not found." });
     }
 
-    const user = await User.findById(req.user); // Access the user with the ID stored in `req.user`
+    const user = await User.findById(req.user); 
 
     if (!user) {
       return res.status(404).json({ msg: "User not found" });
@@ -26,7 +24,7 @@ router.get("/profile", authMiddleware, async (req, res) => {
       firstName: user.firstName,
       lastName: user.lastName,
       badges: user.badges, 
-      binCount: user.binCount // Send badges array
+      binCount: user.binCount 
     });
   } catch (err) {
     console.error(err);

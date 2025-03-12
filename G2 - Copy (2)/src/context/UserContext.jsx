@@ -28,16 +28,15 @@ export const UserProvider = ({ children }) => {
         setUser(safeUserData);
       } catch (error) {
         console.error("Error fetching user data:", error);
-        // Handle error (e.g., redirect to login if token is invalid)
       }
     };
 
     fetchUserData();
-  }, []); // Empty array ensures it runs only once when component mounts
+  }, []); 
 
   const updateUser = (newUserData) => {
     const safeUserData = {
-      id: newUserData.id,  // Add user ID here
+      id: newUserData.id,  
       username: newUserData.username,
       profilePhoto: newUserData.profilePhoto,
     };
