@@ -2,22 +2,22 @@ import "./NavBar2.css";
 import logo from "../assets/logo.png";
 import { Link, useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
-import { useUser } from "../context/UserContext";
 import bin from "../assets/bin.png";
 import hazard from "../assets/hazard.png";
 import recycle from "../assets/recycle.png";
 import organic from "../assets/organic.png";
-import { useLocation } from "../context/LocationContext";
+import { useUser } from "../context/UserContext"; // Import the useUser hook
 
-const NavBar2 = ({ togglePopupVisibility }) => {
-  const { user, updateUser } = useUser();
+
+const NavBar2 = () => {
+
+  const { user, updateUser } = useUser(); // Use the context to get user data and the update function
+
   const [showPopup, setShowPopup] = useState(false);
   const [showAddTrashcanPopup, setShowAddTrashcanPopup] = useState(false);
   const navigate = useNavigate();
-  const [loading, setLoading] = useState(true);
-  const [menuOpen, setMenuOpen] = useState(false);
-  const [showProfileDropdown, setShowProfileDropdown] = useState(false);
-  const { lastLocation, setLastLocation, clearLocation, setIsAddingTrashCan } = useLocation();
+  // const [user, setUser] = useState(null); // Initial user state is null
+  const [loading, setLoading] = useState(true); // Loading state to indicate data fetching
 
   useEffect(() => {
     const fetchUserData = async () => {
@@ -37,8 +37,7 @@ const NavBar2 = ({ togglePopupVisibility }) => {
 
         const data = await res.json();
         updateUser(data);
-
-        console.log(updateUser);
+        console.log(updateUser)
       } catch (error) {
         console.error("Error fetching user data:", error);
       } finally {
@@ -51,353 +50,251 @@ const NavBar2 = ({ togglePopupVisibility }) => {
 
   // Handle user logout
   const handleLogout = () => {
-    localStorage.removeItem("token");
-    navigate("/");
+    try {
+      localStorage.removeItem("token"); // Remove token from localStorage
+      updateUser(null); // Clear user data from context
+      setShowPopup(false); // Close the popup menu
+      navigate("/"); // Redirect to login page
+    } catch (error) {
+      console.error("Error during logout:", error);
+    }
   };
 
-  const toggleAddTrashcanPopup = () => {
-    setMenuOpen(false);
-    setShowAddTrashcanPopup((prev) => !prev);
+  const togglePopup = () => {
+    const newState = !showPopup;
+    setShowPopup(newState);
+    // เพิ่ม class ให้กับ body เพื่อป้องกันการเลื่อนหน้าจอเมื่อเปิด popup
+    if (newState) {
+      document.body.classList.add('menu-open');
+      // เพิ่ม event listener สำหรับการกดที่ใดก็ได้บนหน้าจอ
+      setTimeout(() => {
+        document.addEventListener('click', handleGlobalClick);
+        document.addEventListener('touchend', handleGlobalClick);
+      }, 100);
+    } else {
+      document.body.classList.remove('menu-open');
+      document.removeEventListener('click', handleGlobalClick);
+      document.removeEventListener('touchend', handleGlobalClick);
+    }
   };
 
-  const toggleUser = () => {
-    setMenuOpen(false); // Close the mobile menu
-    setShowProfileDropdown((prevState) => !prevState); // Toggle the dropdown visibility
+  // ฟังก์ชันสำหรับการกดที่ใดก็ได้บนหน้าจอ
+  const handleGlobalClick = (e) => {
+    const userMenu = document.getElementById('userMenu');
+    const userInfo = document.querySelector('.user-info');
+    
+    if (userMenu && userInfo && 
+        !userMenu.contains(e.target) && 
+        !userInfo.contains(e.target)) {
+      setShowPopup(false);
+      document.body.classList.remove('menu-open');
+      document.removeEventListener('click', handleGlobalClick);
+      document.removeEventListener('touchend', handleGlobalClick);
+    }
   };
 
-  // const handleAddTrashcanClick = () => {
-  //   if (latLng && latLng.lat && latLng.lng) {
-  //     console.log("Adding trashcan at:", latLng);
-  //   } else {
-  //     console.log("Location is not available yet");
-  //   }
-  // };
+  // เพิ่ม event listener เมื่อคอมโพเนนต์ถูกโหลด
+  useEffect(() => {
+    // ตรวจสอบว่าเป็นอุปกรณ์มือถือหรือไม่
+    const isMobile = window.matchMedia('(max-width: 768px)').matches;
+    
+    // ถ้าเป็นมือถือให้เพิ่ม event listener สำหรับการแตะ
+    if (isMobile) {
+      const userInfo = document.querySelector('.user-info');
+      if (userInfo) {
+        userInfo.addEventListener('touchend', (e) => {
+          e.preventDefault();
+          e.stopPropagation();
+          togglePopup();
+        });
+      }
+    }
+    
+    return () => {
+      // ลบ event listener เมื่อคอมโพเนนต์ถูกทำลาย
+      const userInfo = document.querySelector('.user-info');
+      if (userInfo && window.matchMedia('(max-width: 768px)').matches) {
+        userInfo.removeEventListener('touchend', togglePopup);
+      }
+    };
+  }, []);
+  const toggleAddTrashcanPopup = () => setShowAddTrashcanPopup((prev) => !prev);
 
-  const handleAddTrashCanClick = () => {
-    setIsAddingTrashCan(true);  // Enable "adding trash can" mode
-  };
+  // Close popup when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      const menuContainer = document.querySelector('.menu-container');
+      const userInfo = document.querySelector('.user-info');
+      
+      if (showPopup && menuContainer && userInfo && 
+          !menuContainer.contains(event.target) && 
+          !userInfo.contains(event.target)) {
+        setShowPopup(false);
+        document.body.classList.remove('menu-open');
+      }
+    };
+
+    // ใช้ทั้ง mousedown และ touchstart เพื่อรองรับทั้ง desktop และ mobile
+    document.addEventListener('mousedown', handleClickOutside);
+    document.addEventListener('touchstart', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+      document.removeEventListener('touchstart', handleClickOutside);
+      document.body.classList.remove('menu-open');
+    };
+  }, [showPopup]);
 
   return (
-    <>
-      <header className="fixed top-0 left-0 right-0 z-[1000] bg-white shadow-md px-6 py-1 flex justify-between items-center">
-        <div className="flex items-center space-x-3">
-          <span className="text-xl font-medium text-[#17005a] leading-none py-3">
-            TRASHCAN MAP
-          </span>
-          <img
-            src={logo}
-            alt="Adidas Logo"
-            className="w-16 h-16 object-contain"
-          />
+    <nav className="navbar">
+      <div className="navbar-container">
+        <div className="nav-left">
+          <Link to="/home_after_login" className="brand">
+            <img src={logo} alt="Trashcan Map Logo" className="brand-logo" />
+            <h1 className="brand-name">TRASHCAN MAP</h1>
+          </Link>
+          <div className="nav-links">
+            <Link to="/home_after_login" className="nav-link">Home</Link>
+            <div className="nav-link" onClick={toggleAddTrashcanPopup}>
+              Add a trashcan
+            </div>
+          </div>
         </div>
 
-        {/* Desktop Navbar */}
-        <nav className="hidden md:flex">
-          <ul className="flex h-full items-center space-x-10 text-xl font-medium text-[#17005a]">
-            <li>
-              <Link to="/home_after_login" className="hover:text-gray-500">
-                Home
-              </Link>
-            </li>
-            <li>
-              <a
-                href="#"
-                className="hover:text-gray-500"
+        <div className="nav-right">
+          <div className="user-menu">
+            <div className="user-info" onClick={(e) => {
+              e.preventDefault();
+              e.stopPropagation();
+              togglePopup();
+            }}>
+              <span className="user-name">
+                {loading ? "Loading..." : user ? user.username : "Guest"}
+              </span>
+              <img 
+                src={user?.profilePhoto || logo} 
+                alt="User Profile" 
+                className="user-avatar" 
+              />
+            </div>
+            {showPopup && (
+              <div 
+                className="menu-container show-menu" 
                 onClick={(e) => {
-                  e.preventDefault(); // Prevents default anchor behavior (e.g., page scroll)
-                  toggleAddTrashcanPopup(); // Call the toggle function
-                  // handleAddTrashcanClick(); // Call the handle click function
-                  handleAddTrashCanClick();
+                  e.preventDefault();
+                  e.stopPropagation();
                 }}
+                onTouchEnd={(e) => {
+                  e.preventDefault();
+                  e.stopPropagation();
+                }}
+                style={{ display: 'flex' }}
+                id="userMenu"
               >
-                Add TrashCan
-              </a>
-            </li>
-            <li>
-              <div
-                className="flex items-center gap-3 pl-1 px-3 py-3 font-medium text-xl rounded-2xl cursor-pointer hover:bg-gray-200 transition"
-                onClick={toggleUser}
-              >
-                <span>
-                  {loading ? "Loading..." : user?.username || "Guest"}
-                </span>
-                <img
-                  src={user?.profilePhoto || logo}
-                  alt="profile"
-                  className="w-10 h-10 rounded-full border border-gray-300"
-                />
+              <Link to="/edit" className="edit-link" onClick={() => {
+                setShowPopup(false);
+                document.body.classList.remove('menu-open');
+              }}>
+                Edit Profile
+              </Link>
+              <Link to="/badges" className="edit-link" onClick={() => {
+                setShowPopup(false);
+                document.body.classList.remove('menu-open');
+              }}>
+                My Badges
+              </Link>
+              <button className="edit-link logout" onClick={handleLogout}>
+                Log Out
+              </button>
               </div>
-
-              {showProfileDropdown && (
-                <div className="absolute right-0 mt-2 w-48 bg-white shadow-lg rounded-lg border border-gray-200 z-50">
-                  <div className="flex flex-col">
-                    <Link
-                      to="/edit"
-                      className="px-4 py-2 text-gray-700 hover:text-blue-300 rounded-t-lg"
-                    >
-                      Edit
-                    </Link>
-                    <Link
-                      to="/badges"
-                      className="px-4 py-2 text-gray-700 hover:text-blue-300"
-                    >
-                      Badges
-                    </Link>
-                    <span
-                      className="px-4 py-2 text-gray-700 hover:text-blue-300 rounded-b-lg text-left"
-                      onClick={handleLogout}
-                    >
-                      Log Out
-                    </span>
-                  </div>
-                </div>
-              )}
-            </li>
-          </ul>
-        </nav>
-
-        <div className="md:hidden block">
-          {/* Menu Button */}
-          <button
-            onClick={() => {
-              setMenuOpen(!menuOpen);
-              setShowProfileDropdown(false);
-            }}
-            className="text-3xl cursor-pointer bg-[#17005a] text-white px-4 py-2 rounded-md"
-            aria-label={
-              menuOpen && !showProfileDropdown ? "Close menu" : "Open menu"
-            }
-          >
-            {menuOpen ? "✖" : "☰"}
-          </button>
-
-          {/* Mobile Navbar */}
-          <nav
-            className={`absolute left-0 w-full bg-white shadow-md flex flex-col items-center space-y-4 py-4 text-lg font-medium text-gray-800 transform transition-all duration-500 ease-in-out ${
-              menuOpen
-                ? "translate-y-0 opacity-100 scale-100 pointer-events-auto"
-                : "-translate-y-10 opacity-0 scale-95 pointer-events-none delay-100"
-            }`}
-          >
-            <Link
-              to="/home_after_login"
-              className="text-[#17005a] hover:text-gray-500"
-              onClick={() => setMenuOpen(false)}
-            >
-              Home
-            </Link>
-            <a
-              href="#"
-              className="text-[#17005a] hover:text-gray-500"
-              onClick={() => {toggleAddTrashcanPopup();  handleAddTrashCanClick();}}
-            >
-              Add TrashCan
-            </a>
-            <a
-              href="#"
-              className="text-[#17005a] hover:text-gray-500"
-              onClick={() => {
-                togglePopupVisibility();
-                setMenuOpen(false);
-              }}
-            >
-              Search
-            </a>
-
-            {/* Profile Section */}
-            <div
-              className="flex items-center gap-3 pl-1 px-3 py-3 font-medium text-xl rounded-2xl cursor-pointer hover:bg-gray-200 transition"
-              onClick={toggleUser}
-            >
-              <span>{loading ? "Loading..." : user?.username || "Guest"}</span>
-              <img
-                src={user?.profilePhoto || logo}
-                alt="profile"
-                className="w-10 h-10 rounded-full border border-gray-300"
-              />
-            </div>
-          </nav>
+            )}
+          </div>
         </div>
-      </header>
+      </div>
 
-      {/* Add Trashcan Popup */}
       {showAddTrashcanPopup && (
-        <div className="fixed mt-19 right-0 bg-transparent bg-opacity-50 flex justify-center items-center z-50">
-          <div className="bg-white p-6 rounded-lg shadow-xl w-96">
-            <h2 className="text-xl font-semibold text-gray-900 mb-4">
-              Add a Trashcan!
-            </h2>
+        <div className="popup-addtrashcan">
+          <div className="addtrashcan-container">
+            <h2>Add a Trashcan!</h2>
 
-            {/* Location Selection */}
-            <div className="mb-4">
-              <label className="block font-medium text-gray-700">
-                1. Pin a Location
-              </label>
-              {/* Display the last clicked location */}
-              <div className="bg-gray-100 p-4 rounded-lg shadow-md flex items-center gap-4 w-fit">
-                <div className="text-blue-600 font-semibold">Location:</div>
-                {lastLocation ? (
-                  <div className="text-gray-800 flex flex-col">
-                    <strong className="text-blue-500">Lat:</strong>{" "}
-                    {lastLocation.lat},
-                    <strong className="text-blue-500">Lng:</strong>{" "}
-                    {lastLocation.lng}
-                  </div>
-                ) : (
-                  <span className="text-black-500 italic">
-                    Location not selected
-                  </span>
-                )}
-              </div>
-
-              {lastLocation && (
-                <button
-                  className="ml-2 px-2 py-1 mt-3 text-sm bg-red-500 text-white rounded-md hover:bg-red-600 "
-                  onClick={clearLocation}
-                >
-                  Clear
-                </button>
-              )}
+            <div className="input-group">
+              <label>1. Pin a Location</label>
             </div>
 
-            <div className="mb-4 flex gap-4">
-              <div className="flex-1">
-                <label className="block text-gray-700">2. Location</label>
-                <input
-                  type="text"
-                  placeholder="Location Name"
-                  className="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400 text-black"
-                />
+            <div className="input-group inline-group">
+              <div className="form-field">
+                <label>2. Location</label>
+                <input type="text" placeholder="Location Name" />
               </div>
 
-              <div className="w-24">
-                <label className="block text-gray-700">Floor</label>
+              <div className="form-field">
+                <label>Floor</label>
                 <input
-                  type="text" // Changed from "number" to "text"
+                  type="number"
                   placeholder="Floor?"
-                  className="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400 text-black"
+                  min="0"
+                  onChange={(f) => {
+                    if (f.target.value < 0 || f.target.value > 9) {
+                      f.target.value = 0; // Reset to 0 if the input is negative
+                    }
+                  }}
                 />
               </div>
             </div>
 
-            {/* Trashcan Types */}
-            <div className="mb-4">
-              <label className="block font-medium text-gray-700 mb-2">
-                3. Trashcan Type
-              </label>
-              {[
-                { name: "General Waste", icon: bin },
-                { name: "Recycle Waste", icon: recycle },
-                { name: "Organic Waste", icon: organic },
-                { name: "Hazardous Waste", icon: hazard },
-              ].map((trashcan, index) => (
-                <div
-                  key={index}
-                  className="flex items-center justify-between bg-white p-2 rounded-lg mb-2"
-                >
-                  <div className="flex items-center space-x-3">
-                    <img
-                      src={trashcan.icon}
-                      alt={trashcan.name}
-                      className="w-8 h-8"
-                    />
-                    <span className="text-gray-700">{trashcan.name}</span>
-                  </div>
-
-                  <div className="flex space-x-3">
-                    <label className="flex items-center space-x-1 cursor-pointer">
-                      <input
-                        type="radio"
-                        name={trashcan.name.toLowerCase()}
-                        value="yes"
-                        className="peer hidden"
-                      />
-                      <div className="w-5 h-5 border-2 border-gray-500 rounded-full peer-checked:border-red-500 peer-checked:bg-red-500"></div>
-                      <span className="text-gray-600 peer-checked:text-red-500">
-                        Yes
-                      </span>
-                    </label>
-
-                    <label className="flex items-center space-x-1 cursor-pointer">
-                      <input
-                        type="radio"
-                        name={trashcan.name.toLowerCase()}
-                        value="no"
-                        className="peer hidden"
-                      />
-                      <div className="w-5 h-5 border-2 border-gray-500 rounded-full peer-checked:border-blue-500 peer-checked:bg-blue-500"></div>
-                      <span className="text-gray-600 peer-checked:text-blue-500">
-                        No
-                      </span>
-                    </label>
-                  </div>
+            <div className="trashcan-types">
+              <div className="trashcan-header">
+                <label className="trashcan-type-label">3. Trashcan Type</label>
+                <div className="yes-no-labels">
+                  <span>Yes</span>
+                  <span>No</span>
                 </div>
-              ))}
+              </div>
+
+              <div className="trashcan-row">
+                <img src={bin} alt="General Waste" />
+                <span>General Waste</span>
+                <div className="radio-group">
+                  <input type="radio" name="general" value="yes" />
+                  <input type="radio" name="general" value="no" />
+                </div>
+              </div>
+
+              <div className="trashcan-row">
+                <img src={recycle} alt="Recycle Waste" />
+                <span>Recycle Waste</span>
+                <div className="radio-group">
+                  <input type="radio" name="recycle" value="yes" />
+                  <input type="radio" name="recycle" value="no" />
+                </div>
+              </div>
+
+              <div className="trashcan-row">
+                <img src={organic} alt="Organic Waste" />
+                <span>Organic Waste</span>
+                <div className="radio-group">
+                  <input type="radio" name="organic" value="yes" />
+                  <input type="radio" name="organic" value="no" />
+                </div>
+              </div>
+
+              <div className="trashcan-row">
+                <img src={hazard} alt="Hazardous Waste" />
+                <span>Hazardous Waste</span>
+                <div className="radio-group">
+                  <input type="radio" name="hazardous" value="yes" />
+                  <input type="radio" name="hazardous" value="no" />
+                </div>
+              </div>
             </div>
 
-            {/* Buttons */}
-            <div className="flex justify-end space-x-3">
-              <button
-                className="px-4 py-2 bg-gray-300 text-white rounded-lg hover:bg-gray-400 transition duration-200"
-                onClick={toggleAddTrashcanPopup}
-              >
-                Cancel
-              </button>
-              <button
-                className="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition duration-200"
-                onClick={toggleAddTrashcanPopup}
-              >
-                Confirm
-              </button>
+            <div className="button-group">
+              <button onClick={toggleAddTrashcanPopup}>Cancel</button>
+              <button onClick={toggleAddTrashcanPopup}>Confirm</button>
             </div>
           </div>
         </div>
       )}
-
-      {/* Profile Dropdown */}
-      {showProfileDropdown && (
-        <div
-          className={`md:hidden absolute left-0 top-18 w-full bg-white shadow-lg rounded-lg border border-gray-200 z-[1000] 
-      transform transition-all duration-700 ease-in-out ${
-        showProfileDropdown
-          ? "translate-y-0 opacity-100 scale-100 pointer-events-auto"
-          : "-translate-y-10 opacity-0 scale-95 pointer-events-none delay-100"
-      }`}
-        >
-          <div className="flex flex-col text-center py-4 space-y-4 text-lg font-medium text-[#17005a] hover:text-gray-500">
-            <div
-              className="flex items-center justify-center gap-3 font-medium text-xl rounded-2xl cursor-pointer hover:bg-gray-200"
-              onClick={() => {
-                setMenuOpen(true);
-                setShowProfileDropdown(false);
-              }}
-            >
-              <Link>{loading ? "Loading..." : user?.username || "Guest"}</Link>
-              <img
-                src={user?.profilePhoto || logo}
-                alt="profile"
-                className="w-10 h-10 rounded-full border border-gray-300"
-              />
-            </div>
-            <Link
-              to="/edit"
-              className="text-[#17005a] hover:text-blue-300 rounded-t-lg"
-            >
-              Edit
-            </Link>
-            <Link to="/badges" className=" text-[#17005a] hover:text-blue-300">
-              Badges
-            </Link>
-            <a
-              className="text-[#17005a] hover:text-blue-300 rounded-b-lg"
-              onClick={handleLogout}
-            >
-              Log Out
-            </a>
-          </div>
-        </div>
-      )}
-    </>
+    </nav>
   );
 };
 

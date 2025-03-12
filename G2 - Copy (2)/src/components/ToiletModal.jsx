@@ -1,7 +1,7 @@
 import PropTypes from "prop-types";
 import "./ToiletModal.css";
 
- const ToiletModal = ({ isOpen, onClose, toiletData, isLoggedIn }) => {
+const ToiletModal = ({ isOpen, onClose, toiletData, isLoggedIn }) => {
   if (!isOpen) return null;
 
   // Base styles with responsive adjustments
@@ -45,10 +45,10 @@ import "./ToiletModal.css";
         }}>
           ✕
         </button>
-      </div> 
+      </div>
 
       {/* Responsive Content Container */}
-       <div style={{
+      <div style={{
         display: 'flex',
         flexDirection: window.innerWidth <= 768 ? 'column' : 'row',
         gap: window.innerWidth <= 768 ? '16px' : window.innerWidth <= 1024 ? '8px' : '24px',
@@ -72,10 +72,10 @@ import "./ToiletModal.css";
           background: '#888',
           borderRadius: '3px'
         }
-      }}> 
+      }}>
 
         {/* Container 1 - Location, Directions, and Confirmation */}
-         <div style={{
+        <div style={{
           backgroundColor: '#FFFFFF',
           padding: window.innerWidth <= 768 ? '16px' : window.innerWidth <= 1024 ? '6px' : '16px',
           borderRadius: window.innerWidth <= 768 ? '12px' : '4px',
@@ -148,10 +148,10 @@ import "./ToiletModal.css";
               color: '#1e1b4b'
             }}>Edit</span>
           </div>
-        </div> 
+        </div>
 
           {/* Moved Last Verified Below Yes/No/Edit Buttons */}
-           <p style={{
+          <p style={{
             fontSize: '14px',
             color: '#6b7280',
             marginTop: '10px',
@@ -163,7 +163,7 @@ import "./ToiletModal.css";
               {toiletData.lastVerified || "18/12/2024, 08:05 PM"}
             </a>
           </p>
-        </div> 
+        </div>
 
         {/* Container 2 - Features Section */}
         <div style={{
@@ -188,13 +188,13 @@ import "./ToiletModal.css";
             <Feature icon="♿" label="Organic Waste" checked={toiletData.isAccessible} />
             <Feature icon="🚻" label="Hazardous Waste" checked={toiletData.isGenderNeutral} />
           </div>
-        </div> 
+        </div>
 
         {/* Container 3 - Empty for Future UI */}
-        {/*<div style={{ flex: 1, height: '300px', backgroundColor: '#FFFFFF', borderRadius: '4px', padding: '16px', width: '50%' }}></div>*/} 
+        {/*<div style={{ flex: 1, height: '300px', backgroundColor: '#FFFFFF', borderRadius: '4px', padding: '16px', width: '50%' }}></div>*/}
 
         {/*Comment section*/}
-         <div style={{
+        <div style={{
           flex: window.innerWidth <= 768 ? '1' : window.innerWidth <= 1024 ? '1 0 150px' : '1 0 300px',
           backgroundColor: '#FFFFFF',
           borderRadius: '4px',
@@ -233,7 +233,7 @@ import "./ToiletModal.css";
             I love all the functions on this website!
           </p>
         </div>
-      </div> 
+      </div>
 
         {/* Container 4 - Empty for Future UI */}
         <div style={{
@@ -271,7 +271,7 @@ const Feature = ({ icon, label, checked }) => (
     ) : (
       <span style={{ marginLeft: 'auto', color: '#6b7280', fontSize: '20px' }}>?</span>
     )}
-  </div> 
+  </div>
 );
 
 Feature.propTypes = {
@@ -284,6 +284,6 @@ ToiletModal.propTypes = {
   isOpen: PropTypes.bool.isRequired,
   onClose: PropTypes.func.isRequired,
   toiletData: PropTypes.object.isRequired,
-}; 
+};
 
-export default ToiletModal; 
+export default ToiletModal;

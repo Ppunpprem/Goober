@@ -21,7 +21,7 @@ h3 {
   margin-top: 8px !important;
 }
 /* Always Visible Popup */
-.alog-popup {
+/* .alog-popup {
   position: fixed;
   top: 90px;
   left: 30px;
@@ -35,6 +35,18 @@ h3 {
   pointer-events: auto;
   transition: none;
   z-index: 1000;
+} */
+
+.alog-popup {
+  position: fixed;
+  top: 10%;
+  margin-left: 0%;
+  width: 287px;  /* odd one was w : 325px */
+  background: white;
+  padding: 20px;
+  border-radius: 20px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  z-index: 1000; /* Ensure the popup is on top */
 }
 
 .alog-popup h2 {
@@ -46,8 +58,8 @@ h3 {
 .alog-search-container {
   display: flex;
   align-items: center;
-  width: 90%;
-  margin-top: -12px;
+  width: 93%;
+  margin-bottom: -5%;
   margin-left: 1.5%;
   padding: 5px 10px;
   background: #ffffff;
@@ -75,7 +87,7 @@ h3 {
 
 .alog-search-button {
   position: absolute;
-  right: 10px; /* จัดปุ่มให้อยู่ชิดขวา */
+  right: 1%; /* จัดปุ่มให้อยู่ชิดขวา */
   background-color: #17005a;
   color: white;
   border: none;
@@ -196,8 +208,6 @@ input:checked + .alog-slider:before {
   transform: scale(1.1);
 }
 
-/* Hello Popup */
-/* Hello Popup */
 .info-popup {
   position: fixed;
   top: 65%;
@@ -221,246 +231,70 @@ input:checked + .alog-slider:before {
   pointer-events: auto;
 }
 
-.info-popup-content {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
 
-.info-popup h3 {
-  font-size: 30px;
-  color: #17005a;
-  margin-bottom: 15px;
-  font-weight: 600;
-  font-family: "Afacad", sans-serif;
-}
-
-.info-popup h4 {
-  font-size: 25px;
-  color: #17005a;
-  margin-bottom: 15px;
-  font-weight: 500;
-  font-family: "Afacad", sans-serif;
-  text-align: left;
-}
-
-.info-popup h5 {
-  font-size: 20px;
-  color: #17005a;
-  margin: 0px 0px 0px 12px;
-  font-weight: 400;
-  font-family: "Afacad", sans-serif;
-  text-align: left;
-}
-
-.info-popup h2 {
-  margin: 5px 25px;
-  text-decoration: underline;
-  padding: 10px 20px;
-  background-color: #b4e1f7;
-  color: #17005a;
-  border: none;
-  font-weight: 400;
-  border-radius: 25px;
-  font-size: 30px;
-}
-
-.comment_format {
-  margin-bottom: 15px;
-  padding: 10px 20px;
-  background-color: #b4e1f7;
-  color: #17005a;
-  border: none;
-  font-weight: 400;
-  border-radius: 0px 25px 25px 25px;
-  font-size: 20px;
-  text-align: left;
-}
-
-.comment {
-  display: flex;
-}
-
-.comment div {
-  margin-top: 10px;
-  margin-left: 10px;
-}
-
-/* comment */
-.info-popup h1 {
-  padding: 10px 20px;
-  background-color: #b4e1f7;
-  color: #17005a;
-  border: none;
-  border-radius: 30px;
-  font-size: 30px;
-}
-
-.trash-type-container {
-  margin: 0px 5px;
-}
-
-.trash-type-container li {
-  font-size: 20px;
-  color: #17005a;
-  margin-bottom: 15px;
-  font-weight: 300;
-  font-family: "Afacad", sans-serif;
-  list-style-type: none;
-}
-
-.trash-type {
-  display: flex;
-  align-items: center;
-}
-
-.trash-type img:first-child {
-  margin-right: 10px;
-}
-
-.trash-type img:last-child {
-  margin-left: auto;
-}
-
-.profile-picture {
-  border-radius: 100%;
-}
-
-.info-popup button {
-  padding: 10px 20px;
-  background-color: #17005a;
-  color: white;
-  border: none;
-  border-radius: 25px;
-  font-size: 30px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-}
-
-.info-popup button:hover {
-  background-color: #9ad4ec;
-}
-
-.info-popup button:focus {
-  outline: none;
-}
-
-.flex-container {
-  display: flex;
-  flex-direction: row;
-  gap: 25px;
-
-  background-color: transparent;
-}
-
-.flex-container > div {
-  background-color: white;
-  margin: 10px;
-  /* padding: 20px; */
-  font-size: 30px;
-  flex-grow: 1;
-}
-
-.flex-container-inner {
-  display: flex;
-  padding: 0 !important;
-  flex-direction: column;
-  background-color: transparent;
-}
-
-.flex-container-inner > div {
-  background-color: white;
-  margin: 10px;
-  padding: 0px;
-  font-size: 30px;
-}
-
-.user_comment {
-  border: 1px solid black;
-  padding: 20px;
-  height: 40%;
-  border-radius: 25px;
-  width: calc(100% - 40px);
-}
-
-.sent_comment {
-  display: flex;
-  justify-content: space-between;
-}
-
-.sent_comment button {
-  right: 10px; /* จัดปุ่มให้อยู่ชิดขวา */
-  background-color: #17005a;
-  color: white;
-  border: none;
-  padding: 5px 12px;
-  border-radius: 20px;
-  font-size: 20px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-}
-
-/* confirmation button */
-.container {
-  margin: 0px !important;
-  text-align: center;
-  font-family: Arial, sans-serif;
-}
-
-.button-group {
-  margin: 0px 0px 0px 25px;
-  display: flex;
-  justify-content: left;
-  gap: 10px;
-  margin-top: 0px;
-}
-
-.yes-button,
-.no-button {
-  font-size: 20px !important;
-  border: none !important;
-  padding: 10px 20px !important;
-  border-radius: 20px !important;
-  cursor: pointer !important;
-  transition: background-color 0.3s, color 0.3s !important;
-}
-
-/* Default button colors */
-.yes-button {
-  background-color: #b0d8f0 !important;
-  color: #200050;
-}
-
-.no-button {
-  background-color: #b0d8f0 !important;
-  color: #200050;
-}
-
-/* Active/Selected button colors */
-.selected {
-  background-color: #17005a !important;
-  color: #b0d8f0;
-}
-
-/* .no-button.selected {
-  background-color: #17005a;
-  color: white;
-} */
-
-.close-button {
+.big-container {
   position: absolute;
-  top: 10px;
-  right: 10px;
-  background: red; /* Red color */
-  border: none;
-  font-size: 15px !important; /* Smaller font size */
-  color: white;
-  cursor: pointer;
-  width: 30px; /* Width of the button */
-  height: 30px; /* Height of the button */
-  border-radius: 50%; /* Make it circular */
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  left: 0px;
+  bottom: 0px;
+  width: 100%;
+  z-index: 100;
+  min-width: 0px;
 }
 
+.padding-container {
+  max-height: 325px;
+  overflow: auto;
+  padding: 0px 32px 16px 16px;
+  min-width: 0px;
+  scroll-behavior: smooth;
+}
+
+
+.infor-container {
+  min-width: 0px;
+  display: flex;
+  flex-flow: wrap;
+  -webkit-box-pack: center;
+  justify-content: center;
+  margin: -16px;
+}
+
+
+.building-card {
+  width: 100%;
+  padding: 16px;
+  min-width: 0px;
+}
+
+.name-box {
+  display: flex;
+  -webkit-box-pack: justify;
+  justify-content: space-between;
+  min-width: 0px;
+}
+
+.name {
+  font-weight: bold;
+  font-size: 18px;
+  line-height: 1.2;
+}
+
+@media screen and (min-width: 768px) {
+  .building-card {
+    width: 50%;
+  }
+  .css-1ef59fq {
+      max-height: 400px;
+      padding: 32px 64px 32px 32px;
+  }
+
+  .name {
+    font-size: 24px;
+}
+}
+
+@media screen and (min-width: 1024px) {
+  .building-card {
+      width: 25%;
+  }
+}

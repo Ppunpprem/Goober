@@ -34,6 +34,10 @@ export const UserProvider = ({ children }) => {
   }, []); // Empty array ensures it runs only once when component mounts
 
   const updateUser = (newUserData) => {
+    if (!newUserData) {
+      setUser(null);
+      return;
+    }
     const safeUserData = {
       username: newUserData.username,
       profilePhoto: newUserData.profilePhoto,
