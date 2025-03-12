@@ -15,11 +15,9 @@ import { LocationProvider } from "./context/LocationContext";
 function App() {
   return (
     <UserProvider>
-      <LocationProvider>
       <Router>
         <MainLayout />
       </Router>
-      </LocationProvider>
     </UserProvider>
   );
 }
