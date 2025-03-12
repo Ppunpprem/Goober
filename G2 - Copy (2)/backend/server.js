@@ -23,9 +23,9 @@ app.use("/public", express.static(path.join(__dirname, "public")));
 
 // MongoDB Connection
 mongoose
-  .connect(process.env.MONGO_URI)
-  .then(() => console.log("MongoDB connected"))
-  .catch((err) => console.log("Error:  ", err));
+ .connect(process.env.MONGO_URI)
+ .then(() => console.log("MongoDB connected"))
+ .catch((err) => console.log("Error:  ", err));
 
 app.use("/api/auth", authRoutes);
 app.use("/api/bin", binRoutes);
