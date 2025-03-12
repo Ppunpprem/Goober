@@ -20,7 +20,12 @@ const MapComp = ({
   const [userLocation, setUserLocation] = useState(null);
   const [trashCanLocations, setTrashCanLocations] = useState([]);
   const [selectedMarker, setSelectedMarkerState] = useState(null);
-  const { updateLocation, setClearMarkers, isAddingTrashCan, setIsAddingTrashCan } = useLocation();
+  const {
+    updateLocation,
+    setClearMarkers,
+    isAddingTrashCan,
+    setIsAddingTrashCan,
+  } = useLocation();
 
   // Load Google Maps API
   const { isLoaded } = useJsApiLoader({
@@ -95,29 +100,26 @@ const MapComp = ({
   };
 
   const handleMapClick = (event) => {
-    console.log("click",isAddingTrashCan);
-    if (!isAddingTrashCan) return; 
+    console.log("click", isAddingTrashCan);
+    if (!isAddingTrashCan) return;
     const newMarker = {
       lat: event.latLng.lat(),
       lng: event.latLng.lng(),
-      name: "New Bin",  // Provide a default name
-    floor: "Unknown",
-    infoCorrection: false,
-    generalWaste: false,
-    recycleWaste: false,
-    organicWaste: false,
-    hazardousWaste: false,
+      name: "New Bin", // Provide a default name
+      floor: "Unknown",
+      infoCorrection: false,
+      generalWaste: false,
+      recycleWaste: false,
+      organicWaste: false,
+      hazardousWaste: false,
     };
     const updatedMarkers = [...trashCanLocations, newMarker];
 
-  
     setTrashCanLocations(updatedMarkers);
     updateLocation(newMarker);
     setIsAddingTrashCan(false);
     // localStorage.setItem("trashCanMarkers", JSON.stringify(updatedMarkers));
   };
-
-
 
   const handleClearLocation = () => {
     setTrashCanLocations((prev) => prev.slice(0, -1)); // Remove last marker
@@ -126,8 +128,8 @@ const MapComp = ({
 
   const filterMarkers = (markers) => {
     return markers.filter((marker) => {
-      const matchesName = marker.name 
-        ? marker.name.toLowerCase().includes(binNameFilter.toLowerCase()) 
+      const matchesName = marker.name
+        ? marker.name.toLowerCase().includes(binNameFilter.toLowerCase())
         : false;
       const matchesFilters = Object.entries(homeFilters).every(
         ([key, filter]) => {
