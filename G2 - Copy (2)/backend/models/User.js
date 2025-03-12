@@ -12,6 +12,13 @@ const userSchema = new mongoose.Schema({
   username: { type: String, required: true, unique: true },
   password: { type: String, required: true },
   profilePhoto: { type: String },
+  binCount: {
+    type: Number,
+    default: 0, 
+  },
+  badges: {
+    type: [String], 
+  },
 });
 
 const User = mongoose.model("User", userSchema);

@@ -21,7 +21,8 @@ const binSchema = new mongoose.Schema({
   bin_features_recycle_waste: { type: Boolean, required: true },
   bin_features_organic_waste: { type: Boolean, required: true },
   bin_features_hazardous_waste: { type: Boolean, required: true },
-  comments: [{ type: mongoose.Schema.Types.ObjectId, ref: "Comment" }], // Array of comments
+  comments: [{ type: mongoose.Schema.Types.ObjectId, ref: "Comment" }],
+  user_id: { type: mongoose.Schema.Types.ObjectId, ref: "User", required: true }
 });
 
 const Bin = mongoose.model("Bin", binSchema);

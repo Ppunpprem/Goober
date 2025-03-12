@@ -18,7 +18,9 @@ export const UserProvider = ({ children }) => {
           headers: { "x-auth-token": token },
         });
 
+        // Include the user ID in the safeUserData
         const safeUserData = {
+          id: response.data.id,  // Add user ID here
           username: response.data.username,
           profilePhoto: response.data.profilePhoto,
         };
@@ -35,6 +37,7 @@ export const UserProvider = ({ children }) => {
 
   const updateUser = (newUserData) => {
     const safeUserData = {
+      id: newUserData.id,  // Add user ID here
       username: newUserData.username,
       profilePhoto: newUserData.profilePhoto,
     };

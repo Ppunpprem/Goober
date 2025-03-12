@@ -46,7 +46,7 @@ const NavBar2 = ({ togglePopupVisibility }) => {
         const data = await res.json();
         updateUser(data);
 
-        console.log(updateUser);
+        // console.log(updateUser);
       } catch (error) {
         console.error("Error fetching user data:", error);
       } finally {
@@ -82,22 +82,58 @@ const NavBar2 = ({ togglePopupVisibility }) => {
       setErrorMessage("Please select all required fields.");
       return;
     }
-
-    const data = {
-      bin_location: {
-        $lat: `${lastLocation.lat}`,
-        $lng: `${lastLocation.lng}`,
-      },
-      bin_name_location: binNameLocation,
-      bin_info_correction: 0,
-      bin_floor_number: binFloorNumber,
-      bin_features_general_waste: binFeatures.generalWaste,
-      bin_features_recycle_waste: binFeatures.recycleWaste,
-      bin_features_organic_waste: binFeatures.organicWaste,
-      bin_features_hazardous_waste: binFeatures.hazardousWaste,
-    };
-
+  
+    const token = localStorage.getItem("token");
+    if (!token) {
+      setErrorMessage("Token is not available.");
+      return;
+    }
+  
     try {
+      // Fetch user data from the backend
+      const res = await fetch("http://localhost:5001/api/auth/profile", {
+        method: "GET",
+        headers: { "x-auth-token": token },
+      });
+  
+      if (!res.ok) {
+        if (res.status === 401) {
+          setErrorMessage('Session expired. Please log in again.');
+          // Optionally redirect the user to login page
+        } else {
+          throw new Error("Failed to load profile");
+        }
+      }
+  
+      const user = await res.json();
+      console.log('Fetched User:', user.id); // Log the user object
+  
+      // Ensure the user data is available
+      if (!user || !user.id) {  // Use _id from the backend response
+        setErrorMessage("User data is not available.");
+        return;
+      }
+  
+      // Log the user._id before sending
+      console.log("User ID:", user.id); 
+  
+      // Prepare the data for submission
+      const data = {
+        bin_location: {
+          $lat: `${lastLocation.lat}`,
+          $lng: `${lastLocation.lng}`,
+        },
+        bin_name_location: binNameLocation,
+        bin_info_correction: 0,
+        bin_floor_number: binFloorNumber,
+        bin_features_general_waste: binFeatures.generalWaste,
+        bin_features_recycle_waste: binFeatures.recycleWaste,
+        bin_features_organic_waste: binFeatures.organicWaste,
+        bin_features_hazardous_waste: binFeatures.hazardousWaste,
+        user_id: user.id,  // Correct user ID from backend response
+      };
+  
+      // Make the API request to add the trashcan
       const response = await fetch("http://localhost:5001/api/bin", {
         method: "POST",
         headers: {
@@ -105,19 +141,23 @@ const NavBar2 = ({ togglePopupVisibility }) => {
         },
         body: JSON.stringify(data),
       });
-
+  
       if (!response.ok) {
-        throw new Error("Failed to add trashcan");
+        const errorData = await response.json();
+        console.error('API Error Response:', errorData);  // Log the error response
+        throw new Error(`Failed to add trashcan: ${errorData.message || "Unknown error"}`);
       }
-
+  
       const result = await response.json();
       console.log("Trashcan added successfully:", result);
-      toggleAddTrashcanPopup();
+  
+      // Reset the form or take any action after a successful submission
     } catch (error) {
       console.error("Error adding trashcan:", error);
+      setErrorMessage(error.message || "An error occurred while adding trashcan.");
     }
   };
-
+  
   return (
     <>
       <header className="fixed top-0 left-0 right-0 z-[1000] bg-white shadow-md px-6 py-1 flex justify-between items-center">
