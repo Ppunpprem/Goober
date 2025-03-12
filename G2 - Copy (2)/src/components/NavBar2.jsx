@@ -18,7 +18,15 @@ const NavBar2 = ({ togglePopupVisibility }) => {
   const [menuOpen, setMenuOpen] = useState(false);
   const [showProfileDropdown, setShowProfileDropdown] = useState(false);
   const { lastLocation, setLastLocation, clearLocation, isAddingTrashCan, setIsAddingTrashCan } = useLocation();
-
+  const [binNameLocation, setBinNameLocation] = useState("");
+  const [binFloorNumber, setBinFloorNumber] = useState("");
+  const [binFeatures, setBinFeatures] = useState({
+    generalWaste: false,
+    recycleWaste: false,
+    organicWaste: false,
+    hazardousWaste: false,
+  });
+  const [errorMessage, setErrorMessage] = useState("");
   useEffect(() => {
     const fetchUserData = async () => {
       const token = localStorage.getItem("token");
@@ -65,16 +73,49 @@ const NavBar2 = ({ togglePopupVisibility }) => {
     setShowProfileDropdown((prevState) => !prevState); // Toggle the dropdown visibility
   };
 
-  // const handleAddTrashcanClick = () => {
-  //   if (latLng && latLng.lat && latLng.lng) {
-  //     console.log("Adding trashcan at:", latLng);
-  //   } else {
-  //     console.log("Location is not available yet");
-  //   }
-  // };
-
   const handleAddTrashCanClick = () => {
-    setIsAddingTrashCan(true);  // Enable "adding trash can" mode
+    setIsAddingTrashCan(true); // Enable "adding trash can" mode
+  };
+
+  const handleFormSubmit = async () => {
+    if (!lastLocation || !binNameLocation || !binFloorNumber) {
+      setErrorMessage("Please select all required fields.");
+      return;
+    }
+
+    const data = {
+      bin_location: {
+        $lat: `${lastLocation.lat}`,
+        $lng: `${lastLocation.lng}`,
+      },
+      bin_name_location: binNameLocation,
+      bin_info_correction: 0,
+      bin_floor_number: binFloorNumber,
+      bin_features_general_waste: binFeatures.generalWaste,
+      bin_features_recycle_waste: binFeatures.recycleWaste,
+      bin_features_organic_waste: binFeatures.organicWaste,
+      bin_features_hazardous_waste: binFeatures.hazardousWaste,
+    };
+
+    try {
+      const response = await fetch("http://localhost:5001/api/bin", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      });
+
+      if (!response.ok) {
+        throw new Error("Failed to add trashcan");
+      }
+
+      const result = await response.json();
+      console.log("Trashcan added successfully:", result);
+      toggleAddTrashcanPopup();
+    } catch (error) {
+      console.error("Error adding trashcan:", error);
+    }
   };
 
   return (
@@ -279,15 +320,19 @@ const NavBar2 = ({ togglePopupVisibility }) => {
                   type="text"
                   placeholder="Location Name"
                   className="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400 text-black"
+                  value={binNameLocation}
+                  onChange={(e) => setBinNameLocation(e.target.value)}
                 />
               </div>
 
               <div className="w-24">
                 <label className="block text-gray-700">Floor</label>
                 <input
-                  type="text" // Changed from "number" to "text"
+                  type="text"
                   placeholder="Floor?"
                   className="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400 text-black"
+                  value={binFloorNumber}
+                  onChange={(e) => setBinFloorNumber(e.target.value)}
                 />
               </div>
             </div>
@@ -298,10 +343,14 @@ const NavBar2 = ({ togglePopupVisibility }) => {
                 3. Trashcan Type
               </label>
               {[
-                { name: "General Waste", icon: bin },
-                { name: "Recycle Waste", icon: recycle },
-                { name: "Organic Waste", icon: organic },
-                { name: "Hazardous Waste", icon: hazard },
+                { name: "General Waste", icon: bin, key: "generalWaste" },
+                { name: "Recycle Waste", icon: recycle, key: "recycleWaste" },
+                { name: "Organic Waste", icon: organic, key: "organicWaste" },
+                {
+                  name: "Hazardous Waste",
+                  icon: hazard,
+                  key: "hazardousWaste",
+                },
               ].map((trashcan, index) => (
                 <div
                   key={index}
@@ -320,9 +369,16 @@ const NavBar2 = ({ togglePopupVisibility }) => {
                     <label className="flex items-center space-x-1 cursor-pointer">
                       <input
                         type="radio"
-                        name={trashcan.name.toLowerCase()}
+                        name={trashcan.key}
                         value="yes"
                         className="peer hidden"
+                        checked={binFeatures[trashcan.key] === true}
+                        onChange={() =>
+                          setBinFeatures((prev) => ({
+                            ...prev,
+                            [trashcan.key]: true,
+                          }))
+                        }
                       />
                       <div className="w-5 h-5 border-2 border-gray-500 rounded-full peer-checked:border-red-500 peer-checked:bg-red-500"></div>
                       <span className="text-gray-600 peer-checked:text-red-500">
@@ -333,9 +389,16 @@ const NavBar2 = ({ togglePopupVisibility }) => {
                     <label className="flex items-center space-x-1 cursor-pointer">
                       <input
                         type="radio"
-                        name={trashcan.name.toLowerCase()}
+                        name={trashcan.key}
                         value="no"
                         className="peer hidden"
+                        checked={binFeatures[trashcan.key] === false}
+                        onChange={() =>
+                          setBinFeatures((prev) => ({
+                            ...prev,
+                            [trashcan.key]: false,
+                          }))
+                        }
                       />
                       <div className="w-5 h-5 border-2 border-gray-500 rounded-full peer-checked:border-blue-500 peer-checked:bg-blue-500"></div>
                       <span className="text-gray-600 peer-checked:text-blue-500">
@@ -347,6 +410,10 @@ const NavBar2 = ({ togglePopupVisibility }) => {
               ))}
             </div>
 
+            {errorMessage && (
+              <div className="text-red-500 mb-4">{errorMessage}</div>
+            )}
+
             {/* Buttons */}
             <div className="flex justify-end space-x-3">
               <button
@@ -357,7 +424,7 @@ const NavBar2 = ({ togglePopupVisibility }) => {
               </button>
               <button
                 className="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition duration-200"
-                onClick={toggleAddTrashcanPopup}
+                onClick={handleFormSubmit}
               >
                 Confirm
               </button>
