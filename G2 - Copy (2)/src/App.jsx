@@ -14,11 +14,9 @@ import { UserProvider } from "./context/UserContext";
 function App() {
   return (
     <UserProvider>
-      <LocationProvider>
       <Router>
         <MainLayout />
       </Router>
-      </LocationProvider>
     </UserProvider>
   );
 }
