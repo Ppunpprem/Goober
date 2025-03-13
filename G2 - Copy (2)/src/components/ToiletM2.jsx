@@ -1,4 +1,5 @@
 import PropTypes from "prop-types";
+import { useState } from "react"; // Import useState
 import "./ToiletModal.css";
 import { First_test_building, commnents } from "../Damo_data/bindata";
 import bin from "../assets/bin.png";
@@ -6,8 +7,19 @@ import organic from "../assets/organic.png";
 import hazard from "../assets/hazard.png";
 import recycle from "../assets/recycle.png";
 
-const ToiletModal = ({ isOpen, onClose, toiletData, isLoggedIn }) => {
+const ToiletM2 = ({ isOpen, onClose, toiletData, isLoggedIn }) => {
   if (!isOpen) return null;
+
+  // State for handling user comment input
+  const [commentText, setCommentText] = useState("");
+
+  // Function to handle comment submission
+  const handleCommentSubmit = () => {
+    if (commentText.trim() === "") return; // Prevent empty comments
+
+    console.log("User Comment:", commentText); // Replace with API call or state update
+    setCommentText(""); // Clear input after submission
+  };
 
   // Base styles with responsive adjustments
   const modalStyle = {
@@ -212,7 +224,7 @@ const ToiletModal = ({ isOpen, onClose, toiletData, isLoggedIn }) => {
         {/* Container 4 - Empty for Future UI */}
         <div style={{
           backgroundColor: '#FFFFFF',
-          padding: window.innerWidth <= 768 ? '16px' : window.innerWidth <= 1024 ? '6px' : '16px',
+          padding: window.innerWidth <= 768 ? '10px' : window.innerWidth <= 1024 ? '0px' : '10px',
           borderRadius: window.innerWidth <= 768 ? '12px' : '4px',
           width: window.innerWidth <= 768 ? '100%' : window.innerWidth <= 1024 ? '150px' : '300px',
           flex: window.innerWidth <= 768 ? '1 1 auto' : window.innerWidth <= 1024 ? '1 0 150px' : '1 0 300px',
@@ -220,17 +232,38 @@ const ToiletModal = ({ isOpen, onClose, toiletData, isLoggedIn }) => {
           minHeight: window.innerWidth <= 768 ? 'auto' : window.innerWidth <= 1024 ? '250px' : '300px',
           height: 'auto',
           display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          textAlign: 'center'
+          
         }}>
-          <p style = {{ fontSize: '20px', fontWeight: 'bold', color: '#17005a'}}>
-            Please Login/Signup to comment!
-          </p>
+        <div className="flex-container-inner">
+          <h1 className='post-title'>
+            Post a Comment
+          </h1>
+    
+          <textarea
+          className="user_comment"
+          name="postComment"
+          placeholder="Say something..."
+          value={commentText}
+          onChange={(e) => setCommentText(e.target.value)}
+          style={{
+            width: '100%',
+            minHeight: '100px',
+            padding: '10px',
+            border: '1px solid #ccc',
+            borderRadius: '8px',
+            fontSize: '16px'
+          }}
+        />
+
+        {/* Submit Button */}
+        <div style={{ display: 'flex', gap: '8px', marginTop: '8px' }}>
+            <button className="cancel-button">Cancel</button>
+            <button className="cancel-button">Post</button>
+        </div>
       </div>
     </div>
   </div>
-
+  </div>
   );
 };
 
@@ -254,10 +287,10 @@ Feature.propTypes = {
   checked: PropTypes.bool,
 };
 
-ToiletModal.propTypes = {
+ToiletM2.propTypes = {
   isOpen: PropTypes.bool.isRequired,
   onClose: PropTypes.func.isRequired,
   toiletData: PropTypes.object.isRequired,
 };
 
-export default ToiletModal;
+export default ToiletM2;

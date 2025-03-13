@@ -5,10 +5,41 @@ import bin from "../assets/bin.png";
 import organic from "../assets/organic.png";
 import hazard from "../assets/hazard.png";
 import recycle from "../assets/recycle.png";
+import check from "../assets/check-mark-button.png";
+import cross from "../assets/cross-mark.png";
 
 const ToiletModal = ({ isOpen, onClose, toiletData, isLoggedIn }) => {
   if (!isOpen) return null;
 
+
+    var Check_type_general_waste;
+    if (First_test_building.general_waste) {
+      Check_type_general_waste = <img src={check} width={24} height={24}></img>;
+    } else {
+      Check_type_general_waste = <img src={cross} width={24} height={24}></img>;
+    }
+  
+    var Check_type_recycle_waste;
+    if (First_test_building.recycle_waste) {
+      Check_type_recycle_waste = <img src={check} width={24} height={24}></img>;
+    } else {
+      Check_type_recycle_waste = <img src={cross} width={24} height={24}></img>;
+    }
+  
+    var Check_type_organic_waste;
+    if (First_test_building.organic_waste) {
+      Check_type_organic_waste = <img src={check} width={24} height={24}></img>;
+    } else {
+      Check_type_organic_waste = <img src={cross} width={24} height={24}></img>;
+    }
+  
+    var Check_type_hazardous_waste;
+    if (First_test_building.hazardous_waste) {
+      Check_type_hazardous_waste = <img src={check} width={24} height={24}></img>;
+    } else {
+      Check_type_hazardous_waste = <img src={cross} width={24} height={24}></img>;
+    }
+  
   // Base styles with responsive adjustments
   const modalStyle = {
     position: 'fixed',
@@ -106,10 +137,11 @@ const ToiletModal = ({ isOpen, onClose, toiletData, isLoggedIn }) => {
           <h8 className='floor-container'>{First_test_building.floor_number}th Floor</h8>
 
 
-          <h3 style={{  fontSize: '23px',
+          <h3 style={{  fontSize: '25px',
+        
             marginBottom: '16px',
             color: '#1e1b4b',
-            textAlign: 'left',
+            textAlign: 'center',
             marginLeft: window.innerWidth <= 768 ? '0' : '0px'
             }}>Is this information correct?
           </h3>
@@ -130,8 +162,6 @@ const ToiletModal = ({ isOpen, onClose, toiletData, isLoggedIn }) => {
           </div>
         </div>
 
-          
-        </div>
 
         {/* Container 2 - Features Section */}
         <div style={{
@@ -153,10 +183,36 @@ const ToiletModal = ({ isOpen, onClose, toiletData, isLoggedIn }) => {
             gap: '15px',
             width: '100%'
           }}>
-            <Feature icon={<img src={bin} alt="General Waste" style={{ width: "24px", height: "24px" }} />} label="General Waste" checked={toiletData.hasWomen} />
-            <Feature icon={<img src={recycle} alt="Recycle Waste" style={{ width: "24px", height: "24px" }} />} label="Recycle Waste" checked={toiletData.hasMen} />
-            <Feature icon={<img src={organic} alt="Organic Waste" style={{ width: "24px", height: "24px" }} />} label="Organic Waste" checked={toiletData.isAccessible} />
-            <Feature icon={<img src={hazard} alt="Hazardous Waste" style={{ width: "24px", height: "24px" }} />} label="Hazardous Waste" checked={toiletData.isGenderNeutral} />
+            <ul className="trash-type-container">
+                <li>
+                  <div className="trash-type">
+                    <img src={bin} width={24} height={24}></img>
+                    <div>General Waste </div>
+                    {Check_type_general_waste}
+                  </div>
+                </li>
+                <li>
+                  <div className="trash-type">
+                    <img src={recycle} width={24} height={24}></img>
+                    <div>Recycle Waste</div>
+                    {Check_type_recycle_waste}
+                  </div>
+                </li>
+                <li>
+                  <div className="trash-type">
+                    <img src={organic} width={24} height={24}></img>
+                    <div>Organic Waste</div>
+                    {Check_type_organic_waste}
+                  </div>
+                </li>
+                <li>
+                  <div className="trash-type">
+                    <img src={hazard} width={24} height={24}></img>
+                    <div>Hazardous Waste</div>
+                    {Check_type_hazardous_waste}
+                  </div>
+                </li>
+              </ul>
           </div>
         </div>
 
@@ -166,7 +222,7 @@ const ToiletModal = ({ isOpen, onClose, toiletData, isLoggedIn }) => {
         {/*Comment section*/}
         <div style={{
           flex: window.innerWidth <= 768 ? '1' : window.innerWidth <= 1024 ? '1 0 150px' : '1 0 300px',
-          
+          backgroundColor: '#FFFFFF',
           borderRadius: '4px',
           padding: window.innerWidth <= 768 ? '0px' : window.innerWidth <= 1024 ? '0px' : '0px',
           width: window.innerWidth <= 768 ? '100%' : window.innerWidth <= 1024 ? '150px' : '300px',
@@ -175,37 +231,33 @@ const ToiletModal = ({ isOpen, onClose, toiletData, isLoggedIn }) => {
           display: 'flex',
           flexDirection: 'column'
         }}>
-  
+        <h3 style={{ fontWeight: 'bold', marginBottom: '12px', fontSize: '24px', color: '#1e1b4b'}}>2 Comments</h3>
+
         <div style = {{
+          backgroundColor: '#D3ECFF',
+          padding: '12px 16px',
+          borderRadius: '16px',
+          marginBottom: '10px',
+          fontSize: '14px',
+          lineHeight: '1.5',
+          maxWidth: window.innerWidth <= 768 ? '100%' : '220px'
         }}>
-         
+          <p style={{margin:0, fontSize: '16px'}}>
+            Wow this website is so good!
+          </p>
         </div>
         <div style={{
- 
-          padding: '0px',
-          textAlign: 'left',
+          backgroundColor: '#D3ECFF',
+          padding: '12px 16px',
           borderRadius: '16px',
-     
-    
-  
+          marginBottom: '10px',
+          fontSize: '14px',
+          lineHeight: '1.5',
+          maxWidth: window.innerWidth <= 768 ? '100%' : '220px'
         }}>
-
-          <h4>{commnents.length} Comments</h4>
-              {commnents.map((comment, index) => (
-              
-                <div key={index} className="comment">
-                  <img
-                    src={comment.profile}
-                    className="profile-picture"
-                    width={32}
-                    height={32}
-                   
-                  ></img>
-                  <div key={index} className="comment_format">
-                    {comment.text}
-                  </div>
-                </div>
-              ))}
+          <p style ={{ margin:0, fontSize: '16px'}}>
+            I love all the functions on this website!
+          </p>
         </div>
       </div>
 
@@ -224,40 +276,14 @@ const ToiletModal = ({ isOpen, onClose, toiletData, isLoggedIn }) => {
           justifyContent: 'center',
           textAlign: 'center'
         }}>
-          <p style = {{ fontSize: '20px', fontWeight: 'bold', color: '#17005a'}}>
+          <p style = {{ fontSize: '16px', fontWeight: 'bold', color: '#1e1b4b'}}>
             Please Login/Signup to comment!
           </p>
       </div>
     </div>
   </div>
 
+    </div>
   );
-};
+}
 
-const Feature = ({ icon, label, checked }) => (
-  <div style={{ display: 'flex', alignItems: 'center', fontSize: '20px' }}>
-    <span style={{ marginRight: '12px', width: '24px', fontSize: '20px' }}>{icon}</span>
-    <span>{label}</span>
-    {checked ? (
-      <span style={{ marginLeft: 'auto', color: '#10b981', fontSize: '20px' }}>✓</span>
-    ) : checked === false ? (
-      <span style={{ marginLeft: 'auto', color: '#ef4444', fontSize: '20px' }}>✕</span>
-    ) : (
-      <span style={{ marginLeft: 'auto', color: '#6b7280', fontSize: '20px' }}>?</span>
-    )}
-  </div>
-);
-
-Feature.propTypes = {
-  icon: PropTypes.string.isRequired,
-  label: PropTypes.string.isRequired,
-  checked: PropTypes.bool,
-};
-
-ToiletModal.propTypes = {
-  isOpen: PropTypes.bool.isRequired,
-  onClose: PropTypes.func.isRequired,
-  toiletData: PropTypes.object.isRequired,
-};
-
-export default ToiletModal;

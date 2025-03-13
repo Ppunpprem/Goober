@@ -6,7 +6,8 @@ import hazard from "../assets/hazard.png";
 import recycle from "../assets/recycle.png";
 import mag from "../assets/mag.png";
 import MapComp from "./MapComp";
-import ToiletModal from "./ToiletModal";
+
+import ToiletM2 from "./ToiletM2";
 
 const defaultFilters = {
   generalWaste: { name: "General Waste", icon: bin, active: true },
@@ -119,7 +120,7 @@ const H_ALog_Page = () => {
       </div>  
 
       {/* Toilet Info Popup */}
-      {showHomePopup && selectedMarker && <ToiletModal
+      {showHomePopup && selectedMarker && <ToiletM2
         isOpen={true}
         onClose={() => setShowHomePopup(false)}
         toiletData={{
