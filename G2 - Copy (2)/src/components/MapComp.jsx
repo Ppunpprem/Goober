@@ -7,8 +7,16 @@ const mapCenter = { lat:13.729109970727297, lng:100.77557815261738 };
 const MapComp = ({ setShowHomePopup, setSelectedMarker }) => {
   const [userLocation, setUserLocation] = useState(null);
   const [trashCanLocations, setTrashCanLocations] = useState([]);
-  // const [selectedMarker, setSelectedMarker] = useState(null); // Track selected marker for popup
-  
+
+  const [selectedMarker, setSelectedMarkerState] = useState(null);
+  const {
+    updateLocation,
+    setClearMarkers,
+    isAddingTrashCan,
+    setIsAddingTrashCan,
+  } = useLocation();
+
+
   // Load Google Maps API
   const { isLoaded } = useJsApiLoader({
     googleMapsApiKey: import.meta.env.VITE_GOOGLE_MAPS_API_KEY,
@@ -43,14 +51,57 @@ const MapComp = ({ setShowHomePopup, setSelectedMarker }) => {
 
   // Handle map click to add a new trash can marker
   const handleMapClick = (event) => {
+// <<<<<<< wins-final
+//     const newMarker = {
+//       lat: event.latLng.lat(),
+//       lng: event.latLng.lng(),
+//     };
+//     const updatedMarkers = [...trashCanLocations, newMarker];
+
+//     setTrashCanLocations(updatedMarkers);
+//     localStorage.setItem("trashCanMarkers", JSON.stringify(updatedMarkers));
+// =======
+    console.log("click", isAddingTrashCan);
+    if (!isAddingTrashCan) return;
     const newMarker = {
       lat: event.latLng.lat(),
       lng: event.latLng.lng(),
+      name: "New Bin", // Provide a default name
+      floor: "Unknown",
+      infoCorrection: false,
+      generalWaste: false,
+      recycleWaste: false,
+      organicWaste: false,
+      hazardousWaste: false,
     };
     const updatedMarkers = [...trashCanLocations, newMarker];
 
-    setTrashCanLocations(updatedMarkers);
-    localStorage.setItem("trashCanMarkers", JSON.stringify(updatedMarkers));
+  
+    setTrashCanLocations([newMarker]);
+    updateLocation(newMarker);
+    setIsAddingTrashCan(false);
+    // localStorage.setItem("trashCanMarkers", JSON.stringify(updatedMarkers));
+  };
+
+  const handleClearLocation = () => {
+    setTrashCanLocations((prev) => prev.slice(0, -1)); // Remove last marker
+    clearLocation();
+  };
+
+  const filterMarkers = (markers) => {
+    return markers.filter((marker) => {
+      const matchesName = marker.name
+        ? marker.name.toLowerCase().includes(binNameFilter.toLowerCase())
+        : false;
+      const matchesFilters = Object.entries(homeFilters).every(
+        ([key, filter]) => {
+          if (!filter.active) return true;
+          return marker[key];
+        }
+      );
+      return matchesName && matchesFilters;
+    });
+
   };
 
   if (!isLoaded) return <h2>Loading Map...</h2>;
