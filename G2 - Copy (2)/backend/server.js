@@ -2,9 +2,6 @@ import express from "express";
 import mongoose from "mongoose";
 import dotenv from "dotenv";
 import authRoutes from "./routes/authRoutes.js"; // Use import here
-import binRoutes from "./routes/binRoutes.js"; // Use import here
-import commentRoutes from "./routes/commentRoutes.js"; // Use import here
-
 import cors from "cors";
 import path from "path";
 import multer from "multer";
@@ -28,8 +25,6 @@ mongoose
   .catch((err) => console.log("Error:  ", err));
 
 app.use("/api/auth", authRoutes);
-app.use("/api/bin", binRoutes);
-app.use("/api/comment", commentRoutes);
 
 app.use(cors({ origin: "http://localhost:5173", credentials: true }));
 
