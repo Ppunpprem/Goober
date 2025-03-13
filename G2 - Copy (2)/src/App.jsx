@@ -10,6 +10,7 @@ import BadgesPage from "./components/Badges_Page";
 import EditPage from "./components/E_ALog_Page";
 import "./App.css";
 import { UserProvider } from "./context/UserContext";
+import { LocationProvider } from "./context/LocationContext";
 
 function App() {
   return (
