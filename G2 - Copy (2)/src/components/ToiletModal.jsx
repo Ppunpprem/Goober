@@ -104,7 +104,6 @@ const ToiletModal = ({ isOpen, onClose, toiletData, isLoggedIn }) => {
             {First_test_building.building_name}
           </h2>
 
-<<<<<<< HEAD
           <h8 className='floor-container'>{First_test_building.floor_number}th Floor</h8>
 
 
@@ -125,78 +124,14 @@ const ToiletModal = ({ isOpen, onClose, toiletData, isLoggedIn }) => {
             </button>
 
             
-=======
-          <button style={{
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            gap: '6px',
-            backgroundColor: '#a7f3d0',
-            padding: '6px 12px',
-            borderRadius: '16px',
-            cursor: 'pointer',
-            border: '2px solidrgb(10, 39, 66)',
-            fontSize: '22px',
-            fontWeight: '700',
-            minHeight: '30px',
-            minWidth: '120px',
-            marginLeft: '-15px',
-            marginTop: '10px',
-            marginBottom: '10px',
-            color: '#065666'
-          }}>
-            <span style={{ textDecoration: 'none' }}>xth floor</span>
-          </button>
-
-          <h3 style={{  fontSize: '20px', 
-            marginBottom: '10px',
-            color: '#1e1b4b',
-            marginLeft: window.innerWidth <= 768 ? '0' : '-12px'
-            }}>Is this information correct?</h3>
-
-          <h4 style={{  fontSize: '15px', 
-            marginBottom: '16px',
-            color: '#1e1b4b',
-            marginLeft: window.innerWidth <= 768 ? '0' : '-125px'
-            }}>Please LogIn/SignUp to comment</h4>
-          {/* <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '16px' }}>
-            <button style={{ 
-              fontSize: '16px', 
-              padding: '6px 24px', 
-              backgroundColor: '#a7f3d0', 
-              border: 'none', 
-              borderRadius: '9999px', 
-              cursor: 'pointer' 
-            }}>Yes</button>
-            <span style={{ 
-              fontSize: '16px', 
-              color: '#1e1b4b'
-            }}>No?</span>
->>>>>>> 4997659ed0a67904bb2e89f3608a39249a211ac7
             <div style={{ 
               
             }}>
             
           </div>
-        </div> */}
-
-<<<<<<< HEAD
-          
-=======
-          {/* Moved Last Verified Below Yes/No/Edit Buttons */}
-          {/* <p style={{
-            fontSize: '14px',
-            color: '#6b7280',
-            marginTop: '10px',
-            marginLeft: window.innerWidth <= 768 ? '0' : '-130px'
-          }}>
+        </div> 
 
           
-            Last verified: <a href="#" style={{ color: '#1d4ed8', textDecoration: 'underline'}}>
-              {toiletData.lastVerified || "18/12/2024, 08:05 PM"}
-            </a>
-          </p> */}
->>>>>>> 4997659ed0a67904bb2e89f3608a39249a211ac7
         </div>
 
         
@@ -215,7 +150,6 @@ const ToiletModal = ({ isOpen, onClose, toiletData, isLoggedIn }) => {
           minHeight: window.innerWidth <= 768 ? 'auto' : window.innerWidth <= 1024 ? '250px' : '300px',
           height: 'auto'
         }}>
-<<<<<<< HEAD
         <h3 className='feature-container'>
           Features
         </h3>
@@ -229,19 +163,6 @@ const ToiletModal = ({ isOpen, onClose, toiletData, isLoggedIn }) => {
             <Feature icon={<img src={recycle} alt="Recycle Waste" style={{ width: "24px", height: "24px" }} />} label="Recycle Waste" checked={toiletData.hasMen} />
             <Feature icon={<img src={organic} alt="Organic Waste" style={{ width: "24px", height: "24px" }} />} label="Organic Waste" checked={toiletData.isAccessible} />
             <Feature icon={<img src={hazard} alt="Hazardous Waste" style={{ width: "24px", height: "24px" }} />} label="Hazardous Waste" checked={toiletData.isGenderNeutral} />
-=======
-        <h3 style={{ margin: '0 0 12 0', fontSize: '24px', fontWeight: 'bold'}}>Features</h3>
-          <div style={{
-            display: 'flex',
-            flexDirection: 'column',
-            gap: '10px',
-            width: '100%',
-          }}>
-            <Feature icon="🗑️" label="General Waste" checked={toiletData.hasWomen} />
-            <Feature icon="♻️" label="Recycle Waste" checked={toiletData.hasMen} />
-            <Feature icon="🍃" label="Organic Waste" checked={toiletData.isAccessible} />
-            <Feature icon="🚻" label="Hazardous Waste" checked={toiletData.isGenderNeutral} />
->>>>>>> 4997659ed0a67904bb2e89f3608a39249a211ac7
           </div>
         </div>
 
@@ -310,16 +231,9 @@ const ToiletModal = ({ isOpen, onClose, toiletData, isLoggedIn }) => {
           justifyContent: 'center',
           textAlign: 'center'
         }}>
-<<<<<<< HEAD
           <p style = {{ fontSize: '20px', fontWeight: 'bold', color: '#17005a'}}>
-=======
-          
-          
-          
-          {/*<p style = {{ fontSize: '16px', fontWeight: 'bold', color: '#1e1b4b'}}>
->>>>>>> 4997659ed0a67904bb2e89f3608a39249a211ac7
             Please Login/Signup to comment!
-          </p>*/}
+          </p>
       </div>
     </div>
   </div>
