@@ -91,7 +91,7 @@ const HomePage = () => {
           isOpen={true}
           onClose={() => setShowHomePopup(false)}
           toiletData={{
-            
+            name: `Toilet at (${selectedMarker.lat.toFixed(6)}, ${selectedMarker.lng.toFixed(6)})`,
             hasWomen: true,
             hasMen: true,
             isAccessible: false,
