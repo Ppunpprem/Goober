@@ -8,22 +8,22 @@ import mag from "../assets/mag.png";
 import check from "../assets/check-mark-button.png";
 import cross from "../assets/cross-mark.png";
 import organic from "../assets/organic.png";
-import MapComp from "./MapComp";
-import ToiletModal from "./ToiletModal";
+import MapComp from "../components/MapComp.jsx";
+
+import { First_test_building, commnents } from "../Damo_data/bindata";
 
 const defaultHomeFilters = {
-  generalWaste: { name: "General Waste", icon: bin, active: true },
-  recycleWaste: { name: "Recycle Waste", icon: recycle, active: true },
+  generalWaste: { name: "General Waste", icon: bin, active: false },
+  recycleWaste: { name: "Recycle Waste", icon: recycle, active: false },
   organicWaste: { name: "Organic Waste", icon: organic, active: false },
   hazardousWaste: { name: "Hazardous Waste", icon: hazard, active: false },
 };
 
-const HomePage = () => {
+const HomePage = ({ isPopupVisible, togglePopupVisibility }) => {
   const [homeFilters, setHomeFilters] = useState(defaultHomeFilters);
   const [showHomePopup, setShowHomePopup] = useState(false);
   const [selectedMarker, setSelectedMarker] = useState(null);
-  
-  const [isLoggedIn, setIsLoggedIn] = useState(false); // <-- ADDED: Track login state
+  const [binNameFilter, setBinNameFilter] = useState("");
 
   useEffect(() => {
     document.body.style.overflow = "hidden";
@@ -44,11 +44,47 @@ const HomePage = () => {
 
   const resetHomeFilters = () => {
     const reset = Object.keys(homeFilters).reduce((acc, key) => {
-      acc[key] = { ...homeFilters[key], active: true };
+      acc[key] = { ...homeFilters[key], active: false };
       return acc;
     }, {});
     setHomeFilters(reset);
   };
+
+  var Check_type_general_waste;
+  if (First_test_building.general_waste) {
+    Check_type_general_waste = <img src={check} width={24} height={24}></img>;
+  } else {
+    Check_type_general_waste = <img src={cross} width={24} height={24}></img>;
+  }
+
+  var Check_type_recycle_waste;
+  if (First_test_building.recycle_waste) {
+    Check_type_recycle_waste = <img src={check} width={24} height={24}></img>;
+  } else {
+    Check_type_recycle_waste = <img src={cross} width={24} height={24}></img>;
+  }
+
+  var Check_type_organic_waste;
+  if (First_test_building.organic_waste) {
+    Check_type_organic_waste = <img src={check} width={24} height={24}></img>;
+  } else {
+    Check_type_organic_waste = <img src={cross} width={24} height={24}></img>;
+  }
+
+  var Check_type_hazardous_waste;
+  if (First_test_building.hazardous_waste) {
+    Check_type_hazardous_waste = <img src={check} width={24} height={24}></img>;
+  } else {
+    Check_type_hazardous_waste = <img src={cross} width={24} height={24}></img>;
+  }
+
+  // const [commentText, setCommentText] = useState("");
+
+  // const handleCancel = () => {
+  //   setCommentText("");
+  // };
+
+  const [selected, setSelected] = useState(null);
 
   return (
     <div className="home-page">
@@ -56,16 +92,49 @@ const HomePage = () => {
         <MapComp
           setShowHomePopup={setShowHomePopup}
           setSelectedMarker={setSelectedMarker}
+          homeFilters={homeFilters}
+          binNameFilter={binNameFilter}
         />
       </div>
 
-      <div className="home-popup">
+      <div
+        className={`home-popup ${isPopupVisible ? "block" : "hidden"} md:block`}
+      >
         <h2>Search</h2>
         <div className="home-search-container">
           <img src={mag} alt="Search Icon" className="home-search-icon" />
-          <input type="text" placeholder="Search Location..." className="home-search-bar" />
-          <button className="home-search-button">Search</button>
+          <input
+            type="text"
+            placeholder="Search Location..."
+            className="home-search-bar"
+            value={binNameFilter}
+            onChange={(e) => setBinNameFilter(e.target.value)}
+          />
+          <button
+            className="home-search-button"
+            onClick={() => setBinNameFilter("")}
+          >
+            Clear
+          </button>
         </div>
+
+        <span
+          className="md:hidden absolute top-2 right-1 text-[#17005a] bg-white text-xl p-2 font-medium cursor-pointer hover:bg-[#54008a] focus:outline-none"
+          onClick={togglePopupVisibility}
+        >
+          X
+        </span>
+        {/* 
+        <div className="pb-5 text-[#17005a] text-xl font-bold">Search</div>
+        <div className="home-search-container">
+          <img src={mag} alt="Search Icon" className="home-search-icon" />
+          <input
+            type="text"
+            placeholder="Search Location..."
+            className="home-search-bar"
+          />
+          <button className="home-search-button">Search1</button>
+        </div> */}
 
         <div className="home-filter-section">
           <h3>
@@ -78,33 +147,17 @@ const HomePage = () => {
             <div className="home-filter-option" key={key}>
               <img src={icon} alt={name} className="home-icon" /> {name}
               <label className="home-switch">
-                <input type="checkbox" checked={active} onChange={() => toggleHomeFilter(key)} />
+                <input
+                  type="checkbox"
+                  checked={active}
+                  onChange={() => toggleHomeFilter(key)}
+                />
                 <span className="home-slider"></span>
               </label>
             </div>
           ))}
         </div>
       </div>
-
-      {showHomePopup && selectedMarker && (
-        <ToiletModal
-          isOpen={true}
-          onClose={() => setShowHomePopup(false)}
-          toiletData={{
-            name: `Toilet at (${selectedMarker.lat.toFixed(6)}, ${selectedMarker.lng.toFixed(6)})`,
-            hasWomen: true,
-            hasMen: true,
-            isAccessible: false,
-            isGenderNeutral: false,
-            hasChildren: false,
-            hasBabyChanging: true,
-            fee: "Free",
-            notes: "Public toilet",
-            lastVerified: new Date().toLocaleString(),
-          }}
-          isLoggedIn={isLoggedIn} // <-- ADDED: Pass isLoggedIn state to ToiletModal
-        />
-      )}
     </div>
   );
 };

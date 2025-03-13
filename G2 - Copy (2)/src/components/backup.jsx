@@ -145,3 +145,132 @@ MapComp.propTypes = {
 };
 
 export default MapComp;
+ // <nav className="navbar">
+//       <div className="navbar-container">
+//         <div className="logo-container">
+//           <h1 className="navbar-title">TRASHCAN MAP</h1>
+//           <img src={logo} alt="logo" className="navbar-logo" />
+//           <Link to="/home_after_login" className="navbar-link">
+//             Home
+//           </Link>
+//           <div className="navbar-link" onClick={toggleAddTrashcanPopup}>
+//             Add a trashcan
+//           </div>
+//         </div>
+
+//         <div className="navbar-links">
+//           {/* Conditionally render the username only if user is available and not loading */}
+//           <div className="navbar-link navbar-lr" onClick={togglePopup}>
+//             {loading ? "Loading..." : user ? user.username : "Guest"}{" "}
+            
+//             {/* Render loading or username */}
+
+//             <img 
+//             src={user?.profilePhoto || logo} 
+//             alt="profile" 
+//             className="navbar-logo navbar-logo-right" />
+//         </div>
+//         </div>
+//       </div>
+
+//       {showPopup && (
+//         <div className="popup">
+//           <div className="menu-container">
+//             <Link to="/edit" className="edit-link">
+//               Edit
+//             </Link>
+//             <Link to="/badges" className="edit-link">
+//               Badges
+//             </Link>
+//             <div className="edit-link" onClick={handleLogout}>
+//               Log Out
+//             </div>{" "}
+//             {/* Logout button */}
+//           </div>
+//         </div>
+//       )}
+
+//       {showAddTrashcanPopup && (
+//         <div className="popup-addtrashcan">
+//           <div className="addtrashcan-container">
+//             <h2>Add a Trashcan!</h2>
+
+//             <div className="input-group">
+//               <label>1. Pin a Location</label>
+//             </div>
+
+//             <div className="input-group inline-group">
+//               <div className="form-field">
+//                 <label>2. Location</label>
+//                 <input type="text" placeholder="Location Name" />
+//               </div>
+
+//               <div className="form-field">
+//                 <label>Floor</label>
+//                 <input
+//                   type="number"
+//                   placeholder="Floor?"
+//                   min="0"
+//                   onChange={(f) => {
+//                     if (f.target.value < 0 || f.target.value > 9) {
+//                       f.target.value = 0; // Reset to 0 if the input is negative
+//                     }
+//                   }}
+//                 />
+//               </div>
+//             </div>
+
+//             <div className="trashcan-types">
+//               <div className="trashcan-header">
+//                 <label className="trashcan-type-label">3. Trashcan Type</label>
+//                 <div className="yes-no-labels">
+//                   <span>Yes</span>
+//                   <span>No</span>
+//                 </div>
+//               </div>
+
+//               <div className="trashcan-row">
+//                 <img src={bin} alt="General Waste" />
+//                 <span>General Waste</span>
+//                 <div className="radio-group">
+//                   <input type="radio" name="general" value="yes" />
+//                   <input type="radio" name="general" value="no" />
+//                 </div>
+//               </div>
+
+//               <div className="trashcan-row">
+//                 <img src={recycle} alt="Recycle Waste" />
+//                 <span>Recycle Waste</span>
+//                 <div className="radio-group">
+//                   <input type="radio" name="recycle" value="yes" />
+//                   <input type="radio" name="recycle" value="no" />
+//                 </div>
+//               </div>
+
+//               <div className="trashcan-row">
+//                 <img src={organic} alt="Organic Waste" />
+//                 <span>Organic Waste</span>
+//                 <div className="radio-group">
+//                   <input type="radio" name="organic" value="yes" />
+//                   <input type="radio" name="organic" value="no" />
+//                 </div>
+//               </div>
+
+//               <div className="trashcan-row">
+//                 <img src={hazard} alt="Hazardous Waste" />
+//                 <span>Hazardous Waste</span>
+//                 <div className="radio-group">
+//                   <input type="radio" name="hazardous" value="yes" />
+//                   <input type="radio" name="hazardous" value="no" />
+//                 </div>
+//               </div>
+//             </div>
+
+//             <div className="button-group">
+//               <button onClick={toggleAddTrashcanPopup}>Cancel</button>
+//               <button onClick={toggleAddTrashcanPopup}>Confirm</button>
+//             </div>
+//           </div>
+//         </div>
+//       )}
+//     </nav>
