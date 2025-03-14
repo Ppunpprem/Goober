@@ -47,8 +47,6 @@ const defaultFilters = {
   hazardousWaste: { name: "Hazardous Waste", icon: hazard, active: false },
 };
 
-
-
 const H_ALog_Page = ({ isPopupVisible, togglePopupVisibility }) => {
   const [filters, setFilters] = useState(defaultFilters);
   const [showPopup, setShowPopup] = useState(false);
@@ -109,7 +107,9 @@ const H_ALog_Page = ({ isPopupVisible, togglePopupVisibility }) => {
         >
           X
         </span>
-        <div className="pb-0 text-[#17005a] text-xl font-bold text-left">Search</div>
+        <div className="pb-0 text-[#17005a] text-xl font-bold text-left">
+          Search
+        </div>
         <div className="alog-search-container">
           <img src={mag} alt="Search Icon" className="alog-search-icon" />
           <input
@@ -150,14 +150,18 @@ const H_ALog_Page = ({ isPopupVisible, togglePopupVisibility }) => {
         </div>
       </div>
 
-      
       {showPopup && selectedMarker && (
         <ToiletM2
           isOpen={showPopup}
           onClose={() => setShowPopup(false)}
           toiletData={{
             // Use the actual marker data
-            name: selectedMarker.name || `Bin at (${selectedMarker.lat.toFixed(6)}, ${selectedMarker.lng.toFixed(6)})`,
+            id: selectedMarker.id,
+            name:
+              selectedMarker.name ||
+              `Bin at (${selectedMarker.lat.toFixed(
+                6
+              )}, ${selectedMarker.lng.toFixed(6)})`,
             hasWomen: selectedMarker.generalWaste,
             hasMen: selectedMarker.recycleWaste,
             isAccessible: selectedMarker.organicWaste,
@@ -167,8 +171,8 @@ const H_ALog_Page = ({ isPopupVisible, togglePopupVisibility }) => {
             // Add any other properties you need
           }}
           setIsLoggedIn={isLoggedIn}
-                />
-              )}
+        />
+      )}
     </div>
   );
 };
