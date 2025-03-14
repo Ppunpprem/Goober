@@ -12,7 +12,7 @@ import "./App.css";
 import { UserProvider } from "./context/UserContext";
 import { useState } from "react";
 import { LocationProvider } from "./context/LocationContext"; 
-import MapComp from "./components/Mapcomp";
+import MapComp from "../src/components/MapComp";
 
 function App() {
   return (
