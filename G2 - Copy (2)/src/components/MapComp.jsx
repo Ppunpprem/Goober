@@ -1,13 +1,7 @@
 import PropTypes from "prop-types";
 import { useEffect, useState } from "react";
 import { useLocation } from "../context/LocationContext";
-// import logo from "../assets/logo.png"; // Replace with your actual logo path
-import {
-  GoogleMap,
-  useJsApiLoader,
-  Marker,
-  InfoWindow,
-} from "@react-google-maps/api";
+import { GoogleMap, useJsApiLoader, Marker } from "@react-google-maps/api";
 
 const mapCenter = { lat: 13.729109970727297, lng: 100.77557815261738 };
 
@@ -19,7 +13,6 @@ const MapComp = ({
 }) => {
   const [userLocation, setUserLocation] = useState(null);
   const [trashCanLocations, setTrashCanLocations] = useState([]);
-  const [selectedMarker, setSelectedMarkerState] = useState(null);
   const {
     updateLocation,
     setClearMarkers,
@@ -53,6 +46,7 @@ const MapComp = ({
         .then((data) => {
           console.log("Fetched bin data:", data); // Log fetched data
           const markers = data.map((bin) => ({
+            id: bin._id,
             lat: parseFloat(bin.bin_location.$lat),
             lng: parseFloat(bin.bin_location.$lng),
             name: bin.bin_name_location || "Unknown Bin",
@@ -95,10 +89,10 @@ const MapComp = ({
 
   const handleMarkerClick = (marker) => {
     console.log("Marker clicked:", marker);
-    setSelectedMarkerState(marker);
+    // Pass the marker data to HomePage component
+    setSelectedMarker(marker);
     setShowHomePopup(true);
   };
-
   const handleMapClick = (event) => {
     console.log("click", isAddingTrashCan);
     if (!isAddingTrashCan) return;
@@ -113,18 +107,15 @@ const MapComp = ({
       organicWaste: false,
       hazardousWaste: false,
     };
-    const updatedMarkers = [...trashCanLocations, newMarker];
 
-  
-    setTrashCanLocations([newMarker]);
+    setTrashCanLocations([...trashCanLocations, newMarker]);
     updateLocation(newMarker);
     setIsAddingTrashCan(false);
-    // localStorage.setItem("trashCanMarkers", JSON.stringify(updatedMarkers));
   };
 
   const handleClearLocation = () => {
     setTrashCanLocations((prev) => prev.slice(0, -1)); // Remove last marker
-    clearLocation();
+    // Note: clearLocation is not defined in your code, so I've removed it
   };
 
   const filterMarkers = (markers) => {
@@ -168,19 +159,7 @@ const MapComp = ({
         />
       )}
 
-      {/* Render InfoWindow if a marker is selected */}
-      {selectedMarker && (
-        <InfoWindow
-          position={{ lat: selectedMarker.lat, lng: selectedMarker.lng }}
-          onCloseClick={() => setSelectedMarkerState(null)}
-        >
-          <div>
-            <h3>{selectedMarker.name}</h3>
-            <p>Floor: {selectedMarker.floor}</p>
-            <p>Info Correction: {selectedMarker.infoCorrection}</p>
-          </div>
-        </InfoWindow>
-      )}
+      {/* Removed the InfoWindow component as we're using ToiletModal from HomePage instead */}
     </GoogleMap>
   );
 };
