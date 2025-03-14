@@ -13,13 +13,11 @@ router.get("/", async (req, res) => {
   }
 });
 
-// Get comments for a specific bin
-router.get("/comment/:binId", async (req, res) => {
+router.get("/:id", async (req, res) => {
   try {
-    const comments = await Comment.find({ bin: req.params.binId }).populate(
-      "user"
-    );
-    res.json(comments);
+    const comment = await Comment.findById(req.params.id).populate("user");
+    if (!comment) return res.status(404).json({ message: "Comment not found" });
+    res.json(comment);
   } catch (error) {
     res.status(500).json({ message: error.message });
   }

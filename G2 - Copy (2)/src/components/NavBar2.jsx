@@ -7,6 +7,7 @@ import bin from "../assets/bin.png";
 import hazard from "../assets/hazard.png";
 import recycle from "../assets/recycle.png";
 import organic from "../assets/organic.png";
+
 import { useLocation } from "../context/LocationContext";
 
 const NavBar2 = ({ togglePopupVisibility }) => {
@@ -17,7 +18,13 @@ const NavBar2 = ({ togglePopupVisibility }) => {
   const [loading, setLoading] = useState(true);
   const [menuOpen, setMenuOpen] = useState(false);
   const [showProfileDropdown, setShowProfileDropdown] = useState(false);
-  const { lastLocation, setLastLocation, clearLocation, isAddingTrashCan, setIsAddingTrashCan } = useLocation();
+  const {
+    lastLocation,
+    setLastLocation,
+    clearLocation,
+    isAddingTrashCan,
+    setIsAddingTrashCan,
+  } = useLocation();
   const [binNameLocation, setBinNameLocation] = useState("");
   const [binFloorNumber, setBinFloorNumber] = useState("");
   const [binFeatures, setBinFeatures] = useState({
@@ -266,7 +273,9 @@ const NavBar2 = ({ togglePopupVisibility }) => {
             <a
               href="#"
               className="text-[#17005a] hover:text-gray-500"
-              onClick={() => {toggleAddTrashcanPopup();}}
+              onClick={() => {
+                toggleAddTrashcanPopup();
+              }}
             >
               Add TrashCan
             </a>
@@ -298,6 +307,7 @@ const NavBar2 = ({ togglePopupVisibility }) => {
       </header>
 
       {/* Add Trashcan Popup */}
+
       {showAddTrashcanPopup && (
         <div className="fixed mt-19 right-0 bg-transparent bg-opacity-50 flex justify-center items-center z-50">
           <div className="bg-white p-6 rounded-lg shadow-xl w-96">
@@ -315,7 +325,6 @@ const NavBar2 = ({ togglePopupVisibility }) => {
                 >
                   Click
                 </button>
-
                 {isAddingTrashCan && (
                   <h6 className="text-grey-800 font-semibold m-2">
                     Click anywhere on the map to pin the location!

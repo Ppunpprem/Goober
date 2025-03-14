@@ -23,18 +23,14 @@ h3 {
 /* Always Visible Popup */
 .alog-popup {
   position: fixed;
-  top: 90px;
-  left: 30px;
-  width: 320px;
+  top: 10%;
+  margin-left: 0%;
+  width: 287px;  /* odd one was w : 325px */
   background: white;
   padding: 20px;
   border-radius: 20px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-  opacity: 1;
-  transform: translateY(0);
-  pointer-events: auto;
-  transition: none;
-  z-index: 1000;
+  z-index: 100; 
 }
 
 .alog-popup h2 {
@@ -47,7 +43,7 @@ h3 {
   display: flex;
   align-items: center;
   width: 90%;
-  margin-top: -12px;
+  margin-bottom: -3%;
   margin-left: 1.5%;
   padding: 5px 10px;
   background: #ffffff;
