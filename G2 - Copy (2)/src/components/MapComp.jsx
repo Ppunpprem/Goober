@@ -46,7 +46,6 @@ const MapComp = ({
         .then((data) => {
           console.log("Fetched bin data:", data); // Log fetched data
           const markers = data.map((bin) => ({
-            id: bin._id,
             lat: parseFloat(bin.bin_location.$lat),
             lng: parseFloat(bin.bin_location.$lng),
             name: bin.bin_name_location || "Unknown Bin",
@@ -93,6 +92,7 @@ const MapComp = ({
     setSelectedMarker(marker);
     setShowHomePopup(true);
   };
+
   const handleMapClick = (event) => {
     console.log("click", isAddingTrashCan);
     if (!isAddingTrashCan) return;
