@@ -1,5 +1,6 @@
 import express from "express";
-import { Comment, Bin } from "../models/Bin.js"; // Adjust the import path as needed
+import { Comment } from "../models/Comment.js"; // Adjust the import path as needed
+import { Bin } from "../models/Bin.js"; // Import the Bin model
 
 const router = express.Router();
 
@@ -78,79 +79,3 @@ router.delete("/:id", async (req, res) => {
 });
 
 export default router;
-
-// import express from "express";
-// // import bcrypt from "bcryptjs";
-// // import jwt from "jsonwebtoken";
-// // import { body, validationResult } from "express-validator";
-// // import { Comment } from "../models/User.js";
-// // import authMiddleware from "../middleware/authMiddleware.js";
-// // import authenticateToken from "../middleware/authenticateToken.js";
-// // import multer from "multer";
-// // import path from "path";
-// // import fs from "fs";
-
-// const router = express.Router();
-// const __dirname = path.dirname(new URL(import.meta.url).pathname);
-// import express from "express";
-// import { Comment, Bin } from "../models/Bin.js"; // Adjust the import path as needed
-
-// const router = express.Router();
-
-// // Get all comments
-// router.get("/", async (req, res) => {
-//   try {
-//     const comments = await Comment.find().populate("user").populate("bin");
-//     res.json(comments);
-//   } catch (error) {
-//     res.status(500).json({ message: error.message });
-//   }
-// });
-
-// // Get comments for a specific bin
-// router.get("/:commentId", async (req, res) => {
-//   try {
-//     const comments = await Comment.find({ bin: req.params.commentId }).populate(
-//       "user"
-//     );
-//     res.json(comments);
-//   } catch (error) {
-//     res.status(500).json({ message: error.message });
-//   }
-// });
-
-// // Add a comment to a bin
-// router.post("/", async (req, res) => {
-//   try {
-//     const { user, bin, text } = req.body;
-//     const newComment = new Comment({ user, bin, text });
-//     await newComment.save();
-
-//     // Add comment reference to the bin
-//     await Bin.findByIdAndUpdate(bin, { $push: { comments: newComment._id } });
-
-//     res.status(201).json(newComment);
-//   } catch (error) {
-//     res.status(400).json({ message: error.message });
-//   }
-// });
-
-// // Delete a comment
-// router.delete("/:id", async (req, res) => {
-//   try {
-//     const deletedComment = await Comment.findByIdAndDelete(req.params.id);
-//     if (!deletedComment)
-//       return res.status(404).json({ message: "Comment not found" });
-
-//     // Remove the comment from the associated bin
-//     await Bin.findByIdAndUpdate(deletedComment.bin, {
-//       $pull: { comments: deletedComment._id },
-//     });
-
-//     res.json({ message: "Comment deleted successfully" });
-//   } catch (error) {
-//     res.status(500).json({ message: error.message });
-//   }
-// });
-
-// export default router;
