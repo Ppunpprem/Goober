@@ -226,7 +226,7 @@ const ToiletModal = ({ isOpen, onClose, toiletData, isLoggedIn }) => {
               >
                 Cancel
               </button>
-              <button className="py-1.5 sm:py-2 md:py-2.5 px-3 sm:px-4 md:px-5 bg-indigo-900 text-sky-200 font-semibold border-none rounded-2xl sm:rounded-3xl text-sm sm:text-base cursor-pointer transition-colors duration-300 ease-in-out hover:bg-sky-200 hover:text-indigo-900">
+              <button className="py-1.5 sm:py-2 md:py-2.5 px-3 sm:px-4 md:px-5 bg-indigo-900 text-sky-200 font-semibold border-none rounded-2xl sm:rounded-3xl text-sm sm:text-base cursor-pointer transition-colors duration-300 ease-in-out hover:bg-sky-200 hover:text-indigo-900 transition-colors duration-300">
                 Post
               </button>
             </div>
