@@ -1,11 +1,7 @@
 import PropTypes from "prop-types";
 import { useEffect, useState } from "react";
 import { useLocation } from "../context/LocationContext";
-import {
-  GoogleMap,
-  useJsApiLoader,
-  Marker,
-} from "@react-google-maps/api";
+import { GoogleMap, useJsApiLoader, Marker } from "@react-google-maps/api";
 
 const mapCenter = { lat: 13.729109970727297, lng: 100.77557815261738 };
 
@@ -111,7 +107,7 @@ const MapComp = ({
       organicWaste: false,
       hazardousWaste: false,
     };
-    
+
     setTrashCanLocations([...trashCanLocations, newMarker]);
     updateLocation(newMarker);
     setIsAddingTrashCan(false);
@@ -162,7 +158,7 @@ const MapComp = ({
           icon="https://maps.google.com/mapfiles/ms/icons/blue-dot.png"
         />
       )}
-      
+
       {/* Removed the InfoWindow component as we're using ToiletModal from HomePage instead */}
     </GoogleMap>
   );
