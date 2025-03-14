@@ -96,6 +96,36 @@ const ToiletModal = ({ isOpen, onClose, toiletData, isLoggedIn }) => {
     }
   };
 
+  const handlePostComment = async () => {
+    if (!commentText.trim()) return; // Prevent posting empty comments
+
+    const commentData = {
+      user: "67c1b390c3bbfd0d842a81ac", // Replace with actual user ID
+      bin: toiletData.id, // Use the toiletData ID
+      text: commentText,
+    };
+
+    try {
+      const response = await fetch("http://localhost:5001/api/comment/", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(commentData),
+      });
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+
+      const newComment = await response.json();
+      setComments((prevComments) => [...prevComments, newComment]);
+      setCommentText(""); // Clear the textarea after posting
+    } catch (error) {
+      console.error("Error posting comment:", error);
+    }
+  };
+
   if (!isOpen || !buildingData) return null;
 
   return (
@@ -238,7 +268,10 @@ const ToiletModal = ({ isOpen, onClose, toiletData, isLoggedIn }) => {
               >
                 Cancel
               </button>
-              <button className="py-1.5 sm:py-2 md:py-2.5 px-3 sm:px-4 md:px-5 bg-indigo-900 text-sky-200 font-semibold border-none rounded-2xl sm:rounded-3xl text-sm sm:text-base cursor-pointer transition-colors duration-300 ease-in-out hover:bg-sky-200 hover:text-indigo-900">
+              <button
+                className="py-1.5 sm:py-2 md:py-2.5 px-3 sm:px-4 md:px-5 bg-indigo-900 text-sky-200 font-semibold border-none rounded-2xl sm:rounded-3xl text-sm sm:text-base cursor-pointer transition-colors duration-300 ease-in-out hover:bg-sky-200 hover:text-indigo-900"
+                onClick={handlePostComment}
+              >
                 Post
               </button>
             </div>
