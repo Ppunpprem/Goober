@@ -27,7 +27,7 @@ const BadgesPage = () => {
       id: 3,
       title: 'Earth Guardian',
       description: 'Comment and share with our community what the trashcan looks like!',
-      progress: '0/1',
+      progress: '0/5',
       color: '#ffb2ed',
       icon: bubbleicon,
     },
@@ -54,25 +54,44 @@ const BadgesPage = () => {
 
         const response = await res.json();
 
-        if (response && response.binCount !== undefined) {
+        if (response) {
           setBadges((prevBadges) =>
             prevBadges.map((badge) => {
-              if (badge.title === "Bin Explorer") {
-               
+              if (badge.title === "Bin Explorer" && response.binCount !== undefined) {
                 const maxProgress = 4;
-                const updatedProgress = Math.min(response.binCount, maxProgress); 
+                const updatedProgress = Math.min(response.binCount, maxProgress);
                 return { 
                   ...badge, 
                   progress: `${updatedProgress}/${maxProgress}`,
-                  isComplete: updatedProgress === maxProgress, 
+                  isComplete: updatedProgress === maxProgress,
                 };
-              } else {
-                return badge;  
               }
+
+              if (badge.title === "Earth Guardian" && response.commentCount !== undefined) {
+                const maxProgress = 5;
+                const updatedProgress = Math.min(response.commentCount, maxProgress);
+                return { 
+                  ...badge, 
+                  progress: `${updatedProgress}/${maxProgress}`,
+                  isComplete: updatedProgress === maxProgress,
+                };
+              }
+
+              if (badge.title === "Trash Tracker" && response.trackCount !== undefined) {
+                const maxProgress = 10;
+                const updatedProgress = Math.min(response.trackCount, maxProgress);
+                return { 
+                  ...badge, 
+                  progress: `${updatedProgress}/${maxProgress}`,
+                  isComplete: updatedProgress === maxProgress,
+                };
+              }
+
+              return badge; 
             })
           );
         } else {
-          console.error("No binCount found in response.");
+          console.error("No relevant data found in response.");
         }
       } catch (error) {
         console.error("Error fetching badges:", error);

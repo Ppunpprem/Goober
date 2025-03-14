@@ -24,6 +24,8 @@ router.get("/profile", authMiddleware, async (req, res) => {
       firstName: user.firstName,
       lastName: user.lastName,
       badges: user.badges, 
+      commentCount: user.commentCount,
+      trackCount: user.trackCount,
       binCount: user.binCount 
     });
   } catch (err) {

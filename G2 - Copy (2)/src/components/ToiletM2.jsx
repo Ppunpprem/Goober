@@ -4,8 +4,10 @@ import organic from "../assets/organic.png";
 import hazard from "../assets/hazard.png";
 import recycle from "../assets/recycle.png";
 import { useState, useEffect } from "react";
+import { useUser } from "../context/UserContext";
 
 const ToiletModal = ({ isOpen, onClose, toiletData, isLoggedIn }) => {
+  const { user } = useUser();
   const [commentText, setCommentText] = useState("");
   const [buildingData, setBuildingData] = useState(null);
   const [comments, setComments] = useState([]);
@@ -51,6 +53,7 @@ const ToiletModal = ({ isOpen, onClose, toiletData, isLoggedIn }) => {
       .then((data) => {
         setComments(data.comments);
       })
+    
       .catch((error) => {
         console.error("Error fetching comments:", error);
       });
@@ -66,17 +69,31 @@ const ToiletModal = ({ isOpen, onClose, toiletData, isLoggedIn }) => {
         `http://localhost:5001/api/bin/${toiletData.id}/increase`,
         {
           method: "PUT",
+          body: JSON.stringify({ userId: user.id }), // Send the user ID
+          headers: {
+            "Content-Type": "application/json",
+          },
         }
       );
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
-      const updatedBin = await response.json();
-      console.log("Yes clicked", updatedBin);
+      const { updatedBin, updatedUser } = await response.json();
+      
+      if (!updatedBin || !updatedUser) {
+        throw new Error('Failed to update bin or user');
+      }
+
+  
+      if (updatedUser.badges && updatedUser.badges.includes("Trash Tracker")) {
+        alert("Congratulations! You have earned the Trash Tracker badge!");
+      }
     } catch (error) {
       console.error("Error increasing bin info correction:", error);
+      alert("An error occurred. Please try again.");
     }
   };
+  
 
   const handleNoClick = async () => {
     try {
@@ -100,7 +117,7 @@ const ToiletModal = ({ isOpen, onClose, toiletData, isLoggedIn }) => {
     if (!commentText.trim()) return; // Prevent posting empty comments
 
     const commentData = {
-      user: "67c1b390c3bbfd0d842a81ac", // Replace with actual user ID
+      user: user.id, // Replace with actual user ID
       bin: toiletData.id, // Use the toiletData ID
       text: commentText,
     };
@@ -237,7 +254,8 @@ const ToiletModal = ({ isOpen, onClose, toiletData, isLoggedIn }) => {
             {comments.map((comment, index) => (
               <div key={index} className="flex mb-2 sm:mb-3">
                 <img
-                  src={comment.profile}
+                
+                  src={`http://localhost:5001/${comment.user.profilePhoto}`}
                   className="rounded-full w-8 h-8 sm:w-10 sm:h-10 flex-shrink-0"
                   alt="Profile"
                 />

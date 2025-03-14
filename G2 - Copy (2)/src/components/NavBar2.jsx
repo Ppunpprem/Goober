@@ -17,6 +17,7 @@ const NavBar2 = ({ togglePopupVisibility }) => {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(true);
   const [menuOpen, setMenuOpen] = useState(false);
+  const [successMessage, setSuccessMessage] = useState("");
   const [showProfileDropdown, setShowProfileDropdown] = useState(false);
   const {
     lastLocation,
@@ -151,6 +152,12 @@ const NavBar2 = ({ togglePopupVisibility }) => {
   
       const result = await response.json();
       console.log("Trashcan added successfully:", result);
+      setSuccessMessage("Trashcan added successfully!");
+      setTimeout(() => {
+        setShowAddTrashcanPopup(false); 
+        setLastLocation(null);
+        setSuccessMessage(""); 
+      }, 2000); 
   
     } catch (error) {
       console.error("Error adding trashcan:", error);
@@ -187,7 +194,8 @@ const NavBar2 = ({ togglePopupVisibility }) => {
                 className="hover:text-gray-500"
                 onClick={(e) => {
                   e.preventDefault(); // Prevents default anchor behavior (e.g., page scroll)
-                  toggleAddTrashcanPopup(); // Call the toggle function
+                  toggleAddTrashcanPopup();
+                  setShowProfileDropdown(false); // Call the toggle function
                   // handleAddTrashcanClick(); // Call the handle click function
                   // handleAddTrashCanClick();
                 }}
@@ -198,7 +206,7 @@ const NavBar2 = ({ togglePopupVisibility }) => {
             <li>
               <div
                 className="flex items-center gap-3 pl-1 px-3 py-3 font-medium text-xl rounded-2xl cursor-pointer hover:bg-gray-200 transition"
-                onClick={toggleUser}
+                onClick={() => {toggleUser(); setShowAddTrashcanPopup(false);}}
               >
                 <span>
                   {loading ? "Loading..." : user?.username || "Guest"}
@@ -308,175 +316,173 @@ const NavBar2 = ({ togglePopupVisibility }) => {
 
       {/* Add Trashcan Popup */}
 
-      {showAddTrashcanPopup && (
-        <div className="fixed mt-19 right-0 bg-transparent bg-opacity-50 flex justify-center items-center z-50">
-          <div className="bg-white p-6 rounded-lg shadow-xl w-96">
-            <h2 className="text-xl font-semibold text-gray-900 mb-4">
-              Add a Trashcan!
-            </h2>
+     {/* Add Trashcan Popup */}
+{showAddTrashcanPopup && (
+  <div className="fixed mt-19 right-0 bg-transparent bg-opacity-50 flex justify-center items-center z-50">
+    <div className="bg-white p-6 rounded-lg shadow-xl w-96">
+      <h2 className="text-xl font-semibold text-gray-900 mb-4">
+        Add a Trashcan!
+      </h2>
 
-            {/* Location Selection */}
-            <div className="mb-4">
-              <label className="block font-medium text-gray-700">
-                1. Pin a Location
-                <button
-                  className="bg-[#17005a] text-white px-4 py-2 rounded-md hover:bg-blue-300 m-2 hover:cursor-pointer transition duration-300 transform hover:scale-105 flex items-center"
-                  onClick={() => setIsAddingTrashCan(true)}
-                >
-                  Click
-                </button>
-                {isAddingTrashCan && (
-                  <h6 className="text-grey-800 font-semibold m-2">
-                    Click anywhere on the map to pin the location!
-                  </h6>
-                )}
-              </label>
-              {/* Display the last clicked location */}
-              <div className="bg-gray-100 p-4 rounded-lg shadow-md flex items-center gap-4 w-fit">
-                <div className="text-blue-600 font-semibold">Location:</div>
-                {lastLocation ? (
-                  <div className="text-gray-800 flex flex-col">
-                    <strong className="text-blue-500">Lat:</strong>{" "}
-                    {lastLocation.lat},
-                    <strong className="text-blue-500">Lng:</strong>{" "}
-                    {lastLocation.lng}
-                  </div>
-                ) : (
-                  <span className="text-black-500 italic">
-                    Location not selected
-                  </span>
-                )}
-              </div>
+      {/* Success Message */}
+      {successMessage && (
+        <div className="text-green-500 text-lg mb-4">{successMessage}</div>
+      )}
 
-              {lastLocation && (
-                <button
-                  className="ml-2 px-2 py-1 mt-3 text-sm bg-red-500 text-white rounded-md hover:bg-red-600 "
-                  onClick={clearLocation}
-                >
-                  Clear
-                </button>
-              )}
+      {/* Location Selection */}
+      <div className="mb-4">
+        <label className="block font-medium text-gray-700">
+          1. Pin a Location
+          <button
+            className="bg-[#17005a] text-white px-4 py-2 rounded-md hover:bg-blue-300 m-2 hover:cursor-pointer transition duration-300 transform hover:scale-105 flex items-center"
+            onClick={() => setIsAddingTrashCan(true)}
+          >
+            Click
+          </button>
+          {isAddingTrashCan && (
+            <h6 className="text-grey-800 font-semibold m-2">
+              Click anywhere on the map to pin the location!
+            </h6>
+          )}
+        </label>
+        {/* Display the last clicked location */}
+        <div className="bg-gray-100 p-4 rounded-lg shadow-md flex items-center gap-4 w-fit">
+          <div className="text-blue-600 font-semibold">Location:</div>
+          {lastLocation ? (
+            <div className="text-gray-800 flex flex-col">
+              <strong className="text-blue-500">Lat:</strong>{" "}
+              {lastLocation.lat},
+              <strong className="text-blue-500">Lng:</strong>{" "}
+              {lastLocation.lng}
+            </div>
+          ) : (
+            <span className="text-black-500 italic">
+              Location not selected
+            </span>
+          )}
+        </div>
+
+        {lastLocation && (
+          <button
+            className="ml-2 px-2 py-1 mt-3 text-sm bg-red-500 text-white rounded-md hover:bg-red-600 "
+            onClick={clearLocation}
+          >
+            Clear
+          </button>
+        )}
+      </div>
+
+      <div className="mb-4 flex gap-4">
+        <div className="flex-1">
+          <label className="block text-gray-700">2. Location</label>
+          <input
+            type="text"
+            placeholder="Location Name"
+            className="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400 text-black"
+            value={binNameLocation}
+            onChange={(e) => setBinNameLocation(e.target.value)}
+          />
+        </div>
+
+        <div className="w-24">
+          <label className="block text-gray-700">Floor</label>
+          <input
+            type="text"
+            placeholder="Floor?"
+            className="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400 text-black"
+            value={binFloorNumber}
+            onChange={(e) => setBinFloorNumber(e.target.value)}
+          />
+        </div>
+      </div>
+
+      {/* Trashcan Types */}
+      <div className="mb-4">
+        <label className="block font-medium text-gray-700 mb-2">
+          3. Trashcan Type
+        </label>
+        {[{ name: "General Waste", icon: bin, key: "generalWaste" }, { name: "Recycle Waste", icon: recycle, key: "recycleWaste" }, { name: "Organic Waste", icon: organic, key: "organicWaste" }, { name: "Hazardous Waste", icon: hazard, key: "hazardousWaste" }].map((trashcan, index) => (
+          <div
+            key={index}
+            className="flex items-center justify-between bg-white p-2 rounded-lg mb-2"
+          >
+            <div className="flex items-center space-x-3">
+              <img
+                src={trashcan.icon}
+                alt={trashcan.name}
+                className="w-8 h-8"
+              />
+              <span className="text-gray-700">{trashcan.name}</span>
             </div>
 
-            <div className="mb-4 flex gap-4">
-              <div className="flex-1">
-                <label className="block text-gray-700">2. Location</label>
+            <div className="flex space-x-3">
+              <label className="flex items-center space-x-1 cursor-pointer">
                 <input
-                  type="text"
-                  placeholder="Location Name"
-                  className="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400 text-black"
-                  value={binNameLocation}
-                  onChange={(e) => setBinNameLocation(e.target.value)}
+                  type="radio"
+                  name={trashcan.key}
+                  value="yes"
+                  className="peer hidden"
+                  checked={binFeatures[trashcan.key] === true}
+                  onChange={() =>
+                    setBinFeatures((prev) => ({
+                      ...prev,
+                      [trashcan.key]: true,
+                    }))
+                  }
                 />
-              </div>
-
-              <div className="w-24">
-                <label className="block text-gray-700">Floor</label>
-                <input
-                  type="text"
-                  placeholder="Floor?"
-                  className="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400 text-black"
-                  value={binFloorNumber}
-                  onChange={(e) => setBinFloorNumber(e.target.value)}
-                />
-              </div>
-            </div>
-
-            {/* Trashcan Types */}
-            <div className="mb-4">
-              <label className="block font-medium text-gray-700 mb-2">
-                3. Trashcan Type
+                <div className="w-5 h-5 border-2 border-gray-500 rounded-full peer-checked:border-red-500 peer-checked:bg-red-500"></div>
+                <span className="text-gray-600 peer-checked:text-red-500">
+                  Yes
+                </span>
               </label>
-              {[
-                { name: "General Waste", icon: bin, key: "generalWaste" },
-                { name: "Recycle Waste", icon: recycle, key: "recycleWaste" },
-                { name: "Organic Waste", icon: organic, key: "organicWaste" },
-                {
-                  name: "Hazardous Waste",
-                  icon: hazard,
-                  key: "hazardousWaste",
-                },
-              ].map((trashcan, index) => (
-                <div
-                  key={index}
-                  className="flex items-center justify-between bg-white p-2 rounded-lg mb-2"
-                >
-                  <div className="flex items-center space-x-3">
-                    <img
-                      src={trashcan.icon}
-                      alt={trashcan.name}
-                      className="w-8 h-8"
-                    />
-                    <span className="text-gray-700">{trashcan.name}</span>
-                  </div>
 
-                  <div className="flex space-x-3">
-                    <label className="flex items-center space-x-1 cursor-pointer">
-                      <input
-                        type="radio"
-                        name={trashcan.key}
-                        value="yes"
-                        className="peer hidden"
-                        checked={binFeatures[trashcan.key] === true}
-                        onChange={() =>
-                          setBinFeatures((prev) => ({
-                            ...prev,
-                            [trashcan.key]: true,
-                          }))
-                        }
-                      />
-                      <div className="w-5 h-5 border-2 border-gray-500 rounded-full peer-checked:border-red-500 peer-checked:bg-red-500"></div>
-                      <span className="text-gray-600 peer-checked:text-red-500">
-                        Yes
-                      </span>
-                    </label>
-
-                    <label className="flex items-center space-x-1 cursor-pointer">
-                      <input
-                        type="radio"
-                        name={trashcan.key}
-                        value="no"
-                        className="peer hidden"
-                        checked={binFeatures[trashcan.key] === false}
-                        onChange={() =>
-                          setBinFeatures((prev) => ({
-                            ...prev,
-                            [trashcan.key]: false,
-                          }))
-                        }
-                      />
-                      <div className="w-5 h-5 border-2 border-gray-500 rounded-full peer-checked:border-blue-500 peer-checked:bg-blue-500"></div>
-                      <span className="text-gray-600 peer-checked:text-blue-500">
-                        No
-                      </span>
-                    </label>
-                  </div>
-                </div>
-              ))}
-            </div>
-
-            {errorMessage && (
-              <div className="text-red-500 mb-4">{errorMessage}</div>
-            )}
-
-            {/* Buttons */}
-            <div className="flex justify-end space-x-3">
-              <button
-                className="px-4 py-2 bg-gray-300 text-white rounded-lg hover:bg-gray-400 transition duration-200"
-                onClick={toggleAddTrashcanPopup}
-              >
-                Cancel
-              </button>
-              <button
-                className="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition duration-200"
-                onClick={handleFormSubmit}
-              >
-                Confirm
-              </button>
+              <label className="flex items-center space-x-1 cursor-pointer">
+                <input
+                  type="radio"
+                  name={trashcan.key}
+                  value="no"
+                  className="peer hidden"
+                  checked={binFeatures[trashcan.key] === false}
+                  onChange={() =>
+                    setBinFeatures((prev) => ({
+                      ...prev,
+                      [trashcan.key]: false,
+                    }))
+                  }
+                />
+                <div className="w-5 h-5 border-2 border-gray-500 rounded-full peer-checked:border-blue-500 peer-checked:bg-blue-500"></div>
+                <span className="text-gray-600 peer-checked:text-blue-500">
+                  No
+                </span>
+              </label>
             </div>
           </div>
-        </div>
+        ))}
+      </div>
+
+      {errorMessage && (
+        <div className="text-red-500 mb-4">{errorMessage}</div>
       )}
+
+      {/* Buttons */}
+      <div className="flex justify-end space-x-3">
+        <button
+          className="px-4 py-2 bg-gray-300 text-white rounded-lg hover:bg-gray-400 transition duration-200"
+          onClick={toggleAddTrashcanPopup}
+        >
+          Cancel
+        </button>
+        <button
+          className="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition duration-200"
+          onClick={handleFormSubmit}
+        >
+          Confirm
+        </button>
+      </div>
+    </div>
+  </div>
+)}
+
 
       {/* Profile Dropdown */}
       {showProfileDropdown && (

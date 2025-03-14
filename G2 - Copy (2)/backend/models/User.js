@@ -12,6 +12,8 @@ const userSchema = new mongoose.Schema({
   username: { type: String, required: true, unique: true },
   password: { type: String, required: true },
   profilePhoto: { type: String },
+  commentCount: { type: Number, default: 0 },
+  trackCount: { type: Number, default: 0 },
   binCount: {
     type: Number,
     default: 0, 

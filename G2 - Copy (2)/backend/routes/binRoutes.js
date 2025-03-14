@@ -18,7 +18,15 @@ router.get("/", async (req, res) => {
 // Get a specific bin by ID
 router.get("/:id", async (req, res) => {
   try {
-    const bin = await Bin.findById(req.params.id).populate("comments");
+    const bin = await Bin.findById(req.params.id)
+      .populate({
+        path: 'comments',
+        populate: {
+          path: 'user',
+          select: 'profilePhoto username'
+        }
+      });
+
     if (!bin) return res.status(404).json({ message: "Bin not found" });
     res.json(bin);
   } catch (error) {
@@ -66,11 +74,32 @@ router.put("/:id/increase", async (req, res) => {
     );
 
     if (!updatedBin) return res.status(404).json({ message: "Bin not found" });
-    res.json(updatedBin);
+
+    const userId = req.body.userId;  
+
+    const user = await User.findById(userId);
+
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    const updatedUser = await User.findByIdAndUpdate(
+      userId,
+      { $inc: { trackCount: 1 } }, 
+      { new: true }
+    );
+
+    if (updatedUser.trackCount >= 10 && !updatedUser.badges.includes("Trash Tracker")) {
+      await assignBadgeToUser(updatedUser._id, "Trash Tracker");  
+    }
+
+    res.json({ updatedBin, updatedUser });
+
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
 });
+
 
 router.put("/:id/decrease", async (req, res) => {
   try {
