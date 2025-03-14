@@ -51,6 +51,7 @@ const ToiletModal = ({ isOpen, onClose, toiletData, isLoggedIn }) => {
       .then((data) => {
         console.log("Fetched bin data(toilet_m2):", data); // Log fetched data
         const markers = data.map((bin) => ({
+          id: bin.id,
           lat: parseFloat(bin.bin_location.$lat),
           lng: parseFloat(bin.bin_location.$lng),
           name: bin.bin_name_location || "Unknown Bin",
@@ -76,12 +77,40 @@ const ToiletModal = ({ isOpen, onClose, toiletData, isLoggedIn }) => {
     setCommentText("");
   };
 
-  const handleYesClick = () => {
-    console.log("Yes clicked", buildingData);
+  const handleYesClick = async () => {
+    try {
+      const response = await fetch(
+        `http://localhost:5001/api/bin/${toiletData.id}/increase`,
+        {
+          method: "PUT",
+        }
+      );
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+      const updatedBin = await response.json();
+      console.log("Yes clicked", updatedBin);
+    } catch (error) {
+      console.error("Error increasing bin info correction:", error);
+    }
   };
 
-  const handleNoClick = () => {
-    console.log("No clicked", toiletData);
+  const handleNoClick = async () => {
+    try {
+      const response = await fetch(
+        `http://localhost:5001/api/bin/${toiletData.id}/decrease`,
+        {
+          method: "PUT",
+        }
+      );
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+      const updatedBin = await response.json();
+      console.log("No clicked", updatedBin);
+    } catch (error) {
+      console.error("Error decreasing bin info correction:", error);
+    }
   };
 
   if (!isOpen || !buildingData) return null;
