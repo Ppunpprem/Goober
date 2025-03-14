@@ -33,7 +33,7 @@ const ToiletModal = ({ isOpen, onClose, toiletData, isLoggedIn }) => {
         console.error("Error fetching building data:", error);
       });
 
-    fetch("http://localhost:5001/api/comment")
+    fetch(`http://localhost:5001/api/bin/${toiletData.id}`)
       .then(async (res) => {
         const contentType = res.headers.get("content-type");
 
@@ -49,29 +49,12 @@ const ToiletModal = ({ isOpen, onClose, toiletData, isLoggedIn }) => {
         }
       })
       .then((data) => {
-        console.log("Fetched bin data(toilet_m2):", data); // Log fetched data
-        const markers = data.map((bin) => ({
-          id: bin.id,
-          lat: parseFloat(bin.bin_location.$lat),
-          lng: parseFloat(bin.bin_location.$lng),
-          name: bin.bin_name_location || "Unknown Bin",
-          floor: bin.bin_floor_number,
-          infoCorrection: bin.bin_info_correction,
-          generalWaste: bin.bin_features_general_waste,
-          recycleWaste: bin.bin_features_recycle_waste,
-          organicWaste: bin.bin_features_organic_waste,
-          hazardousWaste: bin.bin_features_hazardous_waste,
-        }));
-        console.log("Processed markers:", markers); // Log processed markers
-        setTrashCanLocations(markers);
+        setComments(data.comments);
       })
-      // .then((data) => {
-      //   setComments(data);
-      // })
       .catch((error) => {
         console.error("Error fetching comments:", error);
       });
-  }, []);
+  }, [toiletData.id]);
 
   const handleCancel = () => {
     setCommentText("");
