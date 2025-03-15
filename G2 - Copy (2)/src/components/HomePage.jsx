@@ -5,15 +5,13 @@ import filter from "../assets/filter.png";
 import hazard from "../assets/hazard.png";
 import recycle from "../assets/recycle.png";
 import mag from "../assets/mag.png";
-import check from "../assets/check-mark-button.png";
-import cross from "../assets/cross-mark.png";
 import organic from "../assets/organic.png";
 import MapComp from "./MapComp";
 import ToiletModal from "./ToiletModal";
 
 const defaultHomeFilters = {
-  generalWaste: { name: "General Waste", icon: bin, active: true },
-  recycleWaste: { name: "Recycle Waste", icon: recycle, active: true },
+  generalWaste: { name: "General Waste", icon: bin, active: false },
+  recycleWaste: { name: "Recycle Waste", icon: recycle, active: false },
   organicWaste: { name: "Organic Waste", icon: organic, active: false },
   hazardousWaste: { name: "Hazardous Waste", icon: hazard, active: false },
 };
@@ -22,8 +20,8 @@ const HomePage = () => {
   const [homeFilters, setHomeFilters] = useState(defaultHomeFilters);
   const [showHomePopup, setShowHomePopup] = useState(false);
   const [selectedMarker, setSelectedMarker] = useState(null);
-  
-
+  const [binNameFilter, setBinNameFilter] = useState("");
+  const [isLoggedIn, setIsLoggedIn] = useState(false); // Track login state
 
   useEffect(() => {
     document.body.style.overflow = "hidden";
@@ -44,7 +42,7 @@ const HomePage = () => {
 
   const resetHomeFilters = () => {
     const reset = Object.keys(homeFilters).reduce((acc, key) => {
-      acc[key] = { ...homeFilters[key], active: true };
+      acc[key] = { ...homeFilters[key], active: false };
       return acc;
     }, {});
     setHomeFilters(reset);
@@ -56,6 +54,8 @@ const HomePage = () => {
         <MapComp
           setShowHomePopup={setShowHomePopup}
           setSelectedMarker={setSelectedMarker}
+          homeFilters={homeFilters}
+          binNameFilter={binNameFilter}
         />
       </div>
 
@@ -63,8 +63,13 @@ const HomePage = () => {
         <h2>Search</h2>
         <div className="home-search-container">
           <img src={mag} alt="Search Icon" className="home-search-icon" />
-          <input type="text" placeholder="Search Location..." className="home-search-bar" />
-          {/* <button className="home-search-button">Search</button> */}
+          <input
+            type="text"
+            placeholder="Search Location..."
+            className="home-search-bar"
+            value={binNameFilter}
+            onChange={(e) => setBinNameFilter(e.target.value)}
+          />
         </div>
 
         <div className="home-filter-section">
@@ -78,7 +83,11 @@ const HomePage = () => {
             <div className="home-filter-option" key={key}>
               <img src={icon} alt={name} className="home-icon" /> {name}
               <label className="home-switch">
-                <input type="checkbox" checked={active} onChange={() => toggleHomeFilter(key)} />
+                <input
+                  type="checkbox"
+                  checked={active}
+                  onChange={() => toggleHomeFilter(key)}
+                />
                 <span className="home-slider"></span>
               </label>
             </div>
@@ -90,18 +99,20 @@ const HomePage = () => {
           isOpen={true}
           onClose={() => setShowHomePopup(false)}
           toiletData={{
-            name: `Toilet at (${selectedMarker.lat.toFixed(6)}, ${selectedMarker.lng.toFixed(6)})`,
-            hasWomen: true,
-            hasMen: true,
-            isAccessible: false,
-            isGenderNeutral: false,
-            hasChildren: false,
-            hasBabyChanging: true,
-            fee: "Free",
-            notes: "Public toilet",
-            lastVerified: new Date().toLocaleString(),
+            id: selectedMarker.id,
+            name:
+              selectedMarker.name ||
+              `Bin at (${selectedMarker.lat.toFixed(
+                6
+              )}, ${selectedMarker.lng.toFixed(6)})`,
+            hasWomen: selectedMarker.generalWaste,
+            hasMen: selectedMarker.recycleWaste,
+            isAccessible: selectedMarker.organicWaste,
+            isGenderNeutral: selectedMarker.hazardousWaste,
+            floor: selectedMarker.floor,
+            infoCorrection: selectedMarker.infoCorrection,
           }}
-          // <-- ADDED: Pass isLoggedIn state to ToiletModal
+          isLoggedIn={isLoggedIn}
         />
       )}
     </div>
