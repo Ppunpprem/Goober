@@ -1,5 +1,7 @@
 import express from "express";
 import { Bin, Comment } from "../models/Bin.js"; // Adjust the import path as needed
+import { User } from "../models/User.js"; // Adjust path if necessary
+import { assignBadgeToUser } from "../services/userService.js"; // Import the function to assign badges
 
 const router = express.Router();
 
@@ -16,7 +18,15 @@ router.get("/", async (req, res) => {
 // Get a specific bin by ID
 router.get("/:id", async (req, res) => {
   try {
-    const bin = await Bin.findById(req.params.id).populate("comments");
+    const bin = await Bin.findById(req.params.id)
+      .populate({
+        path: 'comments',
+        populate: {
+          path: 'user',
+          select: 'profilePhoto username'
+        }
+      });
+
     if (!bin) return res.status(404).json({ message: "Bin not found" });
     res.json(bin);
   } catch (error) {
@@ -27,26 +37,33 @@ router.get("/:id", async (req, res) => {
 // Create a new bin
 router.post("/", async (req, res) => {
   try {
-    const newBin = new Bin(req.body);
+    const { user_id, ...binData } = req.body;  
+    if (!user_id) {
+      return res.status(400).json({ message: "User ID is required" });
+    }
+
+    const newBin = new Bin({ ...binData, user_id });  
     await newBin.save();
+
+    const userFound = await User.findById(user_id);
+    if (!userFound) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    userFound.binCount += 1;
+    await userFound.save();
+
+    if (userFound.binCount >= 4 && !userFound.badges.includes("Bin Explorer")) {
+      await assignBadgeToUser(userFound._id, "Bin Explorer");  
+    }
+
     res.status(201).json(newBin);
   } catch (error) {
+    console.error(error);
     res.status(400).json({ message: error.message });
   }
 });
 
-// Update bin information
-router.put("/:id", async (req, res) => {
-  try {
-    const updatedBin = await Bin.findByIdAndUpdate(req.params.id, req.body, {
-      new: true,
-    });
-    if (!updatedBin) return res.status(404).json({ message: "Bin not found" });
-    res.json(updatedBin);
-  } catch (error) {
-    res.status(500).json({ message: error.message });
-  }
-});
 
 router.put("/:id/increase", async (req, res) => {
   try {
@@ -57,11 +74,32 @@ router.put("/:id/increase", async (req, res) => {
     );
 
     if (!updatedBin) return res.status(404).json({ message: "Bin not found" });
-    res.json(updatedBin);
+
+    const userId = req.body.userId;  
+
+    const user = await User.findById(userId);
+
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    const updatedUser = await User.findByIdAndUpdate(
+      userId,
+      { $inc: { trackCount: 1 } }, 
+      { new: true }
+    );
+
+    if (updatedUser.trackCount >= 10 && !updatedUser.badges.includes("Trash Tracker")) {
+      await assignBadgeToUser(updatedUser._id, "Trash Tracker");  
+    }
+
+    res.json({ updatedBin, updatedUser });
+
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
 });
+
 
 router.put("/:id/decrease", async (req, res) => {
   try {

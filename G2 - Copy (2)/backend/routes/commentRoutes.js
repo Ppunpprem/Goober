@@ -1,5 +1,7 @@
 import express from "express";
 import { Comment, Bin } from "../models/Bin.js"; // Adjust the import path as needed
+import { User } from "../models/User.js"; // Import the User model
+import { assignBadgeToUser } from "../services/userService.js"; 
 
 const router = express.Router();
 
@@ -23,21 +25,33 @@ router.get("/:id", async (req, res) => {
   }
 });
 
-// Add a comment to a bin
 router.post("/", async (req, res) => {
   try {
     const { user, bin, text } = req.body;
+
     const newComment = new Comment({ user, bin, text });
     await newComment.save();
 
-    // Add comment reference to the bin
     await Bin.findByIdAndUpdate(bin, { $push: { comments: newComment._id } });
+
+    const userData = await User.findByIdAndUpdate(
+      user,
+      { $inc: { commentCount: 1 } },  
+      { new: true, upsert: true }     
+    );
+
+    if (!userData) return res.status(404).json({ message: "User not found" });
+
+    if (userData.commentCount >= 5 && !userData.badges.includes("Earth Guardian")) {
+      await assignBadgeToUser(userData._id, "Earth Guardian");
+    }
 
     res.status(201).json(newComment);
   } catch (error) {
     res.status(400).json({ message: error.message });
   }
 });
+
 
 // Update a comment
 router.put("/:id", async (req, res) => {
