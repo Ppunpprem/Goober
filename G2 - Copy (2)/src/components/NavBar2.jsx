@@ -10,7 +10,7 @@ import organic from "../assets/organic.png";
 
 import { useLocation } from "../context/LocationContext";
 
-const NavBar2 = ({ togglePopupVisibility }) => {
+const NavBar2 = ({ toggleSearch, togglePopupVisibility }) => {
   const { user, updateUser } = useUser();
   const [showPopup, setShowPopup] = useState(false);
   const [showAddTrashcanPopup, setShowAddTrashcanPopup] = useState(false);
@@ -185,7 +185,7 @@ const NavBar2 = ({ togglePopupVisibility }) => {
           <img
             src={logo}
             alt="Adidas Logo"
-            className="w-16 h-16 object-contain"
+            className="w-12 h-12 object-contain"
           />
         </div>
 
@@ -193,7 +193,7 @@ const NavBar2 = ({ togglePopupVisibility }) => {
         <nav className="hidden md:flex">
           <ul className="flex h-full items-center space-x-10 text-xl font-medium text-[#17005a]">
             <li>
-              <Link to="/home_after_login" className="hover:text-gray-500"
+              <Link to="/home_after_login" className="hover:text-[#9AD4EC]"
               onClick={() => {setShowProfileDropdown(false); setShowAddTrashcanPopup(false);}}>
                 Home
               </Link>
@@ -201,7 +201,7 @@ const NavBar2 = ({ togglePopupVisibility }) => {
             <li>
               <a
                 href="#"
-                className="hover:text-gray-500"
+                className="hover:text-[#9AD4EC]"
                 onClick={(e) => {
                   e.preventDefault(); // Prevents default anchor behavior (e.g., page scroll)
                   toggleAddTrashcanPopup();
@@ -210,7 +210,7 @@ const NavBar2 = ({ togglePopupVisibility }) => {
                   // handleAddTrashCanClick();
                 }}
               >
-                Add TrashCan
+                Add Trashcan 
               </a>
             </li>
             <li>
@@ -229,24 +229,24 @@ const NavBar2 = ({ togglePopupVisibility }) => {
               </div>
 
               {showProfileDropdown && (
-                <div className="absolute right-0 mt-2 w-48 bg-white shadow-lg rounded-lg border border-gray-200 z-50">
+                <div className="absolute right-0 mt-2 w-40 bg-white shadow-lg rounded-lg border border-gray-200 z-50">
                   <div className="flex flex-col">
                     <Link
                       to="/edit"
-                      className="px-4 py-2 text-gray-700 hover:text-blue-300 rounded-t-lg"
+                      className="px-4 py-2 text-gray-700 hover:text-blue-300 rounded-t-lg text-center"
                       onClick={() => {setShowProfileDropdown(false); setShowAddTrashcanPopup(false);}}
                     >
                       Edit
-                    </Link>
+                    </Link><hr></hr>
                     <Link
                       to="/badges"
-                      className="px-4 py-2 text-gray-700 hover:text-blue-300"
+                      className="px-4 py-2 text-gray-700 hover:text-blue-300 text-center"
                       onClick={() => {setShowProfileDropdown(false); setShowAddTrashcanPopup(false);}}
                     >
                       Badges
-                    </Link>
+                    </Link><hr></hr>
                     <span
-                      className="px-4 py-2 text-gray-700 hover:text-blue-300 rounded-b-lg text-left"
+                      className="px-4 py-2 text-gray-700 hover:text-blue-300 rounded-b-lg text-center"
                       onClick={handleLogout}
                     >
                       Log Out
@@ -292,7 +292,7 @@ const NavBar2 = ({ togglePopupVisibility }) => {
               href="#"
               className="text-[#17005a] hover:text-gray-500"
               onClick={() => {
-                toggleAddTrashcanPopup();
+                toggleAddTrashcanPopup(); toggleSearch();
               }}
             >
               Add TrashCan
@@ -302,6 +302,7 @@ const NavBar2 = ({ togglePopupVisibility }) => {
               className="text-[#17005a] hover:text-gray-500"
               onClick={() => {
                 togglePopupVisibility();
+                setShowAddTrashcanPopup(false);
                 setMenuOpen(false);
               }}
             >
@@ -330,45 +331,45 @@ const NavBar2 = ({ togglePopupVisibility }) => {
 {showAddTrashcanPopup && (
   <div className={`fixed inset-0 bg-transparent bg-opacity-50 flex justify-center items-center z-50 ${
     isPinning ? "hidden md:flex" : "flex"   }`}>
-    <div className="bg-white p-6 rounded-lg shadow-xl w-96">
-      <h2 className="text-xl font-semibold text-gray-900 mb-4">
+    <div className="bg-white p-6 rounded-3xl shadow-xl w-96">
+      <h2 className="title">
         Add a Trashcan!
       </h2>
 
       {/* Success Message */}
       {successMessage && (
-        <div className="text-green-500 text-lg mb-4">{successMessage}</div>
+        <div className="text-[#17005a] text-lg mb-4">{successMessage}</div>
       )}
 
       {/* Location Selection */}
       <div className="mb-4">
-        <label className="block font-medium text-gray-700">
+        <label className="block font-medium text-[#17005a] text-2xl">
           1. Pin a Location
           <button
-            className="bg-[#17005a] text-white px-4 py-2 rounded-md hover:bg-blue-300 m-2 hover:cursor-pointer transition duration-300 transform hover:scale-105 flex items-center"
+            className="bg-[#17005a] text-[#9AD4EC] text-base font-semibold px-4 py-2 rounded-3xl hover:bg-[#9AD4EC] hover:text-[#17005a] m-2 hover:cursor-pointer transition duration-300 transform hover:scale-105 flex items-center"
             onClick={() => {setIsAddingTrashCan(true); setIsPinning(true);}}
           >
             Click
           </button>
           
           {isAddingTrashCan && (
-            <h6 className="text-grey-800 font-semibold m-2">
+            <h6 className="text-[#17005a]-800 font-semibold m-2">
               Click anywhere on the map to pin the location!
             </h6>
           )}
         </label>
         {/* Display the last clicked location */}
         <div className="bg-gray-100 p-4 rounded-lg shadow-md flex items-center gap-4 w-fit">
-          <div className="text-blue-600 font-semibold">Location:</div>
+          <div className="text-[#17005a] font-semibold">Location:</div>
           {lastLocation ? (
-            <div className="text-gray-800 flex flex-col">
-              <strong className="text-blue-500">Lat:</strong>{" "}
+            <div className="text-[#17005a]-800 flex flex-col">
+              <strong className="text-[#17005a]-500">Lat:</strong>{" "}
               {lastLocation.lat},
-              <strong className="text-blue-500">Lng:</strong>{" "}
+              <strong className="text-[#17005a]-500">Lng:</strong>{" "}
               {lastLocation.lng}
             </div>
           ) : (
-            <span className="text-black-500 italic">
+            <span className="text-[#17005a]-500 italic">
               Location not selected
             </span>
           )}
@@ -376,7 +377,7 @@ const NavBar2 = ({ togglePopupVisibility }) => {
 
         {lastLocation && (
           <button
-            className="ml-2 px-2 py-1 mt-3 text-sm bg-red-500 text-white rounded-md hover:bg-red-600 "
+            className="bg-[#9AD4EC] text-[#17005a] text-base font-semibold px-4 py-2 rounded-3xl hover:bg-[#17005a] hover:text-[#9AD4EC] m-2 hover:cursor-pointer transition duration-300 transform hover:scale-105 flex items-center"
             onClick={clearLocation}
           >
             Clear
@@ -386,31 +387,38 @@ const NavBar2 = ({ togglePopupVisibility }) => {
 
       <div className="mb-4 flex gap-4">
         <div className="flex-1">
-          <label className="block text-gray-700">2. Location</label>
+          <label className="block text-[#17005a] text-2xl font-medium">2. Location</label>
           <input
             type="text"
             placeholder="Location Name"
-            className="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400 text-black"
+            className="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400 text-[#17005a]-800"
             value={binNameLocation}
             onChange={(e) => setBinNameLocation(e.target.value)}
           />
         </div>
 
         <div className="w-24">
-          <label className="block text-gray-700">Floor</label>
+          <label className="block text-[#17005a] text-2xl font-semibold">Floor</label>
           <input
             type="text"
             placeholder="Floor?"
-            className="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400 text-black"
+            className="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400 text-[#17005a]-800"
             value={binFloorNumber}
-            onChange={(e) => setBinFloorNumber(e.target.value)}
+            onChange={(e) => {
+              let value = parseInt(e.target.value, 10);
+              if (isNaN(value) || value < 0 || value > 9) {
+                value = 0;
+              }
+              setBinFloorNumber(value);
+            }}
           />
         </div>
+
       </div>
 
       {/* Trashcan Types */}
       <div className="mb-4">
-        <label className="block font-medium text-gray-700 mb-2">
+        <label className="block font-medium text-[#17005a] text-2xl mb-2">
           3. Trashcan Type
         </label>
         {[{ name: "General Waste", icon: bin, key: "generalWaste" }, { name: "Recycle Waste", icon: recycle, key: "recycleWaste" }, { name: "Organic Waste", icon: organic, key: "organicWaste" }, { name: "Hazardous Waste", icon: hazard, key: "hazardousWaste" }].map((trashcan, index) => (
@@ -422,7 +430,7 @@ const NavBar2 = ({ togglePopupVisibility }) => {
               <img
                 src={trashcan.icon}
                 alt={trashcan.name}
-                className="w-8 h-8"
+                className="w-6 h-6"
               />
               <span className="text-gray-700">{trashcan.name}</span>
             </div>
@@ -442,8 +450,8 @@ const NavBar2 = ({ togglePopupVisibility }) => {
                     }))
                   }
                 />
-                <div className="w-5 h-5 border-2 border-gray-500 rounded-full peer-checked:border-red-500 peer-checked:bg-red-500"></div>
-                <span className="text-gray-600 peer-checked:text-red-500">
+               <div className="w-5 h-5 border-2 border-gray-500 rounded-full peer-checked:border-[#17005a] peer-checked:bg-[#17005a]"></div>
+                <span className="text-gray-600 peer-checked:text-[#17005a]-500">
                   Yes
                 </span>
               </label>
@@ -462,8 +470,8 @@ const NavBar2 = ({ togglePopupVisibility }) => {
                     }))
                   }
                 />
-                <div className="w-5 h-5 border-2 border-gray-500 rounded-full peer-checked:border-blue-500 peer-checked:bg-blue-500"></div>
-                <span className="text-gray-600 peer-checked:text-blue-500">
+                <div className="w-5 h-5 border-2 border-gray-500 rounded-full peer-checked:border-[#17005a] peer-checked:bg-[#17005a]"></div>
+                <span className="text-gray-600 peer-checked:text-[#17005a]-500">
                   No
                 </span>
               </label>
@@ -479,13 +487,13 @@ const NavBar2 = ({ togglePopupVisibility }) => {
       {/* Buttons */}
       <div className="flex justify-end space-x-3">
         <button
-          className="px-4 py-2 bg-gray-300 text-white rounded-lg hover:bg-gray-400 transition duration-200"
+          className="bg-[#9AD4EC] text-[#17005a] text-base font-semibold px-4 py-2 rounded-3xl hover:bg-[#17005a] hover:text-[#9AD4EC] m-2 hover:cursor-pointer transition duration-300 transform hover:scale-105 flex items-center"
           onClick={toggleAddTrashcanPopup}
         >
           Cancel
         </button>
         <button
-          className="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition duration-200"
+          className="bg-[#17005a] text-[#9AD4EC]  text-base font-semibold px-4 py-2 rounded-3xl hover:bg-[#9AD4EC] hover:text-[#17005a] m-2 hover:cursor-pointer transition duration-300 transform hover:scale-105 flex items-center"
           onClick={handleFormSubmit}
         >
           Confirm

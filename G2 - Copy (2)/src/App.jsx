@@ -35,13 +35,17 @@ function MainLayout() {
     setIsPopupVisible(prevState => !prevState);
   };
   
+  const toggleSearch = () => {
+    setIsPopupVisible(false);
+  };
+
   const navBar2Routes = ["/home_after_login", "/location_info", "/badges", "/edit"];
   const isNavBar2 = navBar2Routes.includes(location.pathname);
 
   return (
     <>
       {isNavBar2 ? (
-    <NavBar2 togglePopupVisibility={togglePopupVisibility} />
+    <NavBar2 togglePopupVisibility={togglePopupVisibility} toggleSearch={toggleSearch}/>
   ) : (
     <NavBar togglePopupVisibility={togglePopupVisibility} />
   )}
@@ -50,7 +54,7 @@ function MainLayout() {
           <Route path="/" element={<HomePage isPopupVisible={isPopupVisible} togglePopupVisibility={togglePopupVisibility} />} />
           <Route path="/log-regist" element={<LogPage />} />
           <Route path="/info-regist" element={<InfoRegistPage />} />
-          <Route path="/home_after_login" element={<H_ALog_Page key={location.pathname}  isPopupVisible={isPopupVisible} togglePopupVisibility={togglePopupVisibility}/>} />
+          <Route path="/home_after_login" element={<H_ALog_Page key={location.pathname}  isPopupVisible={isPopupVisible} togglePopupVisibility={togglePopupVisibility} toggleSearch={toggleSearch}/>} />
           <Route path="/location_info" element={<Location_Popup />} />
           <Route path="/badges" element={<BadgesPage />} />
           <Route path="/edit" element={<EditPage />} />

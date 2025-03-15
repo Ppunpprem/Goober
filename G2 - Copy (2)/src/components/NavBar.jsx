@@ -34,7 +34,7 @@ const NavBar = ({togglePopupVisibility }) => {
               <Link to="/" className="hover:text-gray-500">Home</Link>
             </li>
             <li>
-              <a href="#" className="hover:text-gray-500" onClick={toggleAddPopup}>Add TrashCan</a>
+              <a href="#" className="hover:text-gray-500" onClick={toggleAddPopup}>Add Trashcan</a>
             </li>
             <li>
             <Link to="/log-regist" className="hover:text-gray-500">Login/Signup</Link>

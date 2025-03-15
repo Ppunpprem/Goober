@@ -177,14 +177,14 @@ const ToiletModal = ({ isOpen, onClose, toiletData, isLoggedIn }) => {
 
           <div className="flex items-center gap-2 sm:gap-3">
             <button
-              className="py-1.5 sm:py-2 md:py-2.5 px-3 sm:px-4 md:px-5 bg-sky-200 text-indigo-900 font-semibold border-none rounded-2xl sm:rounded-3xl text-sm sm:text-base cursor-pointer transition-colors duration-300 ease-in-out hover:bg-indigo-900 hover:text-sky-200"
+              className="py-1.5 sm:py-2 md:py-2.5 px-3 sm:px-4 md:px-5 bg-sky-200 text-indigo-900 font-bold border-none rounded-2xl sm:rounded-3xl text-sm sm:text-base cursor-pointer transition-colors duration-300 ease-in-out hover:bg-indigo-900 hover:text-sky-200"
               onClick={handleYesClick}
             >
               Yes
             </button>
 
             <button
-              className="py-1.5 sm:py-2 md:py-2.5 px-3 sm:px-4 md:px-5 bg-sky-200 text-indigo-900 font-semibold border-none rounded-2xl sm:rounded-3xl text-sm sm:text-base cursor-pointer transition-colors duration-300 ease-in-out hover:bg-indigo-900 hover:text-sky-200"
+              className="py-1.5 sm:py-2 md:py-2.5 px-3 sm:px-4 md:px-5 bg-[#17005A] text-[#9AD4EC] font-bold border-none rounded-2xl sm:rounded-3xl text-sm sm:text-base cursor-pointer transition-colors duration-300 ease-in-out hover:bg-[#9AD4EC] hover:text-[#17005A]"
               onClick={handleNoClick}
             >
               No
@@ -281,13 +281,13 @@ const ToiletModal = ({ isOpen, onClose, toiletData, isLoggedIn }) => {
             />
             <div className="flex justify-between items-center">
               <button
-                className="py-1.5 sm:py-2 md:py-2.5 px-3 sm:px-4 md:px-5 bg-indigo-900 text-sky-200 font-semibold border-none rounded-2xl sm:rounded-3xl text-sm sm:text-base cursor-pointer transition-colors duration-300 ease-in-out hover:bg-sky-200 hover:text-indigo-900"
+                className="py-1.5 sm:py-2 md:py-2.5 px-3 sm:px-4 md:px-5 bg-[#17005A] text-[#9AD4EC] font-bold border-none rounded-2xl sm:rounded-3xl text-sm sm:text-base cursor-pointer transition-colors duration-300 ease-in-out hover:bg-[#9AD4EC] hover:text-[#17005A]"
                 onClick={handleCancel}
               >
                 Cancel
               </button>
               <button
-                className="py-1.5 sm:py-2 md:py-2.5 px-3 sm:px-4 md:px-5 bg-indigo-900 text-sky-200 font-semibold border-none rounded-2xl sm:rounded-3xl text-sm sm:text-base cursor-pointer transition-colors duration-300 ease-in-out hover:bg-sky-200 hover:text-indigo-900"
+                className="py-1.5 sm:py-2 md:py-2.5 px-3 sm:px-4 md:px-5 bg-[#17005A] text-[#9AD4EC] font-bold border-none rounded-2xl sm:rounded-3xl text-sm sm:text-base cursor-pointer transition-colors duration-300 ease-in-out hover:bg-[#9AD4EC] hover:text-[#17005A]"
                 onClick={handlePostComment}
               >
                 Post
