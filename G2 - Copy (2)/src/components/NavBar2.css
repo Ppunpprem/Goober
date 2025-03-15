@@ -285,3 +285,13 @@
 .button-group button:hover {
   background-color: #9ad4ec;
 }
+
+.title {
+  font-family: "Afacad";
+  font-size: 35px;
+  text-align: center;
+  color: #17005a;
+  margin-top: 0;
+  margin-bottom: 10px;
+  font-weight: bold;
+}
