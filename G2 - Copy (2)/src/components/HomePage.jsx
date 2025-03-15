@@ -16,7 +16,7 @@ const defaultHomeFilters = {
   hazardousWaste: { name: "Hazardous Waste", icon: hazard, active: false },
 };
 
-const HomePage = () => {
+const HomePage = ({ isPopupVisible, togglePopupVisibility }) => {
   const [homeFilters, setHomeFilters] = useState(defaultHomeFilters);
   const [showHomePopup, setShowHomePopup] = useState(false);
   const [selectedMarker, setSelectedMarker] = useState(null);
@@ -59,7 +59,13 @@ const HomePage = () => {
         />
       </div>
 
-      <div className="home-popup">
+      <div className={`home-popup ${isPopupVisible ? "block" : "hidden"} md:block`}>
+      <span
+          className="md:hidden absolute top-2 right-1 text-[#17005a] bg-white text-xl p-2 font-bold cursor-pointer hover:bg-gray-100 focus:outline-none"
+          onClick={togglePopupVisibility}
+        >
+          X
+        </span>
         <h2>Search</h2>
         <div className="home-search-container">
           <img src={mag} alt="Search Icon" className="home-search-icon" />

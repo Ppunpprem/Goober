@@ -18,6 +18,7 @@ const NavBar2 = ({ togglePopupVisibility }) => {
   const [loading, setLoading] = useState(true);
   const [menuOpen, setMenuOpen] = useState(false);
   const [successMessage, setSuccessMessage] = useState("");
+  const [isPinning, setIsPinning] = useState(false);
   const [showProfileDropdown, setShowProfileDropdown] = useState(false);
   const {
     lastLocation,
@@ -64,6 +65,15 @@ const NavBar2 = ({ togglePopupVisibility }) => {
 
     fetchUserData();
   }, [updateUser]);
+
+
+  useEffect(() => {
+    if (lastLocation) {
+      setTimeout(() => {
+        setIsPinning(false);
+      }, 500); // Delay of 500ms (adjust as needed)
+    }
+  }, [lastLocation]);
 
   // Handle user logout
   const handleLogout = () => {
@@ -274,7 +284,7 @@ const NavBar2 = ({ togglePopupVisibility }) => {
             <Link
               to="/home_after_login"
               className="text-[#17005a] hover:text-gray-500"
-              onClick={() => setMenuOpen(false)}
+              onClick={() => {setMenuOpen(false); setShowAddTrashcanPopup(false);}}
             >
               Home
             </Link>
@@ -318,7 +328,8 @@ const NavBar2 = ({ togglePopupVisibility }) => {
 
      {/* Add Trashcan Popup */}
 {showAddTrashcanPopup && (
-  <div className="fixed mt-19 right-0 bg-transparent bg-opacity-50 flex justify-center items-center z-50">
+  <div className={`fixed inset-0 bg-transparent bg-opacity-50 flex justify-center items-center z-50 ${
+    isPinning ? "hidden md:flex" : "flex"   }`}>
     <div className="bg-white p-6 rounded-lg shadow-xl w-96">
       <h2 className="text-xl font-semibold text-gray-900 mb-4">
         Add a Trashcan!
@@ -335,10 +346,11 @@ const NavBar2 = ({ togglePopupVisibility }) => {
           1. Pin a Location
           <button
             className="bg-[#17005a] text-white px-4 py-2 rounded-md hover:bg-blue-300 m-2 hover:cursor-pointer transition duration-300 transform hover:scale-105 flex items-center"
-            onClick={() => setIsAddingTrashCan(true)}
+            onClick={() => {setIsAddingTrashCan(true); setIsPinning(true);}}
           >
             Click
           </button>
+          
           {isAddingTrashCan && (
             <h6 className="text-grey-800 font-semibold m-2">
               Click anywhere on the map to pin the location!
@@ -512,10 +524,12 @@ const NavBar2 = ({ togglePopupVisibility }) => {
             <Link
               to="/edit"
               className="text-[#17005a] hover:text-blue-300 rounded-t-lg"
+              onClick={() => setShowProfileDropdown(false)}
             >
               Edit
             </Link>
-            <Link to="/badges" className=" text-[#17005a] hover:text-blue-300">
+            <Link to="/badges" className=" text-[#17005a] hover:text-blue-300"
+            onClick={() => setShowProfileDropdown(false)}>
               Badges
             </Link>
             <a
