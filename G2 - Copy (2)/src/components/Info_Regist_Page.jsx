@@ -23,7 +23,7 @@ const InfoRegistPage = () => {
   const handleImageUpload = (event) => {
     const file = event.target.files[0];
     if (file) {
-      setImageFile(file); 
+      setImageFile(file);
       setProfileImage(URL.createObjectURL(file)); // Create preview URL
     }
   };
@@ -61,11 +61,14 @@ const InfoRegistPage = () => {
       if (res.ok && data.token) {
         localStorage.setItem("token", data.token);
 
-        const userResponse = await fetch("http://localhost:5001/api/auth/profile", {
-          headers: {
-            "x-auth-token": data.token,
-          },
-        });
+        const userResponse = await fetch(
+          "http://localhost:5001/api/auth/profile",
+          {
+            headers: {
+              "x-auth-token": data.token,
+            },
+          }
+        );
 
         if (userResponse.ok) {
           navigate("/home_after_login");
@@ -90,7 +93,11 @@ const InfoRegistPage = () => {
             <p className="acc">Account Image</p>
             <div className="profile-image-placeholder" onClick={handleClick}>
               {profilePhoto ? (
-                <img src={profilePhoto} alt="Profile" className="profile-image" />
+                <img
+                  src={profilePhoto}
+                  alt="Profile"
+                  className="profile-image"
+                />
               ) : (
                 <p className="placeholder-text">+</p>
               )}

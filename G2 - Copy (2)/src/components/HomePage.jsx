@@ -59,8 +59,10 @@ const HomePage = ({ isPopupVisible, togglePopupVisibility }) => {
         />
       </div>
 
-      <div className={`home-popup ${isPopupVisible ? "block" : "hidden"} md:block`}>
-      <span
+      <div
+        className={`home-popup ${isPopupVisible ? "block" : "hidden"} md:block`}
+      >
+        <span
           className="md:hidden absolute top-2 right-1 text-[#17005a] bg-white text-xl p-2 font-bold cursor-pointer hover:bg-gray-100 focus:outline-none"
           onClick={togglePopupVisibility}
         >
@@ -111,10 +113,10 @@ const HomePage = ({ isPopupVisible, togglePopupVisibility }) => {
               `Bin at (${selectedMarker.lat.toFixed(
                 6
               )}, ${selectedMarker.lng.toFixed(6)})`,
-            hasWomen: selectedMarker.generalWaste,
-            hasMen: selectedMarker.recycleWaste,
-            isAccessible: selectedMarker.organicWaste,
-            isGenderNeutral: selectedMarker.hazardousWaste,
+            generalWaste: selectedMarker.generalWaste,
+            recycleWaste: selectedMarker.recycleWaste,
+            organicWaste: selectedMarker.organicWaste,
+            hazardousWaste: selectedMarker.hazardousWaste,
             floor: selectedMarker.floor,
             infoCorrection: selectedMarker.infoCorrection,
           }}

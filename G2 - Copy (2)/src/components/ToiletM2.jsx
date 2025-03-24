@@ -53,7 +53,7 @@ const ToiletModal = ({ isOpen, onClose, toiletData, isLoggedIn }) => {
       .then((data) => {
         setComments(data.comments);
       })
-    
+
       .catch((error) => {
         console.error("Error fetching comments:", error);
       });
@@ -79,12 +79,11 @@ const ToiletModal = ({ isOpen, onClose, toiletData, isLoggedIn }) => {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
       const { updatedBin, updatedUser } = await response.json();
-      
+
       if (!updatedBin || !updatedUser) {
-        throw new Error('Failed to update bin or user');
+        throw new Error("Failed to update bin or user");
       }
 
-  
       if (updatedUser.badges && updatedUser.badges.includes("Trash Tracker")) {
         alert("Congratulations! You have earned the Trash Tracker badge!");
       }
@@ -93,7 +92,6 @@ const ToiletModal = ({ isOpen, onClose, toiletData, isLoggedIn }) => {
       alert("An error occurred. Please try again.");
     }
   };
-  
 
   const handleNoClick = async () => {
     try {
@@ -207,7 +205,7 @@ const ToiletModal = ({ isOpen, onClose, toiletData, isLoggedIn }) => {
                 />
               }
               label="General Waste"
-              checked={toiletData.hasWomen}
+              checked={toiletData.generalWaste}
             />
             <Feature
               icon={
@@ -218,7 +216,7 @@ const ToiletModal = ({ isOpen, onClose, toiletData, isLoggedIn }) => {
                 />
               }
               label="Recycle Waste"
-              checked={toiletData.hasMen}
+              checked={toiletData.recycleWaste}
             />
             <Feature
               icon={
@@ -229,7 +227,7 @@ const ToiletModal = ({ isOpen, onClose, toiletData, isLoggedIn }) => {
                 />
               }
               label="Organic Waste"
-              checked={toiletData.isAccessible}
+              checked={toiletData.organicWaste}
             />
             <Feature
               icon={
@@ -240,7 +238,7 @@ const ToiletModal = ({ isOpen, onClose, toiletData, isLoggedIn }) => {
                 />
               }
               label="Hazardous Waste"
-              checked={toiletData.isGenderNeutral}
+              checked={toiletData.hazardousWaste}
             />
           </div>
         </div>
@@ -254,7 +252,6 @@ const ToiletModal = ({ isOpen, onClose, toiletData, isLoggedIn }) => {
             {comments.map((comment, index) => (
               <div key={index} className="flex mb-2 sm:mb-3">
                 <img
-                
                   src={`http://localhost:5001/${comment.user.profilePhoto}`}
                   className="rounded-full w-8 h-8 sm:w-10 sm:h-10 flex-shrink-0"
                   alt="Profile"

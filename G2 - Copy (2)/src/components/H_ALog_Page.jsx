@@ -162,10 +162,10 @@ const H_ALog_Page = ({ isPopupVisible, togglePopupVisibility }) => {
               `Bin at (${selectedMarker.lat.toFixed(
                 6
               )}, ${selectedMarker.lng.toFixed(6)})`,
-            hasWomen: selectedMarker.generalWaste,
-            hasMen: selectedMarker.recycleWaste,
-            isAccessible: selectedMarker.organicWaste,
-            isGenderNeutral: selectedMarker.hazardousWaste,
+            generalWaste: selectedMarker.generalWaste,
+            recycleWaste: selectedMarker.recycleWaste,
+            organicWaste: selectedMarker.organicWaste,
+            hazardousWaste: selectedMarker.hazardousWaste,
             floor: selectedMarker.floor,
             infoCorrection: selectedMarker.infoCorrection,
             // Add any other properties you need

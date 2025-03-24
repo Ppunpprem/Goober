@@ -190,7 +190,7 @@ const ToiletModal = ({ isOpen, onClose, toiletData, isLoggedIn }) => {
                 />
               }
               label="General Waste"
-              checked={toiletData.hasWomen}
+              checked={toiletData.generalWaste}
             />
             <Feature
               icon={
@@ -201,7 +201,7 @@ const ToiletModal = ({ isOpen, onClose, toiletData, isLoggedIn }) => {
                 />
               }
               label="Recycle Waste"
-              checked={toiletData.hasMen}
+              checked={toiletData.recycleWaste}
             />
             <Feature
               icon={
@@ -212,7 +212,7 @@ const ToiletModal = ({ isOpen, onClose, toiletData, isLoggedIn }) => {
                 />
               }
               label="Organic Waste"
-              checked={toiletData.isAccessible}
+              checked={toiletData.organicWaste}
             />
             <Feature
               icon={
@@ -223,7 +223,7 @@ const ToiletModal = ({ isOpen, onClose, toiletData, isLoggedIn }) => {
                 />
               }
               label="Hazardous Waste"
-              checked={toiletData.isGenderNeutral}
+              checked={toiletData.hazardousWaste}
             />
           </div>
         </div>
