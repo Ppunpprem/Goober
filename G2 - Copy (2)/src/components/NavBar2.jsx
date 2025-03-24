@@ -37,6 +37,13 @@ const NavBar2 = ({ toggleSearch, togglePopupVisibility }) => {
   });
   const [errorMessage, setErrorMessage] = useState("");
   useEffect(() => {
+    console.log("lastLocation updated:", lastLocation);
+    if (lastLocation) {
+      setShowAddTrashcanPopup(true);
+    }
+  }, [lastLocation]);
+
+  useEffect(() => {
     const fetchUserData = async () => {
       const token = localStorage.getItem("token");
       if (!token) {
@@ -348,7 +355,6 @@ const NavBar2 = ({ toggleSearch, togglePopupVisibility }) => {
       </header>
 
       {/* Add Trashcan Popup */}
-
       {/* Add Trashcan Popup */}
       {showAddTrashcanPopup && (
         <div className="fixed inset-0 bg-transparent bg-opacity-50 flex justify-center items-center z-50 pointer-events-none">
@@ -371,6 +377,7 @@ const NavBar2 = ({ toggleSearch, togglePopupVisibility }) => {
                   onClick={() => {
                     setIsAddingTrashCan(true);
                     setIsPinning(true);
+                    setShowAddTrashcanPopup(false); // Hide the popup
                   }}
                 >
                   Click
