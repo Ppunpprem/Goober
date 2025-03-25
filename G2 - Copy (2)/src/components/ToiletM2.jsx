@@ -165,7 +165,7 @@ const ToiletModal = ({ isOpen, onClose, toiletData, isLoggedIn }) => {
 
           <div className="flex items-center justify-center text-indigo-900 font-bold text-lg sm:text-xl md:text-2xl lg:text-3xl text-center py-2 px-3 sm:py-2.5 sm:px-5 bg-sky-200 w-full sm:w-4/5 md:w-3/4 lg:w-3/5 rounded-2xl sm:rounded-3xl underline cursor-pointer transition-colors duration-300 ease-in-out mb-4 sm:mb-6">
             {toiletData?.floor
-              ? `${toiletData?.floor}th Floor`
+              ? `${toiletData?.floor} Floor`
               : "Floor not available"}
           </div>
 
