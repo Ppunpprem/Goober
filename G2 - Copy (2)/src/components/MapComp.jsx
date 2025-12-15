@@ -72,6 +72,7 @@ const MapComp = ({
               lat: position.coords.latitude,
               lng: position.coords.longitude,
             });
+            console.log(userLocation);
           },
           (error) => {
             console.log("Geolocation permission denied:", error);
